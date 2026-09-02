@@ -1,0 +1,1127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual de Biodont</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%A6%B7%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --verde:#1f6a4d; --verde-claro:#e8f2ee; --verde-borde:#c5ddd3;
+  --tinta:#16241f; --gris:#5b6b66; --linea:#dbe4e1; --fondo:#f6f8f7;
+  --aviso:#fff8e6; --aviso-borde:#e8c96a;
+  --alto:#fdecec; --alto-borde:#e0a0a0;
+  --ok:#eaf5ef; --ok-borde:#9dc9b2;
+  --ancho-nav:290px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--fondo);color:var(--tinta);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+
+/* ── Navegación lateral ─────────────────────────────────────── */
+#nav{position:fixed;top:0;left:0;width:var(--ancho-nav);height:100vh;overflow-y:auto;
+  background:#fff;border-right:1px solid var(--linea);padding:22px 0 60px}
+#nav .marca{padding:0 22px 16px;border-bottom:1px solid var(--linea);margin-bottom:14px}
+#nav .marca b{display:block;font-size:19px;color:var(--verde);letter-spacing:.5px}
+#nav .marca span{font-size:12.5px;color:var(--gris)}
+#buscador{width:calc(100% - 44px);margin:0 22px 16px;padding:9px 12px;font-size:14px;
+  border:1px solid var(--linea);border-radius:8px;background:var(--fondo)}
+#buscador:focus{outline:2px solid var(--verde);outline-offset:-1px;background:#fff}
+#nav .grupo{padding:14px 22px 6px;font-size:11.5px;font-weight:700;letter-spacing:.9px;
+  text-transform:uppercase;color:var(--gris)}
+#nav a{display:block;padding:7px 22px;color:var(--tinta);text-decoration:none;font-size:14.5px;
+  border-left:3px solid transparent}
+#nav a:hover{background:var(--verde-claro)}
+#nav a.activo{background:var(--verde-claro);border-left-color:var(--verde);font-weight:600;color:var(--verde)}
+#nav a.oculto{display:none}
+#sinResultados{display:none;padding:10px 22px;font-size:13.5px;color:var(--gris);font-style:italic}
+
+/* ── Contenido ──────────────────────────────────────────────── */
+main{margin-left:var(--ancho-nav);padding:44px 52px 120px;max-width:960px}
+h1{font-size:33px;line-height:1.25;margin:0 0 6px;letter-spacing:-.4px}
+h2{font-size:25px;margin:56px 0 4px;padding-top:16px;border-top:2px solid var(--verde);
+  color:var(--verde);letter-spacing:-.3px}
+h2:first-of-type{margin-top:34px}
+h3{font-size:19px;margin:34px 0 10px}
+h4{font-size:16px;margin:22px 0 8px;color:var(--gris);text-transform:uppercase;letter-spacing:.6px}
+p{margin:12px 0}
+.sub{color:var(--gris);font-size:15.5px;margin-top:0}
+ol,ul{padding-left:22px}
+ol li,ul li{margin:9px 0}
+code{background:#eef2f0;padding:2px 6px;border-radius:5px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+b.btn{display:inline-block;background:var(--verde);color:#fff;padding:2px 9px;border-radius:6px;
+  font-size:13.5px;font-weight:600;white-space:nowrap}
+b.campo{background:#eef2f0;border:1px solid var(--linea);padding:1px 7px;border-radius:5px;
+  font-weight:600;font-size:14px}
+
+figure{margin:20px 0 26px}
+figure img{width:100%;border:1px solid var(--linea);border-radius:10px;display:block;
+  box-shadow:0 2px 10px rgba(0,0,0,.06)}
+figcaption{font-size:13.5px;color:var(--gris);margin-top:8px;font-style:italic}
+
+.caja{border-left:4px solid;padding:13px 17px;border-radius:0 8px 8px 0;margin:18px 0;font-size:15px}
+.caja p:first-child{margin-top:0}
+.caja p:last-child{margin-bottom:0}
+.aviso{background:var(--aviso);border-color:var(--aviso-borde)}
+.alto{background:var(--alto);border-color:var(--alto-borde)}
+.ok{background:var(--ok);border-color:var(--ok-borde)}
+.nota{background:#fff;border-color:var(--linea)}
+.caja .et{font-weight:700;display:block;margin-bottom:3px;font-size:14px;letter-spacing:.3px}
+
+table{border-collapse:collapse;width:100%;margin:18px 0;font-size:14.5px}
+th,td{border:1px solid var(--linea);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:var(--verde-claro);font-weight:600}
+tbody tr:nth-child(even){background:#fbfcfc}
+.tabla-scroll{overflow-x:auto}
+
+.pasos{counter-reset:paso;list-style:none;padding-left:0}
+.pasos>li{counter-increment:paso;position:relative;padding-left:44px;margin:16px 0}
+.pasos>li::before{content:counter(paso);position:absolute;left:0;top:-1px;width:29px;height:29px;
+  background:var(--verde);color:#fff;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-weight:700;font-size:14.5px}
+
+.rol{display:inline-block;font-size:12.5px;padding:2px 9px;border-radius:20px;font-weight:600;
+  border:1px solid;margin-right:5px}
+.r-odo{background:#eaf3ff;border-color:#9dc0e8;color:#1a4d80}
+.r-aux{background:#f3eeff;border-color:#c0aee8;color:#4a2d80}
+.r-rec{background:#fff3e6;border-color:#e8c08a;color:#8a5216}
+.r-adm{background:#eef0ef;border-color:#c2cac7;color:#404846}
+
+.quien{font-size:14px;color:var(--gris);margin:0 0 14px;padding:7px 12px;background:#fff;
+  border:1px solid var(--linea);border-radius:8px;display:inline-block}
+
+hr{border:none;border-top:1px solid var(--linea);margin:44px 0}
+footer{margin-left:var(--ancho-nav);padding:26px 52px 60px;color:var(--gris);font-size:13.5px;
+  border-top:1px solid var(--linea)}
+
+@media (max-width:900px){
+  #nav{position:static;width:auto;height:auto;border-right:none;border-bottom:1px solid var(--linea)}
+  main,footer{margin-left:0;padding:26px 20px 70px}
+}
+@media print{
+  #nav{display:none} main,footer{margin-left:0;max-width:none}
+  h2{page-break-after:avoid} figure{page-break-inside:avoid}
+  a{color:inherit;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <div class="marca"><b>BIODONT</b><span>Manual de uso del consultorio</span></div>
+  <input id="buscador" type="search" placeholder="Buscar en el manual…" autocomplete="off">
+  <div id="sinResultados">No hay secciones con esa palabra.</div>
+
+  <div class="grupo">Empezar</div>
+  <a href="#que-es">Qué es Biodont</a>
+  <a href="#entrar">Entrar al sistema</a>
+  <a href="#puesta-en-marcha">Puesta en marcha</a>
+
+  <div class="grupo">Parte 1 · Cómo se hace</div>
+  <a href="#paciente-nuevo">Llega un paciente nuevo</a>
+  <a href="#agendar">Agendar y reprogramar</a>
+  <a href="#historia">Abrir la historia clínica</a>
+  <a href="#alergias">Registrar una alergia</a>
+  <a href="#atender">Atender y firmar</a>
+  <a href="#odontograma">Marcar el odontograma</a>
+  <a href="#cotizar">Cotizar a quien no es paciente</a>
+  <a href="#presupuesto">Presupuesto y aceptación</a>
+  <a href="#cobrar">Cobrar y cerrar la caja</a>
+  <a href="#firmar-docs">Documentos que firma el paciente</a>
+  <a href="#accesos">Ver quién entró a qué</a>
+  <a href="#respaldo">Respaldar la información</a>
+
+  <div class="grupo">Parte 2 · Referencia</div>
+  <a href="#ref-pantallas">Pantalla por pantalla</a>
+  <a href="#ref-roles">Qué puede hacer cada rol</a>
+  <a href="#ref-estados">Estados y qué significan</a>
+  <a href="#ref-problemas">Si algo no funciona</a>
+  <a href="#ref-glosario">Glosario</a>
+  <a href="#ref-practicar">Practicar con datos de ejemplo</a>
+</nav>
+
+<main>
+
+<h1>Manual de Biodont</h1>
+<p class="sub">Sistema de gestión para consultorio odontológico · Versión 1.0</p>
+
+<div class="caja nota">
+  <span class="et">Cómo está organizado</span>
+  <p>La <b>Parte 1</b> va por lo que usted hace en el día: llega un paciente, se le atiende, se le
+  cobra. Cada guía se sigue de principio a fin, aunque pase por varias pantallas.</p>
+  <p>La <b>Parte 2</b> es para consultar algo suelto: qué hace un botón, qué significa un estado,
+  qué puede hacer cada rol.</p>
+  <p>Las capturas son del sistema real con datos de ejemplo. Los nombres de pacientes que verá
+  aquí (María Rodríguez, Andrea Salazar) son ficticios.</p>
+</div>
+
+<h2 id="que-es">Qué es Biodont</h2>
+
+<p>Biodont guarda la información clínica y administrativa del consultorio: los pacientes, sus
+citas, su historia clínica, el odontograma, los presupuestos y el dinero.</p>
+
+<p>Tres cosas conviene saber desde el principio, porque explican por qué el sistema se comporta
+como se comporta:</p>
+
+<ul>
+  <li><b>La información no sale del consultorio.</b> Biodont se instala en el equipo del
+  consultorio y los datos viven ahí. No se suben a internet.</li>
+  <li><b>Lo clínico no se borra: se anula.</b> La historia clínica es un documento con valor
+  legal y hay que conservarla <b>15 años</b> desde la última atención. Cuando algo se registra
+  mal, se anula dejando constancia de quién lo anuló y por qué — no desaparece.</li>
+  <li><b>Cada quien ve lo suyo.</b> Recepción maneja la agenda y el dinero pero no ve el detalle
+  clínico; el auxiliar registra lo que le corresponde pero no firma. No es desconfianza: es lo
+  que exige la norma sobre historia clínica.</li>
+</ul>
+
+<h2 id="entrar">Entrar al sistema</h2>
+
+<figure>
+  <img src="capturas/01-login.png" alt="Pantalla de inicio de sesión de Biodont">
+  <figcaption>La pantalla de entrada. Se abre en el navegador del equipo del consultorio.</figcaption>
+</figure>
+
+<ol class="pasos">
+  <li>Abra el navegador en la dirección que le indicó quien instaló el sistema (en el equipo del
+  consultorio suele ser <code>http://localhost:3000</code>).</li>
+  <li>Escriba su <b>correo</b> y su <b>contraseña</b>. Si no está seguro de lo que escribió,
+  pulse <b class="btn">Ver</b> para mostrar la contraseña.</li>
+  <li>Pulse <b class="btn">Iniciar sesión</b>.</li>
+</ol>
+
+<div class="caja aviso">
+  <span class="et">Si se equivoca cinco veces</span>
+  <p>El sistema bloquea los intentos durante <b>15 minutos</b>. El bloqueo es por equipo, no por
+  persona: si alguien agota los cinco intentos en el computador del mostrador, los demás tampoco
+  podrán entrar desde ese equipo hasta que pasen los 15 minutos.</p>
+</div>
+
+<div class="caja nota">
+  <span class="et">Cerrar sesión cierra todas sus sesiones</span>
+  <p>Si pulsa <b class="btn">Salir</b>, se cierra su sesión en <b>todos</b> los dispositivos donde
+  la tuviera abierta, no solo en ese equipo. Si trabaja con el computador y una tablet, tendrá que
+  volver a entrar en las dos.</p>
+</div>
+
+<h2 id="puesta-en-marcha">Puesta en marcha</h2>
+<p class="sub">Lo que hay que hacer <b>una sola vez</b>, el primer día, antes de atender pacientes.</p>
+<p class="quien"><span class="rol r-adm">Administración</span> hace los pasos 1 a 4 · cada profesional hace el 5</p>
+
+<ol class="pasos">
+  <li><b>Cambie las contraseñas que trae el sistema.</b> La instalación crea un usuario
+  administrador con una contraseña conocida. Mientras no se cambie, cualquiera que sepa cuál es
+  puede entrar. Se hace desde <b class="btn">Mi perfil</b>.</li>
+
+  <li><b>Cree un usuario por persona.</b> En <b class="btn">Administración</b> →
+  <b>Gestión de usuarios</b> → <b class="btn">Nuevo usuario</b>. Cada persona con su propio
+  usuario, nunca uno compartido: todo lo que se registra queda a nombre de quien lo hizo, y con
+  un usuario compartido esa constancia no vale nada.</li>
+
+  <li><b>Designe al responsable clínico.</b> En la misma tabla, columna <b>Responsable clínico</b>,
+  pulse <b class="btn">Designar</b> sobre el odontólogo que asume ese papel. Solo puede serlo un
+  odontólogo. Es quien puede consultar el registro de accesos.</li>
+
+  <li><b>Cargue los precios del tarifario.</b> El sistema trae el catálogo de procedimientos
+  oficial (códigos CUPS), pero <b>sin precios</b>: los precios los pone cada consultorio. Sin
+  ellos, los presupuestos salen en cero. Se hace en <b class="btn">Administración</b> →
+  <b>Tarifario de procedimientos</b>.</li>
+
+  <li><b>Cada odontólogo define su PIN de firma.</b> Sin PIN no se puede firmar nada. Vea
+  <a href="#pin">cómo se hace</a> más abajo.</li>
+</ol>
+
+<figure>
+  <img src="capturas/16-admin-usuarios.png" alt="Tabla de gestión de usuarios con roles y responsable clínico">
+  <figcaption>Gestión de usuarios: el rol de cada persona, quién es el responsable clínico y los
+  botones para asignarle contraseña, PIN de firma y registro profesional.</figcaption>
+</figure>
+
+<figure>
+  <img src="capturas/17-admin-tarifario.png" alt="Tarifario de procedimientos en el panel de administración">
+  <figcaption>Tarifario. Los códigos vienen del catálogo oficial; el <b>precio</b> lo pone cada
+  consultorio. Los procedimientos propios del consultorio se crean aquí también.</figcaption>
+</figure>
+
+<h3 id="pin">El PIN de firma</h3>
+
+<p>El PIN es la credencial del <b>acto de firmar</b>, y es distinto de la contraseña con la que
+entra al sistema. Son dos cosas separadas a propósito: si la contraseña sirviera para firmar,
+firmar y estar dentro del sistema serían lo mismo, y la firma no probaría nada.</p>
+
+<ol class="pasos">
+  <li><span class="rol r-adm">Administración</span> entra a <b class="btn">Administración</b> →
+  <b>Gestión de usuarios</b> y pulsa <b class="btn">PIN de firma</b> en la fila del profesional.
+  El PIN que asigna es <b>temporal</b>.</li>
+  <li>El profesional entra a <b class="btn">Mi perfil</b> y lo cambia por uno suyo. Necesita el
+  PIN temporal para poder cambiarlo.</li>
+  <li>Desde ese momento puede firmar.</li>
+</ol>
+
+<div class="caja alto">
+  <span class="et">El PIN temporal no sirve para firmar</span>
+  <p>Mientras el profesional no lo cambie, el sistema lo tiene por temporal y <b>rechaza la
+  firma</b>. Es deliberado: si el PIN que puso Administración sirviera para firmar, Administración
+  podría firmar en nombre del odontólogo.</p>
+  <p>El PIN tiene entre 6 y 12 dígitos. A los <b>5 intentos fallidos</b> se bloquea, y hay que
+  pedirle a Administración que lo restablezca.</p>
+</div>
+
+<figure>
+  <img src="capturas/15-perfil-pin-bloque.png" alt="Bloque del PIN de firma en Mi perfil, con el estado «PIN activo»">
+  <figcaption>El bloque del <b>PIN de firma</b> en <b class="btn">Mi perfil</b>. Dice si el PIN
+  está activo, y el botón <b class="btn">Cambiar mi PIN</b> es el que lo define.</figcaption>
+</figure>
+
+<figure>
+  <img src="capturas/14-perfil-pin.png" alt="Pantalla Mi perfil: datos de la cuenta y cambio de contraseña">
+  <figcaption><b>Mi perfil</b> completo. Arriba los datos de su cuenta y el cambio de contraseña;
+  <b>más abajo</b>, sin llegar a verse aquí, están el PIN de firma y su firma o sello.</figcaption>
+</figure>
+<hr>
+<h2 id="paciente-nuevo">Llega un paciente nuevo</h2>
+<p class="quien"><span class="rol r-rec">Recepción</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-odo">Odontólogo</span> <span class="rol r-adm">Administración</span></p>
+
+<p>Antes de registrar a nadie, <b>búsquelo</b>: escriba su documento en el buscador de arriba. Si
+ya está, no lo cree otra vez — un paciente duplicado parte su historia en dos.</p>
+
+<figure>
+  <img src="capturas/03-pacientes-lista.png" alt="Listado de pacientes con buscador y acciones">
+  <figcaption>Listado de pacientes. El buscador encuentra por nombre, apellido, documento o
+  teléfono, y <b>no distingue tildes</b>: «Gomez» encuentra a «Gómez».</figcaption>
+</figure>
+
+<ol class="pasos">
+  <li>Pulse <b class="btn">Nuevo paciente</b>.</li>
+  <li>Llene los tres campos obligatorios, marcados con asterisco: <b class="campo">Nombres</b>,
+  <b class="campo">Apellidos</b> y <b class="campo">Documento</b>.</li>
+  <li>Ponga la <b class="campo">Fecha de nacimiento</b>. El sistema calcula la edad solo y la
+  muestra debajo del campo — no hay que escribirla.</li>
+  <li>Complete teléfono, correo, dirección y EPS si los tiene. Se pueden añadir después.</li>
+  <li>Pulse <b class="btn">Guardar paciente</b>.</li>
+</ol>
+
+<figure>
+  <img src="capturas/04-paciente-nuevo.png" alt="Formulario de paciente con datos de ejemplo">
+  <figcaption>Formulario de paciente. Fíjese en «Edad aproximada: 34 años»: la calcula el sistema
+  a partir de la fecha de nacimiento.</figcaption>
+</figure>
+
+<div class="caja alto">
+  <span class="et">El campo «Alergias» de esta ficha NO produce alertas</span>
+  <p>Es una nota rápida de recepción, texto libre. La alergia que hace saltar el aviso al
+  diagnosticar y al recetar se registra en la <b>historia clínica</b>, con su agente y su
+  reacción. Vea <a href="#alergias">Registrar una alergia</a>.</p>
+  <p>Escribir «Penicilina» aquí <b>no</b> alerta a nadie.</p>
+</div>
+
+<div class="caja nota">
+  <span class="et">Lo siguiente: la autorización de datos</span>
+  <p>La Ley 1581 exige la autorización del paciente para tratar sus datos. Conviene recogerla en
+  la admisión, el mismo día. Vea <a href="#firmar-docs">Documentos que firma el paciente</a>.</p>
+</div>
+
+<hr>
+<h2 id="agendar">Agendar y reprogramar una cita</h2>
+<p class="quien"><span class="rol r-rec">Recepción</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-odo">Odontólogo</span> <span class="rol r-adm">Administración</span></p>
+
+<figure>
+  <img src="capturas/05-citas.png" alt="Pantalla de citas y agenda">
+  <figcaption>La agenda del consultorio, con los filtros por estado y por fecha.</figcaption>
+</figure>
+
+<h3>Agendar</h3>
+<ol class="pasos">
+  <li>Entre a <b class="btn">Citas</b> y pulse el botón de nueva cita.</li>
+  <li>Elija el <b>paciente</b>, el <b>profesional</b>, la <b>fecha</b> y la <b>hora</b>.</li>
+  <li>Elija el <b>tipo de atención</b>: Valoración, Limpieza, Control o Urgencia. Son los
+  cuatro valores que admite el sistema.</li>
+  <li>Escriba el <b>motivo</b> — es lo que verá el profesional al abrir su agenda.</li>
+  <li>Guarde.</li>
+</ol>
+
+<p>Si el paciente ya tiene otra cita a menos de 30 minutos de esa hora, el sistema no la deja
+guardar y lo dice. Lo mismo si el profesional ya está ocupado en esa franja.</p>
+
+<h3>Reprogramar</h3>
+<p>No hay que cancelar y volver a crear: la cita se mueve y conserva su historia.</p>
+<ol class="pasos">
+  <li>Busque la cita en la agenda y pulse <b>Reprogramar</b>.</li>
+  <li>Indique la <b>nueva fecha y hora</b> y el <b>motivo</b> del cambio.</li>
+  <li>Guarde. El sistema vuelve a comprobar que no choque con otra cita.</li>
+</ol>
+
+<div class="caja aviso">
+  <span class="et">Qué no se puede reprogramar</span>
+  <p>Una cita <b>Atendida</b> es un hecho ya ocurrido y moverla cambiaría cuándo se atendió al
+  paciente. Una <b>Cancelada</b> se vuelve a agendar, que es otra decisión. Solo se reprograman
+  las que están <b>Programada</b> o <b>Confirmada</b>, y siempre a una fecha futura.</p>
+</div>
+
+<hr>
+<h2 id="historia">Abrir y llenar la historia clínica</h2>
+<p class="quien"><span class="rol r-odo">Odontólogo</span> llena y guarda · <span class="rol r-aux">Auxiliar</span> puede leerla · <span class="rol r-adm">Administración</span> la ve sin el detalle clínico</p>
+
+<p>La historia clínica es <b>una sola por paciente</b> y se va completando con el tiempo. No se
+crea una nueva en cada visita: lo que se registra por visita es la <a href="#atender">atención</a>.</p>
+
+<ol class="pasos">
+  <li>Abra el paciente y pulse la pestaña <b class="btn">Historia clínica</b>.</li>
+  <li>Use el menú <b>Secciones</b> de la izquierda para saltar entre los bloques del formulario
+  en vez de bajar con la rueda.</li>
+  <li>Llene lo que corresponda y pulse <b class="btn">Guardar historia</b>.</li>
+</ol>
+
+<figure>
+  <img src="capturas/06-historia-clinica.png" alt="Historia clínica con el menú de secciones a la izquierda">
+  <figcaption>La historia clínica. A la izquierda las secciones; a la derecha el resumen con el
+  número de historia y el estado.</figcaption>
+</figure>
+
+<div class="caja aviso">
+  <span class="et">Guarde la historia completa, no a trozos</span>
+  <p>Pulse <b class="btn">Guardar historia</b> con el formulario cargado como está. La pantalla
+  envía todo el formulario cada vez, así que guardar es seguro; pero no intente guardar
+  «solo un campo» por otros medios.</p>
+</div>
+
+<div class="caja nota">
+  <span class="et">Cada vez que guarda, queda una versión de los antecedentes</span>
+  <p>El sistema conserva qué antecedentes conocía el profesional en cada momento. Por eso una
+  atención firmada hace meses sigue mostrando los antecedentes de entonces y no los de hoy: así
+  debe ser en un documento clínico.</p>
+</div>
+
+<hr>
+<h2 id="alergias">Registrar una alergia</h2>
+<p class="quien"><span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span></p>
+
+<p>Esta es la vía que hace saltar el aviso al diagnosticar y al recetar. Está dentro de la
+historia clínica, en <b>Antecedentes patológicos → 4. Alergias</b>.</p>
+
+<div class="caja alto">
+  <span class="et">Primero guarde la historia clínica, aunque esté vacía</span>
+  <p>En un paciente <b>recién registrado</b> todavía no hay historia abierta, y sin ella no se
+  puede registrar ninguna alergia. La sección muestra entonces
+  <i>«No se pudieron cargar las alergias del paciente… avisa a soporte»</i>, que suena a avería
+  pero <b>no lo es</b>: es que la historia aún no existe.</p>
+  <p><b>Solución:</b> abra la historia clínica del paciente y pulse
+  <b class="btn">Guardar historia</b> una vez. Con eso queda abierta y las alergias ya se pueden
+  registrar. Medido: antes de guardar da error; después, funciona a la primera.</p>
+</div>
+
+<ol class="pasos">
+  <li>En <b>¿El paciente presenta alergias conocidas?</b> elija la respuesta. Las cuatro opciones
+  significan cosas distintas y conviene no confundirlas:
+    <ul>
+      <li><b>Sin diligenciar</b> — nadie ha preguntado todavía. Es lo que trae por defecto.</li>
+      <li><b>Sí</b> — el paciente refiere alergias. Regístrelas una a una.</li>
+      <li><b>No</b> — se preguntó y no tiene. No es lo mismo que «sin diligenciar».</li>
+      <li><b>No sabe</b> — se preguntó y el paciente no sabe.</li>
+    </ul>
+  </li>
+  <li>Pulse <b class="btn">+ Registrar alergia</b>.</li>
+  <li>Indique el <b>agente</b> (a qué es alérgico: penicilina, látex…), la <b>categoría</b> y la
+  <b>reacción</b> que le produce.</li>
+  <li>Guarde.</li>
+</ol>
+
+<figure>
+  <img src="capturas/07-alergias.png" alt="Sección de alergias con una alergia a penicilina registrada">
+  <figcaption>Alergia registrada: agente, categoría y reacción. Debajo, la «anamnesis anterior»
+  es solo lectura y corresponde a como se registraba antes.</figcaption>
+</figure>
+
+<div class="caja alto">
+  <span class="et">Ponga el agente, no una descripción</span>
+  <p>La alerta se construye con el <b>agente</b>. Escribir «es alérgica a varios antibióticos» en
+  un campo de texto no produce ninguna alerta; registrar <b>Penicilina</b> como agente, sí.</p>
+</div>
+
+<div class="caja ok">
+  <span class="et">Dónde aparece después</span>
+  <p>Una vez registrada, la alergia aparece en el <b>odontograma</b> (panel «Condiciones del
+  paciente»), en la <b>atención</b> y en la propia historia clínica.</p>
+</div>
+<hr>
+<h2 id="atender">Atender y firmar la atención</h2>
+<p class="quien"><span class="rol r-odo">Odontólogo</span> crea, revisa, firma y cierra · <span class="rol r-aux">Auxiliar</span> registra contenido, <b>no</b> firma ni cierra</p>
+
+<p>La <b>atención</b> es lo que ocurre en una visita. La historia clínica es una sola y permanente;
+la atención es una por visita y no se sobrescribe nunca.</p>
+
+<h3>Registrar la atención</h3>
+<ol class="pasos">
+  <li>Abra el paciente y entre a la pestaña <b class="btn">Atención</b>.</li>
+  <li>Pulse <b class="btn">+ Nueva</b> y escriba el <b>motivo de consulta</b>.</li>
+  <li>Complete la <b>enfermedad actual</b> si aplica.</li>
+  <li>En <b>Diagnóstico</b>, pulse <b class="btn">+ Añadir</b>. Escriba la descripción y el
+  código <b>CIE-10</b> si lo tiene. Solo puede haber <b>un diagnóstico principal</b>; los demás
+  se registran como relacionados.</li>
+  <li>Añada los <b>signos vitales</b> si los tomó.</li>
+  <li>Revise los <b>antecedentes</b>: aparecen resumidos, en solo lectura. Se editan en la
+  historia clínica, no aquí. Pulse <b>Actualizar revisión</b> para dejar constancia de que los
+  miró en esta visita.</li>
+</ol>
+
+<figure>
+  <img src="capturas/22-atencion-borrador.png" alt="Atención sin firmar con sus botones de acción">
+  <figcaption>Atención en curso. Mientras esté <b>Sin firmar</b> se puede editar; a la derecha se
+  ven las atenciones anteriores del paciente.</figcaption>
+</figure>
+
+<h3>Firmar</h3>
+<p>Firmar cierra el contenido: a partir de ahí <b>no se puede editar</b>, y el sistema guarda una
+huella que permite comprobar después que nadie lo alteró.</p>
+
+<ol class="pasos">
+  <li>Pulse <b class="btn">Marcar revisada</b> cuando el contenido esté completo.</li>
+  <li>Pulse <b class="btn">Firmar</b>.</li>
+  <li>Escriba su <b>PIN de firma</b> — no su contraseña — y confirme.</li>
+</ol>
+
+<figure>
+  <img src="capturas/23-firmar-pin.png" alt="Campo de PIN al firmar una atención">
+  <figcaption>El sistema lo dice con todas las letras: al firmar se hace responsable del
+  contenido, que queda inmutable y con su nombre.</figcaption>
+</figure>
+
+<h3>Después de firmar</h3>
+
+<figure>
+  <img src="capturas/09-atencion.png" alt="Atención ya firmada, con sus antecedentes y su diagnóstico">
+  <figcaption>Atención firmada: dice quién la firmó y cuándo. Los antecedentes quedan
+  congelados tal como estaban en esa visita.</figcaption>
+</figure>
+
+<table>
+  <thead><tr><th>Botón</th><th>Para qué sirve</th></tr></thead>
+  <tbody>
+    <tr><td><b class="btn">Cerrar atención</b></td><td>Da la visita por terminada. Es el último paso del ciclo.</td></tr>
+    <tr><td><b class="btn">Agregar corrección</b></td><td>Añade una <b>adenda</b>. Lo firmado no se toca: la corrección se suma después, fechada y firmada, como manda la norma para un documento clínico.</td></tr>
+    <tr><td><b class="btn">Comprobar integridad</b></td><td>Verifica que el contenido firmado no ha sido alterado. Si algo cambió por fuera del sistema, lo dice.</td></tr>
+    <tr><td><b class="btn">Anular</b></td><td>Deja la atención sin efecto <b>dejando constancia</b> de quién la anuló y por qué. No la borra.</td></tr>
+  </tbody>
+</table>
+
+<div class="caja alto">
+  <span class="et">Un error después de firmar se corrige con una adenda</span>
+  <p>Nunca se reescribe lo firmado. Si lo firmado pudiera cambiarse, la firma no probaría nada —
+  y es justo lo que le da valor legal al documento.</p>
+</div>
+
+<hr>
+<h2 id="odontograma">Marcar el odontograma</h2>
+<p class="quien"><span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span></p>
+
+<figure>
+  <img src="capturas/08-odontograma.png" alt="Odontograma con diagnósticos marcados y alerta de alergia">
+  <figcaption>Odontograma. Arriba a la derecha, <b>Condiciones del paciente</b> muestra la alerta
+  de alergia. Abajo, el registro de lo marcado.</figcaption>
+</figure>
+
+<ol class="pasos">
+  <li>Abra el paciente y entre a <b class="btn">Odontograma</b>.</li>
+  <li>Elija el diagnóstico en la paleta de la derecha (Caries, Obturación, Fractura, Sellante,
+  Extracción, Endodoncia, Trat. Conducto, Sano).</li>
+  <li>Haga clic en la <b>cara del diente</b> que corresponda. Lo marcado aparece abajo, en
+  <b>Registro</b>, con el diente, la cara y la fecha.</li>
+  <li>Para quitar algo, pulse la <b>✕</b> de su fila en el registro.</li>
+</ol>
+
+<h3>Las dos pestañas</h3>
+<table>
+  <thead><tr><th>Pestaña</th><th>Qué es</th></tr></thead>
+  <tbody>
+    <tr><td><b>Diagnóstico</b></td><td>Lo que el paciente <b>tiene</b> hoy. Es el estado de la boca.</td></tr>
+    <tr><td><b>Plan de tratamiento</b></td><td>Lo que se <b>va a hacer</b>. Va aparte a propósito: la norma exige que el registro de lo encontrado y el plan no se confundan.</td></tr>
+  </tbody>
+</table>
+
+<div class="caja aviso">
+  <span class="et">Si el odontograma no cabe en la pantalla</span>
+  <p>Aparece un aviso arriba y el odontograma se desplaza en horizontal, para que cada cara
+  conserve un tamaño en el que se pueda pulsar. El botón <b class="btn">Ajustar al ancho</b> lo
+  encoge para verlo completo.</p>
+</div>
+
+<div class="caja nota">
+  <span class="et">Dentición</span>
+  <p>Arriba a la derecha se indica si el odontograma es de dentición <b>adulta</b>, <b>mixta</b> o
+  <b>pediátrica</b>. Elíjala antes de empezar a marcar.</p>
+</div>
+<hr>
+<h2 id="cotizar">Cotizar a quien todavía no es paciente</h2>
+<p class="quien"><span class="rol r-rec">Recepción</span> <span class="rol r-odo">Odontólogo</span> <span class="rol r-adm">Administración</span> — el auxiliar no entra aquí</p>
+
+<p>Alguien llama o entra a preguntar cuánto cuesta un blanqueamiento. Todavía no es paciente y
+puede que nunca lo sea. Para eso están las <b>cotizaciones</b>: dan un precio por escrito
+<b>sin abrirle historia clínica</b> a quien solo preguntó.</p>
+
+<figure>
+  <img src="capturas/11-cotizaciones.png" alt="Pantalla de cotizaciones">
+  <figcaption>Cotizaciones. Una cotización no crea historia clínica y no se firma.</figcaption>
+</figure>
+
+<ol class="pasos">
+  <li>Entre a <b class="btn">Cotizaciones</b> y pulse <b class="btn">+ Nueva cotización</b>.</li>
+  <li>Escriba el <b>nombre</b> de quien pregunta. Es lo único obligatorio. Documento, edad y
+  teléfono son opcionales.</li>
+  <li>Añada los procedimientos con su cantidad y su valor.</li>
+  <li>Ponga la <b>fecha de validez</b> hasta la que respeta ese precio.</li>
+  <li>Guarde y entréguele el <b class="btn">PDF</b>.</li>
+</ol>
+
+<h3>Cuando la persona decide tratarse</h3>
+<ol class="pasos">
+  <li>Regístrela primero como paciente (<a href="#paciente-nuevo">Llega un paciente nuevo</a>).</li>
+  <li>Vuelva a <b class="btn">Cotizaciones</b> y pulse <b class="btn">Convertir en paciente</b> en
+  su fila.</li>
+  <li>Búsquela por nombre o documento y pulse <b>Elegir</b>.</li>
+</ol>
+
+<p>La cotización pasa a ser el <b>presupuesto</b> de ese paciente, con sus mismos procedimientos y
+precios, y desaparece del listado de cotizaciones.</p>
+
+<div class="caja aviso">
+  <span class="et">Dos cosas que conviene saber</span>
+  <p><b>El buscador de conversión muestra 10 resultados.</b> Si busca por nombre y hay muchos
+  pacientes parecidos, puede que el suyo no salga. Busque por <b>documento</b>, que es único.</p>
+  <p><b>La cotización caduca a los 180 días</b> de creada, aunque usted haya escrito una fecha de
+  validez posterior. Si necesita darle un precio a alguien con validez más larga, tenga presente
+  que a los seis meses el sistema la anula por su cuenta.</p>
+</div>
+
+<hr>
+<h2 id="presupuesto">Presupuesto y aceptación</h2>
+<p class="quien"><span class="rol r-odo">Odontólogo</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span> — el auxiliar no entra aquí</p>
+
+<p>El presupuesto es lo que se le propone a un paciente ya registrado, procedimiento por
+procedimiento.</p>
+
+<ol class="pasos">
+  <li>Abra el paciente y entre a <b class="btn">Presupuesto</b>.</li>
+  <li>Pulse <b class="btn">Nuevo presupuesto</b>.</li>
+  <li>Añada cada procedimiento. Al elegirlo del catálogo, el sistema rellena la descripción y el
+  precio; puede cambiarlos a mano.</li>
+  <li>Indique el <b>diente</b> cuando aplique, la <b>fecha de validez</b> y las <b>notas</b> que
+  quiera que el paciente lea.</li>
+  <li>Guarde y pulse <b class="btn">Descargar PDF</b> para entregárselo.</li>
+</ol>
+
+<figure>
+  <img src="capturas/10-presupuesto.png" alt="Presupuesto desplegado con aceptación por procedimiento">
+  <figcaption>Cada línea se acepta por separado: el paciente puede decir que sí a la resina y
+  todavía no a la endodoncia.</figcaption>
+</figure>
+
+<h3>Aceptar procedimiento por procedimiento</h3>
+<p>El paciente casi nunca acepta el plan entero de una vez. Por eso cada línea tiene
+<b class="btn">Aceptar</b> y <b>No acepta</b>.</p>
+
+<div class="caja ok">
+  <span class="et">Aceptar una línea crea el tratamiento</span>
+  <p>Al pulsar <b class="btn">Aceptar</b>, el sistema crea el <b>tratamiento</b> correspondiente
+  con ese monto, y aparece en la pestaña <b class="btn">Tratamientos</b> del paciente. No hay que
+  volver a escribir el valor.</p>
+</div>
+
+<div class="caja aviso">
+  <span class="et">Aceptar no cobra: el movimiento se registra aparte</span>
+  <p>Medido: aceptar una línea de $180.000 crea el tratamiento, y la <b>Cartera del paciente
+  sigue en cero</b>. El cobro es un acto distinto — se registra en <b class="btn">Cartera</b> y
+  se <b>vincula</b> a ese tratamiento. Es entonces cuando el sistema sabe cuánto se ha cobrado
+  de él y cuánto falta.</p>
+</div>
+
+<div class="caja aviso">
+  <span class="et">Precios en cero</span>
+  <p>Si un procedimiento sale en <b>$0</b>, es que ese código todavía no tiene precio en el
+  tarifario. Se carga desde <b class="btn">Administración</b> → <b>Tarifario de
+  procedimientos</b>.</p>
+</div>
+
+<hr>
+<h2 id="cobrar">Cobrar y cerrar la caja</h2>
+<p class="quien"><span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span> <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span></p>
+
+<figure>
+  <img src="capturas/12-cartera.png" alt="Pantalla de cartera con movimientos e ingresos">
+  <figcaption>Cartera: el historial de movimientos y, arriba, el resumen <b>del mes</b> (ingresos, egresos y balance).</figcaption>
+</figure>
+
+<h3>Registrar un cobro</h3>
+<ol class="pasos">
+  <li>Entre a <b class="btn">Cartera</b>.</li>
+  <li>Cree un movimiento de tipo <b>Ingreso</b>, con su valor y su concepto.</li>
+  <li>Si corresponde a un tratamiento del paciente, <b>vincúlelo</b>: así el sistema sabe cuánto
+  se ha cobrado de ese tratamiento y cuánto falta.</li>
+  <li>Guarde.</li>
+</ol>
+
+<h3>Pagos parciales (abonos)</h3>
+<p>Si el paciente paga a cuotas, el movimiento se deja <b>Pendiente</b> y se le registran
+<b>abonos</b>. El movimiento pasa a <b>Pagado</b> solo cuando la suma de los abonos cubre el
+total.</p>
+
+<div class="caja nota">
+  <span class="et">Lo que ve Recepción</span>
+  <p>En la cartera, Recepción ve el monto, el estado y el concepto administrativo, pero
+  <b>no la descripción clínica</b> del tratamiento. No es un error de la pantalla: es la
+  separación entre lo administrativo y lo clínico.</p>
+</div>
+
+<h3>Cerrar el día</h3>
+<p>El resumen de <b class="btn">Inicio</b> muestra los <b>ingresos del día</b>. Cuenta el dinero
+que efectivamente entró hoy — los abonos incluidos —, no lo que se facturó.</p>
+
+<hr>
+<h2 id="firmar-docs">Documentos que firma el paciente</h2>
+<p class="quien">Los cuatro roles abren esta pantalla, pero cada uno puede hacer cosas distintas</p>
+
+<p>Son cuatro y están todos en la misma pantalla: abra el paciente y entre a <b>Documentos</b>.</p>
+
+<figure>
+  <img src="capturas/19-documentos-firma.png" alt="Pantalla con los cuatro documentos que firma el paciente">
+  <figcaption>Los cuatro documentos. Cada uno se ofrece según lo que su rol pueda hacer.</figcaption>
+</figure>
+
+<div class="tabla-scroll">
+<table>
+  <thead><tr><th>Documento</th><th>Cuándo se usa</th><th>Quién lo emite</th></tr></thead>
+  <tbody>
+    <tr><td><b>Consentimiento informado</b></td><td>Antes de un procedimiento, dejando constancia de que se le explicaron riesgos y alternativas.</td><td>Odontólogo</td></tr>
+    <tr><td><b>Autorización de tratamiento de datos</b></td><td>Para poder tratar sus datos personales (Ley 1581). Conviene recogerla en la admisión, con cualquier paciente.</td><td>Odontólogo y <b>Recepción</b></td></tr>
+    <tr><td><b>Rechazo de tratamiento</b></td><td>El paciente declina un procedimiento. Se registra <b>primero</b> de qué se le informó y se firma después.</td><td>Solo el odontólogo</td></tr>
+    <tr><td><b>Revocatoria de consentimiento</b></td><td>El paciente retira un consentimiento que ya había dado.</td><td><b>Recepción registra</b> la petición; solo un odontólogo la <b>resuelve</b></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="caja nota">
+  <span class="et">Recibir un trámite no es resolverlo</span>
+  <p>Recepción puede dejar constancia de que el paciente pidió revocar un consentimiento — es
+  quien está en el mostrador cuando lo pide —, pero la decisión clínica de qué implica esa
+  revocatoria la toma un profesional. Por eso a Recepción no se le ofrece el botón de resolver.</p>
+</div>
+
+<h3>Cómo se firma</h3>
+<ol class="pasos">
+  <li>Marque la casilla <b>Verifiqué la identidad del paciente</b>. Quedará constancia de su
+  nombre y la fecha en el documento firmado.</li>
+  <li>Pulse <b class="btn">Solicitar firma</b>.</li>
+  <li>Aparece un <b>código QR</b>. Páseselo al paciente para que lo escanee con su celular, o
+  abra el enlace en la tablet del consultorio.</li>
+  <li>El paciente lee el documento, marca la casilla, escribe su nombre y su documento, firma con
+  el dedo y confirma.</li>
+</ol>
+
+<figure>
+  <img src="capturas/20-qr-firma.png" alt="Código QR generado para que el paciente firme">
+  <figcaption>El código vence en unos minutos. Si expira, se pide otro.</figcaption>
+</figure>
+
+<figure>
+  <img src="capturas/21-pantalla-paciente-firma.png" alt="Pantalla que ve el paciente para firmar">
+  <figcaption>Lo que ve el paciente. El documento aparece completo y su número de identidad va
+  enmascarado.</figcaption>
+</figure>
+
+<div class="caja aviso">
+  <span class="et">Si el QR no funciona desde el celular</span>
+  <p>Cuando el sistema se abre como <code>localhost</code>, el enlace del código <b>solo sirve en
+  ese mismo equipo</b>: el celular del paciente no sabe llegar. El propio sistema lo advierte
+  debajo del código. Para que funcione desde otros dispositivos hay que abrir Biodont por la
+  dirección de red del consultorio, no por <code>localhost</code>.</p>
+  <p>Alternativa siempre disponible: <b class="btn">Descargar para firmar a mano</b>.</p>
+</div>
+
+<div class="caja alto">
+  <span class="et">El texto sale marcado como BORRADOR</span>
+  <p>Mientras el consultorio no cargue su propio texto de consentimiento, revisado por su asesor
+  jurídico, el documento lleva un aviso de borrador <b>dentro de lo que firma el paciente</b>.
+  Es intencional: así nadie puede sostener después que firmó un texto aprobado. El texto se
+  carga en <b class="btn">Administración</b> → <b>Consentimiento informado</b>.</p>
+</div>
+
+<figure>
+  <img src="capturas/18-admin-consentimiento.png" alt="Configuración del texto del consentimiento en Administración">
+  <figcaption>Aquí se reemplaza el texto de borrador por el del consultorio.</figcaption>
+</figure>
+<hr>
+<h2 id="accesos">Ver quién entró a qué</h2>
+<p class="quien"><span class="rol r-odo">Odontólogo responsable clínico</span> — nadie más</p>
+
+<p>La historia clínica es información reservada, y la norma exige poder saber quién la consultó.
+El <b>Registro de accesos</b> guarda quién entró, a qué, cuándo — y también <b>quién lo intentó y
+no pudo</b>.</p>
+
+<figure>
+  <img src="capturas/13-registro-accesos.png" alt="Registro de accesos con sus filtros">
+  <figcaption>Registro de accesos. Es solo lectura: no se edita ni se borra.</figcaption>
+</figure>
+
+<p>Se filtra por <b>acción</b> (consulta, creación, modificación, firma, anulación…), por
+<b>resultado</b> (concedidos o solo denegados), por <b>persona</b> y por <b>fechas</b>.</p>
+
+<div class="caja aviso">
+  <span class="et">Lo que el propio sistema advierte</span>
+  <p>La pantalla dice que <b>la ausencia de asientos no significa ausencia de accesos</b>: el
+  registro automático cubre las rutas que pasan por el motor de permisos. Léalo como una fuente
+  parcial, no como la lista completa de todo lo que ocurrió.</p>
+</div>
+
+<hr>
+<h2 id="respaldo">Respaldar la información</h2>
+<p class="quien"><span class="rol r-adm">Administración</span></p>
+
+<p>Toda la información del consultorio vive en el equipo donde está instalado Biodont. Si ese
+disco falla y no hay respaldo, se pierde la historia clínica de todos los pacientes.</p>
+
+<ol class="pasos">
+  <li>Entre a <b class="btn">Administración</b> → <b>Backup de base de datos</b>.</li>
+  <li>Pulse el botón de respaldo. Se descarga un archivo comprimido con la base de datos y los
+  documentos subidos.</li>
+  <li>Guárdelo <b>fuera del equipo</b>: disco externo, o el sitio que el consultorio haya
+  definido.</li>
+</ol>
+
+<div class="caja alto">
+  <span class="et">Un respaldo que nunca se ha restaurado no es un respaldo</span>
+  <p>Conviene probar una restauración de vez en cuando en un equipo aparte. Un archivo que no se
+  ha comprobado puede estar incompleto y solo se descubre el día que hace falta.</p>
+  <p>Y si el disco externo vive permanentemente conectado, un ransomware alcanzaría también las
+  copias. Conviene tener al menos una copia desconectada.</p>
+</div>
+
+<p>Durante una <b>restauración</b> el sistema entero deja de responder a propósito, y vuelve
+cuando termina. No la haga con pacientes esperando.</p>
+
+<hr>
+<h1 id="ref-pantallas">Parte 2 · Referencia</h1>
+
+<h2>Pantalla por pantalla</h2>
+
+<h3>Inicio</h3>
+<figure>
+  <img src="capturas/02-escritorio.png" alt="Pantalla de inicio con indicadores y agenda">
+  <figcaption>Lo primero que se ve al entrar.</figcaption>
+</figure>
+<table>
+  <thead><tr><th>Elemento</th><th>Qué muestra</th></tr></thead>
+  <tbody>
+    <tr><td><b>Pacientes registrados</b></td><td>Total de pacientes activos, y cuántos se registraron este mes.</td></tr>
+    <tr><td><b>Citas de hoy</b></td><td>Las de la fecha de hoy y cuántas están sin confirmar.</td></tr>
+    <tr><td><b>Ingresos del día</b></td><td>Dinero que entró hoy, abonos incluidos. No es lo facturado.</td></tr>
+    <tr><td><b>Tratamientos activos</b></td><td>Los que están en seguimiento clínico.</td></tr>
+    <tr><td><b>Agenda</b></td><td>Las citas de hoy y de mañana, con su estado.</td></tr>
+    <tr><td><b>Accesos rápidos</b></td><td>Atajos a lo que más se usa.</td></tr>
+  </tbody>
+</table>
+
+<h3>Las pestañas del paciente</h3>
+<p>Al abrir un paciente aparece una barra con sus módulos. Cuáles se ven depende de su rol.</p>
+<table>
+  <thead><tr><th>Pestaña</th><th>Para qué</th></tr></thead>
+  <tbody>
+    <tr><td><b>Resumen</b></td><td>Vista rápida: higiene oral, documentos e historial de odontogramas.</td></tr>
+    <tr><td><b>Atención</b></td><td>Las visitas: crear, diagnosticar, firmar, cerrar.</td></tr>
+    <tr><td><b>Historia clínica</b></td><td>El documento permanente: datos, antecedentes, alergias, hábitos.</td></tr>
+    <tr><td><b>Odontograma</b></td><td>Estado de la boca y plan de tratamiento.</td></tr>
+    <tr><td><b>Tratamientos</b></td><td>Lo que se está haciendo y cuánto se ha cobrado de cada cosa.</td></tr>
+    <tr><td><b>Presupuesto</b></td><td>Lo propuesto y qué aceptó el paciente.</td></tr>
+    <tr><td><b>Cartera</b></td><td>Sus movimientos y su saldo.</td></tr>
+  </tbody>
+</table>
+
+<div class="caja alto">
+  <span class="et">Sobre la pestaña Resumen y las alergias</span>
+  <p>El bloque de alertas del <b>Resumen</b> se construye con la anamnesis antigua de la historia
+  clínica, no con las alergias que se registran hoy con su agente. Puede decir «Sin alertas
+  clínicas» en un paciente que <b>sí</b> tiene una alergia registrada.</p>
+  <p><b>Para decidir sobre alergias, mire el odontograma, la atención o la propia historia
+  clínica</b>, que sí leen el registro actual. No se guíe por el Resumen.</p>
+</div>
+
+<h2 id="ref-roles">Qué puede hacer cada rol</h2>
+
+<div class="tabla-scroll">
+<table>
+  <thead><tr><th>&nbsp;</th><th>Odontólogo</th><th>Auxiliar</th><th>Recepción</th><th>Administración</th></tr></thead>
+  <tbody>
+    <tr><td>Agenda y citas</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+    <tr><td>Ficha del paciente</td><td>Sí</td><td>Sí</td><td>Sí, sin campos clínicos</td><td>Sí, sin campos clínicos</td></tr>
+    <tr><td>Historia clínica</td><td>Ver y editar</td><td>Ver</td><td>No</td><td>Ver sin el detalle clínico</td></tr>
+    <tr><td>Atención: crear y editar</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
+    <tr><td>Atención: firmar y cerrar</td><td>Sí</td><td><b>No</b></td><td>No</td><td>No</td></tr>
+    <tr><td>Odontograma</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
+    <tr><td>Evoluciones de tratamiento</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
+    <tr><td>Fórmulas médicas</td><td><b>Sí, solo él</b></td><td>No</td><td>No</td><td>No</td></tr>
+    <tr><td>Documentos e imágenes del paciente</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
+    <tr><td>Tratamientos</td><td>Sí</td><td>Sí</td><td>No</td><td>Sí</td></tr>
+    <tr><td>Presupuestos</td><td>Sí</td><td><b>No</b></td><td>Sí</td><td>Sí</td></tr>
+    <tr><td>Cotizaciones</td><td>Sí</td><td><b>No</b></td><td>Sí</td><td>Sí</td></tr>
+    <tr><td>Cartera y abonos</td><td>Sí</td><td>Sí</td><td>Sí, sin detalle clínico</td><td>Sí, sin detalle clínico</td></tr>
+    <tr><td>Tarifario</td><td>Solo leer</td><td>Solo leer</td><td>Solo leer</td><td><b>Crear y poner precios</b></td></tr>
+    <tr><td>Usuarios, respaldo, textos</td><td>No</td><td>No</td><td>No</td><td>Sí</td></tr>
+    <tr><td>Registro de accesos</td><td>Solo el responsable clínico</td><td>No</td><td>No</td><td>No</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="caja nota">
+  <span class="et">Por qué Administración no ve lo clínico</span>
+  <p>Administración gestiona el sistema, no atiende pacientes. Ve la agenda, la ficha, la cartera
+  y los presupuestos, pero no las fórmulas, ni las evoluciones, ni los documentos clínicos. Si
+  Administración necesita ese contenido para su trabajo, quien debe consultarlo es un rol clínico.</p>
+</div>
+
+<h2 id="ref-estados">Estados y qué significan</h2>
+
+<h3>Cita</h3>
+<table>
+  <tbody>
+    <tr><td><b>Programada</b></td><td>Agendada, sin confirmar con el paciente.</td></tr>
+    <tr><td><b>Confirmada</b></td><td>El paciente confirmó que viene.</td></tr>
+    <tr><td><b>Atendida</b></td><td>Ya ocurrió. No se reprograma.</td></tr>
+    <tr><td><b>Cancelada</b></td><td>No se hizo. Para volver a citar se agenda una nueva.</td></tr>
+  </tbody>
+</table>
+
+<h3>Atención</h3>
+<table>
+  <tbody>
+    <tr><td><b>Borrador / Sin firmar</b></td><td>Se está registrando. Se puede editar.</td></tr>
+    <tr><td><b>Revisada</b></td><td>El contenido está completo y revisado. Paso previo a firmar.</td></tr>
+    <tr><td><b>Firmada</b></td><td>Cerrada con el PIN del profesional. No se edita; se corrige con adendas.</td></tr>
+    <tr><td><b>Cerrada</b></td><td>La visita se dio por terminada.</td></tr>
+    <tr><td><b>Anulada</b></td><td>Sin efecto, con constancia de quién y por qué. No desaparece.</td></tr>
+  </tbody>
+</table>
+
+<h3>Presupuesto y sus líneas</h3>
+<table>
+  <tbody>
+    <tr><td><b>Borrador</b></td><td>Se está armando.</td></tr>
+    <tr><td><b>Aceptado en parte</b></td><td>El paciente aceptó algunos procedimientos y otros no.</td></tr>
+    <tr><td><b>Vencido</b></td><td>Pasó su fecha de validez. No se puede aceptar hasta renovarlo.</td></tr>
+    <tr><td><b>Propuesto</b> (línea)</td><td>Ofrecido, el paciente aún no decide.</td></tr>
+  </tbody>
+</table>
+
+<h3>Movimiento de cartera</h3>
+<table>
+  <tbody>
+    <tr><td><b>Pendiente</b></td><td>Se debe, total o parcialmente.</td></tr>
+    <tr><td><b>Pagado</b></td><td>Cubierto por completo.</td></tr>
+    <tr><td><b>Anulado</b></td><td>Sin efecto, con constancia.</td></tr>
+  </tbody>
+</table>
+<h2 id="ref-problemas">Si algo no funciona</h2>
+
+<div class="tabla-scroll">
+<table>
+  <thead><tr><th>Lo que pasa</th><th>Por qué</th><th>Qué hacer</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>«Sesión expirada» sin haber hecho nada</td>
+      <td>Cerró sesión en otro dispositivo, o pasaron 8 horas.</td>
+      <td>Vuelva a entrar.</td>
+    </tr>
+    <tr>
+      <td>No deja entrar y dice que hay demasiados intentos</td>
+      <td>Cinco contraseñas falladas desde ese equipo.</td>
+      <td>Espere 15 minutos. Afecta al equipo, no a la persona.</td>
+    </tr>
+    <tr>
+      <td>Una pantalla dice que no tiene permiso</td>
+      <td>Ese módulo no es de su rol.</td>
+      <td>Pídaselo a quien sí lo tenga. Vea <a href="#ref-roles">Qué puede hacer cada rol</a>.</td>
+    </tr>
+    <tr>
+      <td>Al firmar dice que el PIN no sirve</td>
+      <td>Es el PIN <b>temporal</b> que puso Administración, o está usando la contraseña.</td>
+      <td>Cámbielo en <b class="btn">Mi perfil</b>. El PIN no es la contraseña.</td>
+    </tr>
+    <tr>
+      <td>El PIN quedó bloqueado</td>
+      <td>Cinco intentos fallidos.</td>
+      <td>Administración lo restablece desde Gestión de usuarios.</td>
+    </tr>
+    <tr>
+      <td>El QR no abre en el celular del paciente</td>
+      <td>El sistema está abierto como <code>localhost</code>.</td>
+      <td>Abra Biodont por la dirección de red del consultorio, o use <b class="btn">Descargar para firmar a mano</b>.</td>
+    </tr>
+    <tr>
+      <td>No sale la cámara al firmar</td>
+      <td>Los navegadores solo dan cámara en conexiones seguras.</td>
+      <td>Es parte de la instalación (certificado en la red local). Consulte a quien instaló.</td>
+    </tr>
+    <tr>
+      <td>Los presupuestos salen en $0</td>
+      <td>El tarifario no tiene precios cargados.</td>
+      <td>Adminístrelos en <b class="btn">Administración</b> → <b>Tarifario</b>.</td>
+    </tr>
+    <tr>
+      <td>Registré una alergia y el Resumen dice «Sin alertas clínicas»</td>
+      <td>Ese bloque lee la anamnesis antigua, no el registro actual.</td>
+      <td>Compruébelo en el <b>odontograma</b>, la <b>atención</b> o la <b>historia clínica</b>: ahí sí aparece.</td>
+    </tr>
+    <tr>
+      <td>Busco a un paciente y no aparece en la lista de conversión</td>
+      <td>Ese buscador muestra 10 resultados.</td>
+      <td>Búsquelo por documento.</td>
+    </tr>
+    <tr>
+      <td>No encuentro a un paciente por su apellido</td>
+      <td>Puede estar escrito distinto.</td>
+      <td>Busque por documento. Las tildes no importan: «Gomez» encuentra «Gómez».</td>
+    </tr>
+    <tr>
+      <td>No puedo reprogramar una cita</td>
+      <td>Está Atendida o Cancelada.</td>
+      <td>Agende una nueva.</td>
+    </tr>
+    <tr>
+      <td>No puedo editar una atención</td>
+      <td>Ya está firmada.</td>
+      <td>Use <b class="btn">Agregar corrección</b> para añadir una adenda.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="ref-glosario">Glosario</h2>
+<table>
+  <tbody>
+    <tr><td><b>Adenda</b></td><td>Corrección que se añade a un documento ya firmado, sin modificarlo. Va fechada y firmada.</td></tr>
+    <tr><td><b>Anamnesis</b></td><td>La entrevista inicial: antecedentes, hábitos, alergias.</td></tr>
+    <tr><td><b>Atención</b></td><td>Lo registrado en una visita concreta.</td></tr>
+    <tr><td><b>Borrado lógico</b></td><td>Anular dejando constancia, en vez de borrar. Lo clínico nunca se borra de verdad.</td></tr>
+    <tr><td><b>CIE-10</b></td><td>Código internacional de diagnósticos.</td></tr>
+    <tr><td><b>CUPS</b></td><td>Catálogo oficial colombiano de procedimientos en salud. Es la base del tarifario.</td></tr>
+    <tr><td><b>Cotización</b></td><td>Precio por escrito para quien todavía no es paciente. No crea historia clínica.</td></tr>
+    <tr><td><b>Evolución</b></td><td>Nota de lo hecho en una sesión de un tratamiento.</td></tr>
+    <tr><td><b>Odontograma</b></td><td>Representación gráfica de la boca con su estado y su plan.</td></tr>
+    <tr><td><b>PIN de firma</b></td><td>Clave numérica del acto de firmar. Distinta de la contraseña.</td></tr>
+    <tr><td><b>Presupuesto</b></td><td>Lo propuesto a un paciente registrado, con precio por procedimiento.</td></tr>
+    <tr><td><b>Responsable clínico</b></td><td>Odontólogo designado que responde por la historia clínica y consulta el registro de accesos.</td></tr>
+    <tr><td><b>Retención</b></td><td>Los 15 años que hay que conservar la historia desde la última atención.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="ref-practicar">Practicar con datos de ejemplo</h2>
+
+<p>Antes de usar Biodont con pacientes reales conviene practicar. El sistema trae un juego de
+datos de ejemplo — pacientes ficticios con citas, historias, tratamientos y movimientos — para
+poder equivocarse sin consecuencias.</p>
+
+<div class="caja alto">
+  <span class="et">Nunca sobre la base real</span>
+  <p>Los datos de ejemplo se siembran en una base de <b>prueba</b>, aparte de la del consultorio.
+  Quien instaló el sistema debe prepararla. Si se siembran sobre la base real, se mezclan
+  pacientes inventados con los de verdad.</p>
+</div>
+
+<p>Con la base de prueba lista, quien administra el sistema ejecuta:</p>
+<ol class="pasos">
+  <li><code>npm run seed</code> — crea el usuario administrador.</li>
+  <li><code>npm run seed:procedimientos</code> — carga el catálogo CUPS (sin precios).</li>
+  <li><code>npm run seed:permisos</code> — carga la matriz de permisos. <b>Después</b> del anterior.</li>
+  <li><code>npm run seed:demo</code> — siembra los pacientes de ejemplo.</li>
+</ol>
+
+<p>Qué queda sembrado: <b>55 pacientes</b>, 85 citas, 35 historias clínicas, 40 tratamientos,
+81 movimientos, 45 evoluciones y 20 fórmulas médicas, con nombres y datos colombianos ficticios.</p>
+
+<div class="caja aviso">
+  <span class="et">Dos cosas que el ejemplo no trae</span>
+  <p><b>Precios en el tarifario</b>: los presupuestos de práctica saldrán en $0 hasta que se
+  carguen.</p>
+  <p><b>Alergias registradas ni PIN de firma</b>: para practicar la alerta clínica y la firma hay
+  que registrarlas a mano siguiendo <a href="#alergias">Registrar una alergia</a> y
+  <a href="#pin">El PIN de firma</a>.</p>
+</div>
+
+<h3>Un recorrido de práctica sugerido</h3>
+<ol class="pasos">
+  <li>Registre un paciente nuevo inventado.</li>
+  <li>Agéndele una cita para mañana y luego repropóngala a otra hora.</li>
+  <li>Ábrale la historia clínica y pulse <b class="btn">Guardar historia</b> una vez, para que
+  quede abierta. <b>Sin este paso no se puede registrar la alergia.</b></li>
+  <li>En <b>Antecedentes patológicos → 4. Alergias</b>, regístrele una alergia a penicilina.</li>
+  <li>Abra su odontograma y compruebe que <b>aparece la alerta</b> arriba a la derecha.</li>
+  <li>Marque una caries en un diente.</li>
+  <li>Cree una atención, póngale un diagnóstico y fírmela con su PIN.</li>
+  <li>Intente editarla después de firmada: verá que no se puede, y por qué.</li>
+  <li>Hágale un presupuesto de tres procedimientos y acepte solo uno.</li>
+  <li>Vaya a <b class="btn">Tratamientos</b> y compruebe que apareció el procedimiento que
+  aceptó, con su monto.</li>
+  <li>Vaya a <b class="btn">Cartera</b> y verá que <b>todavía está vacía</b>: aceptar no cobra.
+  Registre ahí el ingreso y vincúlelo a ese tratamiento.</li>
+</ol>
+
+<p>Si los once pasos le salen, sabe usar Biodont para el día a día.</p>
+
+</main>
+
+<footer>
+  <p><b>Manual de Biodont</b> · versión 1.0 · Las capturas corresponden al sistema con datos de
+  ejemplo; los pacientes que aparecen son ficticios.</p>
+  <p>Este manual describe lo que el sistema hace hoy. Si encuentra algo que no coincide con lo que
+  ve en pantalla, avísele a quien administra el sistema — puede ser que el manual esté desactualizado
+  o que algo no esté funcionando.</p>
+</footer>
+
+<script>
+(function () {
+  var enlaces = [].slice.call(document.querySelectorAll('#nav a'));
+  var buscador = document.getElementById('buscador');
+  var sinRes = document.getElementById('sinResultados');
+
+  // Buscador: filtra las entradas del índice por su texto y por el de su sección.
+  var indice = enlaces.map(function (a) {
+    var destino = document.getElementById(a.getAttribute('href').slice(1));
+    var texto = a.textContent;
+    if (destino) {
+      var n = destino, acumulado = '';
+      while ((n = n.nextElementSibling) && !/^H[12]$/.test(n.tagName)) acumulado += ' ' + n.textContent;
+      texto += ' ' + acumulado;
+    }
+    return { a: a, texto: texto.toLowerCase() };
+  });
+
+  buscador.addEventListener('input', function () {
+    var q = buscador.value.trim().toLowerCase();
+    var visibles = 0;
+    indice.forEach(function (it) {
+      var coincide = !q || it.texto.indexOf(q) !== -1;
+      it.a.classList.toggle('oculto', !coincide);
+      if (coincide) visibles++;
+    });
+    document.querySelectorAll('#nav .grupo').forEach(function (g) {
+      g.style.display = q ? 'none' : '';
+    });
+    sinRes.style.display = (q && visibles === 0) ? 'block' : 'none';
+  });
+
+  // Resalta en el índice la sección que se está leyendo.
+  var secciones = enlaces.map(function (a) {
+    return document.getElementById(a.getAttribute('href').slice(1));
+  }).filter(Boolean);
+
+  function marcarActivo() {
+    var y = window.scrollY + 130, actual = null;
+    secciones.forEach(function (s) { if (s.offsetTop <= y) actual = s; });
+    enlaces.forEach(function (a) {
+      a.classList.toggle('activo', actual && a.getAttribute('href') === '#' + actual.id);
+    });
+  }
+  window.addEventListener('scroll', marcarActivo, { passive: true });
+  marcarActivo();
+})();
+</script>
+
+</body>
+</html>
