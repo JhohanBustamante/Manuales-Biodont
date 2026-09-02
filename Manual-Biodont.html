@@ -402,12 +402,12 @@ historia clínica, en <b>Antecedentes patológicos → 4. Alergias</b>.</p>
 <div class="caja alto">
   <span class="et">Primero guarde la historia clínica, aunque esté vacía</span>
   <p>En un paciente <b>recién registrado</b> todavía no hay historia abierta, y sin ella no se
-  puede registrar ninguna alergia. La sección muestra entonces
-  <i>«No se pudieron cargar las alergias del paciente… avisa a soporte»</i>, que suena a avería
-  pero <b>no lo es</b>: es que la historia aún no existe.</p>
+  puede registrar ninguna alergia. La sección avisa entonces
+  <i>«Este paciente aún no tiene historia clínica abierta. Guarda la historia y luego podrás
+  registrar sus alergias.»</i> — no es una avería, es un paso pendiente.</p>
   <p><b>Solución:</b> abra la historia clínica del paciente y pulse
   <b class="btn">Guardar historia</b> una vez. Con eso queda abierta y las alergias ya se pueden
-  registrar. Medido: antes de guardar da error; después, funciona a la primera.</p>
+  registrar. Medido: antes de guardar avisa; después, funciona a la primera.</p>
 </div>
 
 <ol class="pasos">
@@ -585,11 +585,11 @@ precios, y desaparece del listado de cotizaciones.</p>
 
 <div class="caja aviso">
   <span class="et">Dos cosas que conviene saber</span>
-  <p><b>El buscador de conversión muestra 10 resultados.</b> Si busca por nombre y hay muchos
-  pacientes parecidos, puede que el suyo no salga. Busque por <b>documento</b>, que es único.</p>
-  <p><b>La cotización caduca a los 180 días</b> de creada, aunque usted haya escrito una fecha de
-  validez posterior. Si necesita darle un precio a alguien con validez más larga, tenga presente
-  que a los seis meses el sistema la anula por su cuenta.</p>
+  <p><b>El buscador de conversión muestra 10 resultados.</b> Si hay más coincidencias, lo avisa
+  («Se muestran 10 de N»); afine por <b>documento</b>, que es único, para dar con el suyo.</p>
+  <p><b>La cotización caduca a los 180 días</b> de creada, y por eso la fecha de validez no se
+  puede poner más allá de ese plazo ni en el pasado: el sistema no deja prometer una vigencia
+  que luego no respeta. A los seis meses la anula por su cuenta.</p>
 </div>
 
 <hr>
@@ -834,13 +834,11 @@ cuando termina. No la haga con pacientes esperando.</p>
   </tbody>
 </table>
 
-<div class="caja alto">
-  <span class="et">Sobre la pestaña Resumen y las alergias</span>
-  <p>El bloque de alertas del <b>Resumen</b> se construye con la anamnesis antigua de la historia
-  clínica, no con las alergias que se registran hoy con su agente. Puede decir «Sin alertas
-  clínicas» en un paciente que <b>sí</b> tiene una alergia registrada.</p>
-  <p><b>Para decidir sobre alergias, mire el odontograma, la atención o la propia historia
-  clínica</b>, que sí leen el registro actual. No se guíe por el Resumen.</p>
+<div class="caja">
+  <span class="et">La pestaña Resumen y las alergias</span>
+  <p>El bloque de alertas del <b>Resumen</b> lee el mismo registro de alergias que el
+  odontograma, la atención y la historia clínica. Una alergia registrada hoy con su agente
+  aparece también aquí como <b>alerta crítica</b>. Las cuatro pantallas coinciden.</p>
 </div>
 
 <h2 id="ref-roles">Qué puede hacer cada rol</h2>
@@ -964,14 +962,9 @@ cuando termina. No la haga con pacientes esperando.</p>
       <td>Adminístrelos en <b class="btn">Administración</b> → <b>Tarifario</b>.</td>
     </tr>
     <tr>
-      <td>Registré una alergia y el Resumen dice «Sin alertas clínicas»</td>
-      <td>Ese bloque lee la anamnesis antigua, no el registro actual.</td>
-      <td>Compruébelo en el <b>odontograma</b>, la <b>atención</b> o la <b>historia clínica</b>: ahí sí aparece.</td>
-    </tr>
-    <tr>
-      <td>Busco a un paciente y no aparece en la lista de conversión</td>
-      <td>Ese buscador muestra 10 resultados.</td>
-      <td>Búsquelo por documento.</td>
+      <td>Busco a un paciente en la lista de conversión y no lo veo</td>
+      <td>El buscador muestra 10 resultados; si hay más, lo avisa («Se muestran 10 de N»).</td>
+      <td>Afine la búsqueda por documento, que es más preciso.</td>
     </tr>
     <tr>
       <td>No encuentro a un paciente por su apellido</td>
