@@ -35,6 +35,18 @@ PORT=3055 DATABASE_URL="file:/ruta/a/demo.db" node src/server.js
 presupuestos, ni cotizaciones.** Para las capturas se crearon a mano por la vía normal de la
 aplicación. Sin eso no se puede demostrar la alerta clínica ni la firma.
 
+## Los diagramas NO se editan aquí
+
+Los seis diagramas del manual son SVG escritos dentro del HTML —sin librerías ni imágenes
+externas, para que siga abriéndose con doble clic y sin internet— pero **se generan**, no se
+dibujan a mano: el generador vive en `Biodont/manual/_gen/` dentro del repositorio del
+sistema. Editar el SVG aquí se pierde en la siguiente generación.
+
+El motivo de generarlos es el mismo que el de medir la tabla de roles: un diagrama hecho a
+mano se desincroniza del sistema en el primer cambio de rótulo, y nadie lo nota porque un
+dibujo no falla. Validar el manual con cada actualización de producción tiene que poder ser
+correr un comando, no releer seis dibujos.
+
 ## Al actualizar el manual
 
 1. **Vuelva a medir lo que afirme.** La tabla «Qué puede hacer cada rol» se construyó pidiendo

@@ -61,6 +61,13 @@ figure img{width:100%;border:1px solid var(--linea);border-radius:10px;display:b
   box-shadow:0 2px 10px rgba(0,0,0,.06)}
 figcaption{font-size:13.5px;color:var(--gris);margin-top:8px;font-style:italic}
 
+/* Diagramas. Un SVG que se escala con la columna deja el texto por debajo de lo
+   legible en pantallas estrechas: se le pone suelo y se deja que scrollee dentro
+   de su propia caja, en vez de encoger hasta no leerse. */
+figure.diagrama{overflow-x:auto;margin:18px 0 22px}
+figure.diagrama svg{display:block;min-width:660px}
+@media print{ figure.diagrama{overflow:visible} figure.diagrama svg{min-width:0} }
+
 .caja{border-left:4px solid;padding:13px 17px;border-radius:0 8px 8px 0;margin:18px 0;font-size:15px}
 .caja p:first-child{margin-top:0}
 .caja p:last-child{margin-bottom:0}
@@ -120,6 +127,7 @@ footer{margin-left:var(--ancho-nav);padding:26px 52px 60px;color:var(--gris);fon
 
   <div class="grupo">Parte 1 · Cómo se hace</div>
   <a href="#paciente-nuevo">Llega un paciente nuevo</a>
+  <a href="#buscar-paciente">Buscar un paciente</a>
   <a href="#agendar">Agendar y reprogramar</a>
   <a href="#historia">Abrir la historia clínica</a>
   <a href="#alergias">Registrar una alergia</a>
@@ -133,7 +141,9 @@ footer{margin-left:var(--ancho-nav);padding:26px 52px 60px;color:var(--gris);fon
   <a href="#respaldo">Respaldar la información</a>
 
   <div class="grupo">Parte 2 · Referencia</div>
-  <a href="#ref-pantallas">Pantalla por pantalla</a>
+  <a href="#ref-mapas">Mapa de cada rol</a>
+  <a href="#ref-flujos">Cómo circula el trabajo</a>
+  <a href="#ref-pantallas-lista">Pantalla por pantalla</a>
   <a href="#ref-roles">Qué puede hacer cada rol</a>
   <a href="#ref-estados">Estados y qué significan</a>
   <a href="#ref-problemas">Si algo no funciona</a>
@@ -206,7 +216,7 @@ como se comporta:</p>
 
 <h2 id="puesta-en-marcha">Puesta en marcha</h2>
 <p class="sub">Lo que hay que hacer <b>una sola vez</b>, el primer día, antes de atender pacientes.</p>
-<p class="quien"><span class="rol r-adm">Administración</span> hace los pasos 1 a 4 · cada profesional hace el 5</p>
+<p class="quien"><span class="rol r-adm">Administración</span> hace los pasos 1 a 4 · el <span class="rol r-odo">responsable clínico</span> hace el 5 · cada profesional hace el 6</p>
 
 <ol class="pasos">
   <li><b>Cambie las contraseñas que trae el sistema.</b> La instalación crea un usuario
@@ -226,6 +236,11 @@ como se comporta:</p>
   oficial (códigos CUPS), pero <b>sin precios</b>: los precios los pone cada consultorio. Sin
   ellos, los presupuestos salen en cero. Se hace en <b class="btn">Administración</b> →
   <b>Tarifario de procedimientos</b>.</li>
+
+  <li><b>Habilite lo que el auxiliar puede registrar.</b> En <b>Actuaciones</b>, el
+  responsable clínico marca uno a uno los procedimientos que el auxiliar tiene autorizados.
+  <b>Sin esto el auxiliar no puede registrar una evolución ni subir un documento</b>: el
+  sistema se lo rechaza. Vea <a href="#v-actuaciones">Actuaciones</a>.</li>
 
   <li><b>Cada odontólogo define su PIN de firma.</b> Sin PIN no se puede firmar nada. Vea
   <a href="#pin">cómo se hace</a> más abajo.</li>
@@ -322,6 +337,38 @@ ya está, no lo cree otra vez — un paciente duplicado parte su historia en dos
 </div>
 
 <hr>
+<h2 id="buscar-paciente">Buscar un paciente para agendar o cobrar</h2>
+<p class="quien"><span class="rol r-rec">Recepción</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-odo">Odontólogo</span> <span class="rol r-adm">Administración</span></p>
+
+<p>En cuatro sitios hay que elegir un paciente: el <b>buscador de la barra superior</b>, la
+<b>nueva cita</b>, la <b>cartera</b> y el <b>aviso dirigido a un paciente</b>. Los cuatro
+funcionan igual: <b>se escribe, no se despliega</b>.</p>
+
+<ol class="pasos">
+  <li>Escriba <b>parte del nombre, el apellido o el documento</b>. Bastan tres o cuatro letras.</li>
+  <li>Espere un instante: la búsqueda la hace el servidor sobre <b>todos</b> los pacientes.</li>
+  <li>Pulse el que corresponda. Para cambiarlo, pulse la <b>✕</b> y busque otro.</li>
+</ol>
+
+<div class="caja nota">
+  <span class="et">«Se muestran 8 de 300»</span>
+  <p>La lista enseña unos pocos resultados a la vez. Cuando hay más coincidencias de las que
+  caben, <b>lo dice</b> con esa frase. No significa que falten pacientes: significa que su
+  búsqueda es amplia. Escriba un poco más —el apellido completo, o el documento— y la lista se
+  acorta hasta el que busca.</p>
+  <p>La búsqueda <b>no distingue tildes</b>: «Gomez» encuentra «Gómez».</p>
+</div>
+
+<div class="caja aviso">
+  <span class="et">Si no aparece</span>
+  <p>Compruebe primero que <b>no esté inactivo</b>: estos buscadores solo ofrecen pacientes
+  activos. Si tampoco está en <b class="btn">Pacientes</b>, es que no está registrado — vea
+  <a href="#paciente-nuevo">Llega un paciente nuevo</a>. Y si la lista dice <b>«No se pudo
+  consultar la lista de pacientes»</b>, eso no es «no existe»: es un fallo de conexión, y hay
+  que reintentar.</p>
+</div>
+
+<hr>
 <h2 id="agendar">Agendar y reprogramar una cita</h2>
 <p class="quien"><span class="rol r-rec">Recepción</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-odo">Odontólogo</span> <span class="rol r-adm">Administración</span></p>
 
@@ -333,7 +380,10 @@ ya está, no lo cree otra vez — un paciente duplicado parte su historia en dos
 <h3>Agendar</h3>
 <ol class="pasos">
   <li>Entre a <b class="btn">Citas</b> y pulse el botón de nueva cita.</li>
-  <li>Elija el <b>paciente</b>, el <b>profesional</b>, la <b>fecha</b> y la <b>hora</b>.</li>
+  <li><b>Busque el paciente</b>: escriba parte del nombre o el documento y elíjalo de la lista.
+  No es un desplegable con todos los pacientes — se busca escribiendo. Ver
+  <a href="#buscar-paciente">Buscar un paciente para agendar o cobrar</a>.</li>
+  <li>Elija el <b>profesional</b>, la <b>fecha</b> y la <b>hora</b>.</li>
   <li>Elija el <b>tipo de atención</b>: Valoración, Limpieza, Control o Urgencia. Son los
   cuatro valores que admite el sistema.</li>
   <li>Escriba el <b>motivo</b> — es lo que verá el profesional al abrir su agenda.</li>
@@ -652,8 +702,10 @@ procedimiento.</p>
 
 <h3>Registrar un cobro</h3>
 <ol class="pasos">
-  <li>Entre a <b class="btn">Cartera</b>.</li>
-  <li>Cree un movimiento de tipo <b>Ingreso</b>, con su valor y su concepto.</li>
+  <li>Entre a <b class="btn">Cartera</b>. Para trabajar sobre un paciente, <b>búsquelo</b> en la
+  barra de arriba escribiendo parte del nombre o el documento.</li>
+  <li>Cree un movimiento de tipo <b>Ingreso</b>, con su valor y su concepto. Si el movimiento es
+  de un paciente, se busca igual: escribiendo.</li>
   <li>Si corresponde a un tratamiento del paciente, <b>vincúlelo</b>: así el sistema sabe cuánto
   se ha cobrado de ese tratamiento y cuánto falta.</li>
   <li>Guarde.</li>
@@ -800,9 +852,90 @@ cuando termina. No la haga con pacientes esperando.</p>
 <hr>
 <h1 id="ref-pantallas">Parte 2 · Referencia</h1>
 
-<h2>Pantalla por pantalla</h2>
+<h2 id="ref-mapas">Mapa de cada rol</h2>
 
-<h3>Inicio</h3>
+<p>Cada persona ve un sistema distinto. Estos cuatro mapas dicen, de un vistazo, a qué
+entradas llega cada rol y qué pestañas se le abren dentro de un paciente. Lo que no aparece
+en su mapa <b>no está oculto: no existe para esa persona</b> — el servidor lo rechaza aunque
+alguien escriba la dirección a mano.</p>
+
+<div class="caja nota">
+  <span class="et">Lo que tienen los cuatro y no se dibuja</span>
+  <p>El <b>buscador</b> de la barra, la <b>campana de avisos</b> y <b>Mi perfil</b> están para
+  todo el mundo, así que no distinguen a nadie y se dejan fuera de los mapas para que se vea
+  lo que sí cambia.</p>
+</div>
+
+<h3 id="mapa-odo">Odontólogo</h3>
+<figure class="diagrama">
+  <svg viewBox="0 0 800 278" role="img" aria-label="Mapa de navegación del rol Odontólogo: qué entradas ve en la barra superior y qué pestañas se le abren dentro de un paciente." style="width:100%;height:auto"><defs><marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--verde,#1f6a4d)"/></marker></defs><text x="16" y="26" font-size="11" font-weight="700" fill="var(--gris,#5b6b66)" letter-spacing="0.8">BARRA SUPERIOR</text><rect x="16" y="38" width="65" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="48" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Inicio</text><rect x="90" y="38" width="85" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="132" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Pacientes</text><rect x="184" y="38" width="59" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="214" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Citas</text><rect x="252" y="38" width="72" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="288" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Cartera</text><rect x="333" y="38" width="105" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="386" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Cotizaciones</text><rect x="447" y="38" width="164" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="529" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Registro de accesos *</text><rect x="620" y="38" width="111" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="676" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Actuaciones *</text><line x1="58" y1="78" x2="58" y2="108" stroke="var(--verde,#1f6a4d)" stroke-width="1.6" marker-end="url(#pa)"/><text x="70" y="98" font-size="11.5" fill="var(--gris,#5b6b66)">desde <tspan font-weight="600">Pacientes</tspan>, abrir una ficha</text><text x="16" y="126" font-size="11" font-weight="700" fill="var(--gris,#5b6b66)" letter-spacing="0.8">DENTRO DE LA FICHA DE UN PACIENTE</text><rect x="16" y="138" width="72" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="52" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Resumen</text><rect x="97" y="138" width="78" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="136" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Atención</text><rect x="184" y="138" width="131" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="250" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Historia clínica</text><rect x="324" y="138" width="98" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="373" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Odontograma</text><rect x="431" y="138" width="105" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="484" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Tratamientos</text><rect x="545" y="138" width="98" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="594" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Presupuesto</text><rect x="652" y="138" width="72" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="688" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Cartera</text><rect x="16" y="181" width="92" height="32" rx="7" fill="#fff" stroke="var(--verde-borde,#c5ddd3)" stroke-width="1"/><text x="62" y="202" text-anchor="middle" font-size="12.5" font-weight="500" fill="var(--tinta,#16241f)">Documentos</text><line x1="16" y1="227" x2="784" y2="227" stroke="var(--linea,#dbe4e1)"/><text x="16" y="245" font-size="12" fill="var(--gris,#5b6b66)"><tspan font-weight="700" fill="var(--verde,#1f6a4d)">Fuera de su alcance:</tspan> Administración</text><text x="16" y="264" font-size="11" fill="var(--gris,#5b6b66)">Borde fino = no es una pestaña: se abre desde el menú de cada fila en <tspan font-weight="600">Pacientes</tspan>.</text></svg>
+  <figcaption>Es el único rol que firma y cierra una atención, y el único que receta.
+  <b>*</b> Registro de accesos y Actuaciones solo los ve el odontólogo designado como
+  <b>responsable clínico</b>; a los demás odontólogos no les aparecen.</figcaption>
+</figure>
+
+<h3 id="mapa-aux">Auxiliar</h3>
+<figure class="diagrama">
+  <svg viewBox="0 0 800 235" role="img" aria-label="Mapa de navegación del rol Auxiliar: qué entradas ve en la barra superior y qué pestañas se le abren dentro de un paciente." style="width:100%;height:auto"><defs><marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--verde,#1f6a4d)"/></marker></defs><text x="16" y="26" font-size="11" font-weight="700" fill="var(--gris,#5b6b66)" letter-spacing="0.8">BARRA SUPERIOR</text><rect x="16" y="38" width="65" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="48" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Inicio</text><rect x="90" y="38" width="85" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="132" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Pacientes</text><rect x="184" y="38" width="59" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="214" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Citas</text><rect x="252" y="38" width="72" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="288" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Cartera</text><line x1="58" y1="78" x2="58" y2="108" stroke="var(--verde,#1f6a4d)" stroke-width="1.6" marker-end="url(#pa)"/><text x="70" y="98" font-size="11.5" fill="var(--gris,#5b6b66)">desde <tspan font-weight="600">Pacientes</tspan>, abrir una ficha</text><text x="16" y="126" font-size="11" font-weight="700" fill="var(--gris,#5b6b66)" letter-spacing="0.8">DENTRO DE LA FICHA DE UN PACIENTE</text><rect x="16" y="138" width="72" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="52" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Resumen</text><rect x="97" y="138" width="78" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="136" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Atención</text><rect x="184" y="138" width="131" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="250" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Historia clínica</text><rect x="324" y="138" width="98" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="373" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Odontograma</text><rect x="431" y="138" width="105" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="484" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Tratamientos</text><rect x="545" y="138" width="72" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="581" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Cartera</text><rect x="626" y="138" width="92" height="32" rx="7" fill="#fff" stroke="var(--verde-borde,#c5ddd3)" stroke-width="1"/><text x="672" y="158" text-anchor="middle" font-size="12.5" font-weight="500" fill="var(--tinta,#16241f)">Documentos</text><line x1="16" y1="184" x2="784" y2="184" stroke="var(--linea,#dbe4e1)"/><text x="16" y="202" font-size="12" fill="var(--gris,#5b6b66)"><tspan font-weight="700" fill="var(--verde,#1f6a4d)">Fuera de su alcance:</tspan> Cotizaciones · Presupuesto · Administración · Registro de accesos · Actuaciones</text><text x="16" y="221" font-size="11" fill="var(--gris,#5b6b66)">Borde fino = no es una pestaña: se abre desde el menú de cada fila en <tspan font-weight="600">Pacientes</tspan>.</text></svg>
+  <figcaption>Entra a la atención y escribe el <b>motivo de consulta</b>; el examen clínico y
+  la enfermedad actual los <b>lee</b> sin poder cambiarlos. No firma, no cierra y no receta.
+  Lo que puede registrar depende de lo que el responsable clínico le haya habilitado en
+  <a href="#v-actuaciones">Actuaciones</a>.</figcaption>
+</figure>
+
+<h3 id="mapa-rec">Recepción</h3>
+<figure class="diagrama">
+  <svg viewBox="0 0 800 235" role="img" aria-label="Mapa de navegación del rol Recepción: qué entradas ve en la barra superior y qué pestañas se le abren dentro de un paciente." style="width:100%;height:auto"><defs><marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--verde,#1f6a4d)"/></marker></defs><text x="16" y="26" font-size="11" font-weight="700" fill="var(--gris,#5b6b66)" letter-spacing="0.8">BARRA SUPERIOR</text><rect x="16" y="38" width="65" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="48" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Inicio</text><rect x="90" y="38" width="85" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="132" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Pacientes</text><rect x="184" y="38" width="59" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="214" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Citas</text><rect x="252" y="38" width="72" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="288" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Cartera</text><rect x="333" y="38" width="105" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="386" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Cotizaciones</text><line x1="58" y1="78" x2="58" y2="108" stroke="var(--verde,#1f6a4d)" stroke-width="1.6" marker-end="url(#pa)"/><text x="70" y="98" font-size="11.5" fill="var(--gris,#5b6b66)">desde <tspan font-weight="600">Pacientes</tspan>, abrir una ficha</text><text x="16" y="126" font-size="11" font-weight="700" fill="var(--gris,#5b6b66)" letter-spacing="0.8">DENTRO DE LA FICHA DE UN PACIENTE</text><rect x="16" y="138" width="98" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="65" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Presupuesto</text><rect x="123" y="138" width="72" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="159" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Cartera</text><rect x="204" y="138" width="92" height="32" rx="7" fill="#fff" stroke="var(--verde-borde,#c5ddd3)" stroke-width="1"/><text x="250" y="158" text-anchor="middle" font-size="12.5" font-weight="500" fill="var(--tinta,#16241f)">Documentos</text><line x1="16" y1="184" x2="784" y2="184" stroke="var(--linea,#dbe4e1)"/><text x="16" y="202" font-size="12" fill="var(--gris,#5b6b66)"><tspan font-weight="700" fill="var(--verde,#1f6a4d)">Fuera de su alcance:</tspan> Resumen · Atención · Historia clínica · Odontograma · Tratamientos · Administración</text><text x="16" y="221" font-size="11" fill="var(--gris,#5b6b66)">Borde fino = no es una pestaña: se abre desde el menú de cada fila en <tspan font-weight="600">Pacientes</tspan>.</text></svg>
+  <figcaption>Agenda, cobra y recoge la autorización de datos. Dentro de la ficha solo llega a
+  Presupuesto, Cartera y Documentos — y en la ficha del paciente <b>no recibe</b> las alergias
+  ni las observaciones clínicas: el sistema no se las envía.</figcaption>
+</figure>
+
+<h3 id="mapa-adm">Administración</h3>
+<figure class="diagrama">
+  <svg viewBox="0 0 800 235" role="img" aria-label="Mapa de navegación del rol Administración: qué entradas ve en la barra superior y qué pestañas se le abren dentro de un paciente." style="width:100%;height:auto"><defs><marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--verde,#1f6a4d)"/></marker></defs><text x="16" y="26" font-size="11" font-weight="700" fill="var(--gris,#5b6b66)" letter-spacing="0.8">BARRA SUPERIOR</text><rect x="16" y="38" width="65" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="48" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Inicio</text><rect x="90" y="38" width="85" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="132" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Pacientes</text><rect x="184" y="38" width="59" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="214" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Citas</text><rect x="252" y="38" width="72" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="288" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Cartera</text><rect x="333" y="38" width="105" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="386" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Cotizaciones</text><rect x="447" y="38" width="118" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="506" y="58" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Administración</text><line x1="58" y1="78" x2="58" y2="108" stroke="var(--verde,#1f6a4d)" stroke-width="1.6" marker-end="url(#pa)"/><text x="70" y="98" font-size="11.5" fill="var(--gris,#5b6b66)">desde <tspan font-weight="600">Pacientes</tspan>, abrir una ficha</text><text x="16" y="126" font-size="11" font-weight="700" fill="var(--gris,#5b6b66)" letter-spacing="0.8">DENTRO DE LA FICHA DE UN PACIENTE</text><rect x="16" y="138" width="72" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="52" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Resumen</text><rect x="97" y="138" width="131" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="162" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Historia clínica</text><rect x="237" y="138" width="105" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="290" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Tratamientos</text><rect x="351" y="138" width="98" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="400" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Presupuesto</text><rect x="458" y="138" width="72" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="494" y="158" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Cartera</text><rect x="539" y="138" width="92" height="32" rx="7" fill="#fff" stroke="var(--verde-borde,#c5ddd3)" stroke-width="1"/><text x="585" y="158" text-anchor="middle" font-size="12.5" font-weight="500" fill="var(--tinta,#16241f)">Documentos</text><line x1="16" y1="184" x2="784" y2="184" stroke="var(--linea,#dbe4e1)"/><text x="16" y="202" font-size="12" fill="var(--gris,#5b6b66)"><tspan font-weight="700" fill="var(--verde,#1f6a4d)">Fuera de su alcance:</tspan> Atención · Odontograma · Fórmulas médicas · Evoluciones · Registro de accesos</text><text x="16" y="221" font-size="11" fill="var(--gris,#5b6b66)">Borde fino = no es una pestaña: se abre desde el menú de cada fila en <tspan font-weight="600">Pacientes</tspan>.</text></svg>
+  <figcaption>Gestiona el sistema: usuarios, precios, textos y respaldos. Abre la historia
+  clínica pero le llega <b>sin el detalle clínico</b>, y no entra ni a la atención ni al
+  odontograma.</figcaption>
+</figure>
+
+<h2 id="ref-flujos">Cómo circula el trabajo</h2>
+
+<p>Dos recorridos que pasan por varias pantallas y por eso cuesta verlos completos usando el
+sistema: el de una atención y el del dinero.</p>
+
+<h3 id="flujo-atencion">El ciclo de una atención</h3>
+<figure class="diagrama">
+  <svg viewBox="0 0 800 238" role="img" aria-label="Ciclo de una atención: de Borrador a Cerrado en tres actos, quién puede hacer cada uno, y la adenda como única vía de corrección posterior." style="width:100%;height:auto"><defs><marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--verde,#1f6a4d)"/></marker></defs><text x="16" y="26" font-size="11" font-weight="700" fill="var(--gris,#5b6b66)" letter-spacing="0.8">EL ESTADO SOLO AVANZA — NUNCA RETROCEDE</text><rect x="16" y="60" width="120" height="72" rx="9" fill="#fff" stroke="var(--verde,#1f6a4d)" stroke-width="1.2"/><text x="76" y="86" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--verde,#1f6a4d)">Borrador</text><text x="76" y="104" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">se escribe</text><text x="76" y="117" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">y se corrige</text><line x1="144" y1="96" x2="224" y2="96" stroke="var(--verde,#1f6a4d)" stroke-width="1.6" marker-end="url(#pa)"/><text x="184" y="84" text-anchor="middle" font-size="11" font-weight="600" fill="var(--verde,#1f6a4d)">Revisar</text><rect x="232" y="60" width="120" height="72" rx="9" fill="#fff" stroke="var(--verde,#1f6a4d)" stroke-width="1.2"/><text x="292" y="86" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--verde,#1f6a4d)">Revisado</text><text x="292" y="104" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">alguien lo dio</text><text x="292" y="117" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">por revisado</text><line x1="360" y1="96" x2="440" y2="96" stroke="var(--verde,#1f6a4d)" stroke-width="1.6" marker-end="url(#pa)"/><text x="400" y="72" text-anchor="middle" font-size="11" font-weight="600" fill="var(--verde,#1f6a4d)">Firmar</text><text x="400" y="84" text-anchor="middle" font-size="11" font-weight="600" fill="var(--verde,#1f6a4d)">con PIN</text><rect x="448" y="60" width="120" height="72" rx="9" fill="#fff" stroke="var(--verde,#1f6a4d)" stroke-width="1.2"/><text x="508" y="86" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--verde,#1f6a4d)">Firmado</text><text x="508" y="104" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">queda huella</text><text x="508" y="117" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">del contenido</text><line x1="576" y1="96" x2="656" y2="96" stroke="var(--verde,#1f6a4d)" stroke-width="1.6" marker-end="url(#pa)"/><text x="616" y="84" text-anchor="middle" font-size="11" font-weight="600" fill="var(--verde,#1f6a4d)">Cerrar</text><rect x="664" y="60" width="120" height="72" rx="9" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.8"/><text x="724" y="86" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--verde,#1f6a4d)">Cerrado</text><text x="724" y="104" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">pasa a</text><text x="724" y="117" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">conservación</text><line x1="16" y1="150" x2="784" y2="150" stroke="var(--linea,#dbe4e1)"/><text x="184" y="166" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">Odontólogo o auxiliar</text><text x="400" y="166" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">Solo el odontólogo</text><text x="616" y="166" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">Solo el odontólogo</text><path d="M 724 132 V 179" stroke="var(--verde,#1f6a4d)" stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#pa)"/><rect x="634" y="186" width="150" height="32" rx="7" fill="var(--verde-claro,#e8f2ee)" stroke="var(--verde,#1f6a4d)" stroke-width="1.4"/><text x="709" y="206" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--verde,#1f6a4d)">Corregir por adenda</text><text x="624" y="206" text-anchor="end" font-size="11" fill="var(--gris,#5b6b66)">Lo cerrado no se edita:</text></svg>
+  <figcaption>Una atención avanza en tres actos, y cada uno deja constancia de quién y cuándo.
+  El estado <b>solo avanza</b>: no hay forma de devolver una atención firmada a borrador.
+  Una vez cerrada, lo que se añada va como <b>adenda</b>, que se ve aparte y no altera lo que
+  ya se firmó.</figcaption>
+</figure>
+
+<div class="caja aviso">
+  <span class="et">Firmar y cerrar no son lo mismo</span>
+  <p><b>Firmar</b> es hacerse responsable del contenido: pide el PIN y guarda una huella de lo
+  escrito, de modo que después se puede comprobar que nadie lo cambió. <b>Cerrar</b> es
+  bloquear la edición y pasar el documento a conservación. Se firma primero y se cierra
+  después.</p>
+</div>
+
+<h3 id="flujo-dinero">Del primer precio al cobro</h3>
+<figure class="diagrama">
+  <svg viewBox="0 0 800 190" role="img" aria-label="Recorrido del dinero: la cotización se convierte en presupuesto, aceptar una línea crea el tratamiento y el cobro queda en cartera con sus abonos." style="width:100%;height:auto"><defs><marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--verde,#1f6a4d)"/></marker></defs><text x="16" y="26" font-size="11" font-weight="700" fill="var(--gris,#5b6b66)" letter-spacing="0.8">DEL PRIMER PRECIO AL DINERO COBRADO — CUATRO PANTALLAS</text><rect x="16" y="62" width="120" height="82" rx="9" fill="#fff" stroke="var(--verde,#1f6a4d)" stroke-width="1.3"/><text x="76" y="85" text-anchor="middle" font-size="13" font-weight="700" fill="var(--verde,#1f6a4d)">Cotización</text><text x="76" y="101" text-anchor="middle" font-size="9.5" fill="var(--verde,#1f6a4d)" font-style="italic">menú Cotizaciones</text><text x="76" y="120" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">Quien todavía</text><text x="76" y="133" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">no es paciente</text><line x1="144" y1="103" x2="224" y2="103" stroke="var(--verde,#1f6a4d)" stroke-width="1.6" marker-end="url(#pa)"/><text x="184" y="79" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--verde,#1f6a4d)">Convertir</text><text x="184" y="91" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--verde,#1f6a4d)">(crea la ficha)</text><rect x="232" y="62" width="120" height="82" rx="9" fill="#fff" stroke="var(--verde,#1f6a4d)" stroke-width="1.3"/><text x="292" y="85" text-anchor="middle" font-size="13" font-weight="700" fill="var(--verde,#1f6a4d)">Presupuesto</text><text x="292" y="101" text-anchor="middle" font-size="9.5" fill="var(--verde,#1f6a4d)" font-style="italic">pestaña Presupuesto</text><text x="292" y="120" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">Ya con ficha</text><text x="292" y="133" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">abierta</text><line x1="360" y1="103" x2="440" y2="103" stroke="var(--verde,#1f6a4d)" stroke-width="1.6" marker-end="url(#pa)"/><text x="400" y="79" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--verde,#1f6a4d)">Aceptar</text><text x="400" y="91" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--verde,#1f6a4d)">línea a línea</text><rect x="448" y="62" width="120" height="82" rx="9" fill="#fff" stroke="var(--verde,#1f6a4d)" stroke-width="1.3"/><text x="508" y="85" text-anchor="middle" font-size="13" font-weight="700" fill="var(--verde,#1f6a4d)">Tratamiento</text><text x="508" y="101" text-anchor="middle" font-size="9.5" fill="var(--verde,#1f6a4d)" font-style="italic">pestaña Tratamientos</text><text x="508" y="120" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">Nace al aceptar</text><text x="508" y="133" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">una línea</text><line x1="576" y1="103" x2="656" y2="103" stroke="var(--verde,#1f6a4d)" stroke-width="1.6" marker-end="url(#pa)"/><text x="616" y="79" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--verde,#1f6a4d)">Registrar</text><text x="616" y="91" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--verde,#1f6a4d)">el cobro</text><rect x="664" y="62" width="120" height="82" rx="9" fill="#fff" stroke="var(--verde,#1f6a4d)" stroke-width="1.3"/><text x="724" y="85" text-anchor="middle" font-size="13" font-weight="700" fill="var(--verde,#1f6a4d)">Cobro</text><text x="724" y="101" text-anchor="middle" font-size="9.5" fill="var(--verde,#1f6a4d)" font-style="italic">pestaña Cartera</text><text x="724" y="120" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">Movimiento</text><text x="724" y="133" text-anchor="middle" font-size="10.5" fill="var(--gris,#5b6b66)">y sus abonos</text><line x1="16" y1="157" x2="784" y2="157" stroke="var(--linea,#dbe4e1)"/><text x="16" y="174" font-size="11.5" fill="var(--gris,#5b6b66)"><tspan font-weight="700" fill="var(--verde,#1f6a4d)">Nada se retrocede:</tspan> una cotización caduca a los 180 días, y lo ya cobrado no se borra — se anula dejando constancia.</text></svg>
+  <figcaption>El mismo trabajo cambia de nombre y de pantalla según en qué punto esté. Lo que
+  une los cuatro es que cada paso <b>nace del anterior</b>: el tratamiento no se escribe a
+  mano, aparece al aceptar una línea del presupuesto.</figcaption>
+</figure>
+
+<h2 id="ref-pantallas-lista">Pantalla por pantalla</h2>
+
+<p>Qué es cada pantalla, qué se puede hacer en ella y quién entra. Las que están
+<b>en la barra superior</b> primero; después las <b>pestañas del paciente</b>.</p>
+
+<h3 id="v-inicio">Inicio</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span></p>
 <figure>
   <img src="capturas/02-escritorio.png" alt="Pantalla de inicio con indicadores y agenda">
   <figcaption>Lo primero que se ve al entrar.</figcaption>
@@ -819,27 +952,281 @@ cuando termina. No la haga con pacientes esperando.</p>
   </tbody>
 </table>
 
-<h3>Las pestañas del paciente</h3>
-<p>Al abrir un paciente aparece una barra con sus módulos. Cuáles se ven depende de su rol.</p>
+<h3 id="v-pacientes">Pacientes</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span></p>
+<p>El listado de todo el consultorio y la puerta a la ficha de cada persona. Es la pantalla
+desde la que se llega a todo lo demás del paciente.</p>
+<ul>
+  <li><b>Buscar</b> — por nombre, apellido, documento o teléfono. <b>No distingue tildes</b>:
+  «Gomez» encuentra a «Gómez».</li>
+  <li><b>Nuevo paciente</b> — ver <a href="#paciente-nuevo">Llega un paciente nuevo</a>.</li>
+  <li><b>Importar</b> — cargar pacientes desde un archivo CSV o Excel.</li>
+  <li><b>El menú de cada fila</b> — lleva a las pantallas del paciente, incluida
+  <a href="#v-documentos">Documentos</a>, que no es una pestaña.</li>
+</ul>
+<figure>
+  <img src="capturas/03-pacientes-lista.png" alt="Listado de pacientes con el buscador">
+  <figcaption>El listado se pagina: abajo se indica en qué página está y cuántas hay.</figcaption>
+</figure>
+
+<h3 id="v-citas">Citas</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span></p>
+<p>La agenda del consultorio, en lista o en calendario mensual.</p>
+<ul>
+  <li><b>Nueva cita</b> — paciente, profesional, fecha, hora, tipo y motivo. El paciente
+  <b>se busca escribiendo</b>: ver <a href="#buscar-paciente">Buscar un paciente</a>.</li>
+  <li><b>Reprogramar</b> — mueve la cita conservando su historia. Solo en citas
+  <b>Programada</b> o <b>Confirmada</b>.</li>
+  <li><b>Cambiar el estado</b> — el desplegable solo ofrece los cambios que la cita admite
+  desde donde está.</li>
+  <li><b>Filtrar</b> — por estado, tipo de atención, rango de fechas y documento.</li>
+</ul>
+<div class="caja aviso">
+  <span class="et">El sistema no deja agendar dos cosas a la vez</span>
+  <p>Si el paciente o el profesional ya tienen algo a menos de <b>30 minutos</b> de esa hora,
+  la cita no se guarda y la pantalla dice cuál de los dos está ocupado.</p>
+</div>
+
+<h3 id="v-cartera">Cartera</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span> — los dos últimos, sin el detalle clínico</p>
+<p>Todo el dinero del consultorio: lo que entra y lo que sale.</p>
+<ul>
+  <li><b>Registrar un movimiento</b> — ingreso o egreso, con concepto, monto y método de pago.
+  El paciente, si lo lleva, <b>se busca escribiendo</b>: ver
+  <a href="#buscar-paciente">Buscar un paciente</a>.</li>
+  <li><b>Trabajar sobre un paciente</b> — la barra de arriba lo busca y deja la cartera
+  filtrada por él.</li>
+  <li><b>Abonos</b> — un movimiento pendiente admite pagos parciales; la fila muestra cuánto
+  se lleva cobrado y cuánto falta.</li>
+  <li><b>Vincularlo a un tratamiento</b> — solo al crearlo, y solo los roles clínicos. Es lo
+  que llena la columna «Cobro» de Tratamientos.</li>
+</ul>
+<div class="caja nota">
+  <span class="et">Qué ven Recepción y Administración</span>
+  <p>Los movimientos les llegan <b>sin la descripción clínica</b> del tratamiento. Ven el
+  concepto, el monto y el estado; no el diagnóstico.</p>
+</div>
+
+<h3 id="v-cotizaciones">Cotizaciones</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span> — el auxiliar <b>no</b></p>
+<p>Dar un precio a quien <b>todavía no es paciente</b>. No cuelga de ninguna ficha, y por eso
+tiene su propia entrada en la barra: no hay otra puerta por la que llegar.</p>
+<ul>
+  <li><b>Nueva cotización</b> — basta el <b>nombre</b> de quien pregunta. Documento, edad y
+  teléfono son opcionales a propósito: pedir la cédula para dar un precio es recoger más dato
+  del necesario.</li>
+  <li><b>Convertir</b> — cuando la persona decide tratarse, crea su ficha y pasa la cotización
+  a presupuesto.</li>
+  <li><b>Buscar</b> — el listado dice «Se muestran X de N» cuando no caben todas.</li>
+</ul>
+<div class="caja aviso">
+  <span class="et">Caducan a los 180 días</span>
+  <p>Una cotización sin convertir se marca como <b>vencida</b> a los 180 días. No se borra:
+  queda a la vista con su estado.</p>
+</div>
+
+<h3 id="v-actuaciones">Actuaciones</h3>
+<p class="quien">Entra: <span class="rol r-odo">Odontólogo</span> — <b>solo</b> el designado responsable clínico</p>
+<p>El catálogo de <b>qué puede registrar el auxiliar</b>. Cada procedimiento se habilita o se
+deshabilita uno a uno, y cada cambio queda con su fecha, su autor y el motivo.</p>
+<div class="caja alto">
+  <span class="et">Sin esto el auxiliar no puede trabajar</span>
+  <p>Un auxiliar sin ninguna actuación habilitada <b>no puede registrar una evolución ni subir
+  un documento</b>. No es una preferencia: el sistema se lo impide. Comprobado sobre el sistema
+  real, un auxiliar que intenta registrar una evolución obtiene:</p>
+  <table>
+    <thead><tr><th>Lo que hace</th><th>Qué responde el sistema</th></tr></thead>
+    <tbody>
+      <tr><td>No indica qué actuación registra</td><td>La rechaza y le pide que la indique</td></tr>
+      <tr><td>Indica una que <b>no</b> tiene habilitada</td><td>«Esta actuación no está autorizada para su perfil ocupacional»</td></tr>
+      <tr><td>Indica una habilitada</td><td>Se registra</td></tr>
+    </tbody>
+  </table>
+  <p>Por eso habilitar el catálogo es uno de los pasos de la
+  <a href="#puesta-en-marcha">puesta en marcha</a>.</p>
+</div>
+<p>Habilitar una actuación es una <b>decisión clínica</b>, no de configuración: por eso no la
+toma Administración sino el responsable clínico.</p>
+
+<h3 id="v-accesos">Registro de accesos</h3>
+<p class="quien">Entra: <span class="rol r-odo">Odontólogo</span> — <b>solo</b> el designado responsable clínico</p>
+<p>Quién abrió qué historia y cuándo. También quedan los <b>intentos denegados</b>, que suelen
+decir más que los accesos correctos.</p>
+<ul>
+  <li><b>Filtrar</b> — por persona, por paciente, por tipo de acción y por fechas.</li>
+  <li><b>Ventana de 30 días</b> — la pantalla abre acotada al último mes y lo dice. «Ver todo
+  el histórico» la quita.</li>
+</ul>
+<div class="caja nota">
+  <span class="et">Por qué abre acotada</span>
+  <p>El registro crece con cada consulta y llega a millones de asientos; sin la ventana, cada
+  página tardaría segundos. Se anuncia siempre para que «no hay accesos en 30 días» no se
+  confunda con «no hay accesos».</p>
+</div>
+
+<h3 id="v-admin">Administración</h3>
+<p class="quien">Entra: <span class="rol r-adm">Administración</span></p>
+<p>La configuración del consultorio. Cuatro bloques:</p>
 <table>
-  <thead><tr><th>Pestaña</th><th>Para qué</th></tr></thead>
+  <thead><tr><th>Bloque</th><th>Para qué</th></tr></thead>
   <tbody>
-    <tr><td><b>Resumen</b></td><td>Vista rápida: higiene oral, documentos e historial de odontogramas.</td></tr>
-    <tr><td><b>Atención</b></td><td>Las visitas: crear, diagnosticar, firmar, cerrar.</td></tr>
-    <tr><td><b>Historia clínica</b></td><td>El documento permanente: datos, antecedentes, alergias, hábitos.</td></tr>
-    <tr><td><b>Odontograma</b></td><td>Estado de la boca y plan de tratamiento.</td></tr>
-    <tr><td><b>Tratamientos</b></td><td>Lo que se está haciendo y cuánto se ha cobrado de cada cosa.</td></tr>
-    <tr><td><b>Presupuesto</b></td><td>Lo propuesto y qué aceptó el paciente.</td></tr>
-    <tr><td><b>Cartera</b></td><td>Sus movimientos y su saldo.</td></tr>
+    <tr><td><b>Gestión de usuarios</b></td><td>Crear personas, cambiar su rol, designar al responsable clínico, asignar contraseña, PIN de firma temporal y registro profesional.</td></tr>
+    <tr><td><b>Tarifario de procedimientos</b></td><td>Poner el precio de cada código y crear los procedimientos propios del consultorio.</td></tr>
+    <tr><td><b>Consentimiento y encabezado</b></td><td>El texto que firma el paciente, el nombre del consultorio y si los documentos llevan texto, logo o nada.</td></tr>
+    <tr><td><b>Respaldo y exportación</b></td><td>Descargar una copia completa, restaurarla y exportar datos.</td></tr>
   </tbody>
 </table>
 
-<div class="caja">
-  <span class="et">La pestaña Resumen y las alergias</span>
-  <p>El bloque de alertas del <b>Resumen</b> lee el mismo registro de alergias que el
-  odontograma, la atención y la historia clínica. Una alergia registrada hoy con su agente
-  aparece también aquí como <b>alerta crítica</b>. Las cuatro pantallas coinciden.</p>
+<h3 id="v-perfil">Mi perfil</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span></p>
+<p>Los datos de su propia cuenta.</p>
+<ul>
+  <li><b>Cambiar la contraseña.</b></li>
+  <li><b>PIN de firma</b> — definirlo o cambiarlo. Ver <a href="#puesta-en-marcha">El PIN de firma</a>.</li>
+  <li><b>Firma o sello</b> — dibujarla con el dedo o el ratón, o subir una imagen. Es lo que
+  se estampa en los documentos.</li>
+  <li><b>Registro profesional</b> — decidir si aparece impreso. El número lo carga
+  Administración, no cada persona.</li>
+</ul>
+
+<h3 id="v-avisos">Notificaciones (la campana)</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span></p>
+<p>El panel de la campana, en la barra superior — en pantalla se titula <b>Notificaciones</b>. Tiene tres partes:</p>
+<table>
+  <thead><tr><th>Sección</th><th>Qué trae</th></tr></thead>
+  <tbody>
+    <tr><td><b>Alertas del sistema</b></td><td>Las calcula el sistema cada vez: citas de hoy y de mañana, pagos vencidos y abonos incompletos. Se descartan con la <b>×</b> y vuelven al día siguiente.</td></tr>
+    <tr><td><b>Mensajes</b></td><td>Los que escribe una persona del equipo. De cinco en cinco, con «Ver más».</td></tr>
+    <tr><td><b>Próximas</b></td><td>Mensajes programados para una fecha futura, todavía sin publicar.</td></tr>
+  </tbody>
+</table>
+<p>Una notificación puede llevar enlace a un paciente; ese paciente <b>se busca escribiendo</b>
+(ver <a href="#buscar-paciente">Buscar un paciente</a>). Escribirlas lo pueden hacer
+<span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-adm">Administración</span>; recepción los lee.</p>
+
+<hr>
+
+<h3 id="v-resumen">Ficha ▸ Resumen</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-adm">Administración</span></p>
+<p>La vista rápida del paciente: alertas clínicas, higiene oral, documentos e historial de
+odontogramas.</p>
+<div class="caja ok">
+  <span class="et">Las alertas de aquí son las mismas de todas partes</span>
+  <p>El bloque de alertas lee el <b>mismo registro</b> que el odontograma, la atención y la
+  historia clínica. Una alergia registrada con su agente aparece en las cuatro pantallas y
+  dice lo mismo en todas.</p>
 </div>
+
+<h3 id="v-atencion">Ficha ▸ Atención</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span></p>
+<p>Cada visita del paciente. Es donde se diagnostica, se firma y se cierra.</p>
+<ul>
+  <li><b>Motivo de consulta, enfermedad actual, síntomas y examen clínico.</b> El auxiliar
+  escribe el <b>primero</b> y lee los otros tres.</li>
+  <li><b>Diagnósticos</b> — con código CIE-10 si se conoce, y siempre con el texto del
+  profesional.</li>
+  <li><b>Signos vitales</b> — opcionales; los toma odontólogo o auxiliar.</li>
+  <li><b>Revisar, firmar y cerrar</b> — ver <a href="#flujo-atencion">El ciclo de una
+  atención</a>.</li>
+  <li><b>Comprobar la integridad</b> — dice si lo firmado sigue igual que cuando se firmó.</li>
+  <li><b>Adendas</b> — la corrección posterior a cerrar.</li>
+</ul>
+
+<h3 id="v-historia">Ficha ▸ Historia clínica</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> escribe · <span class="rol r-aux">Auxiliar</span> lee · <span class="rol r-adm">Administración</span> sin el detalle clínico</p>
+<p>El documento permanente: datos personales, antecedentes, alergias y hábitos. Es
+<b>una sola por paciente</b> y se va completando; lo que se registra por visita es la
+atención.</p>
+<ul>
+  <li><b>Menú Secciones</b> — salta entre bloques sin bajar con la rueda.</li>
+  <li><b>Guardar historia</b> — envía el formulario completo.</li>
+  <li><b>Alergias</b> — se registran con <b>agente y reacción</b>. Ver
+  <a href="#alergias">Registrar una alergia</a>.</li>
+</ul>
+<div class="caja aviso">
+  <span class="et">Para el auxiliar es de solo lectura, y se nota</span>
+  <p>Los campos aparecen deshabilitados y un aviso dice a quién le corresponde. No es un
+  formulario que se llene y luego no guarde.</p>
+</div>
+
+<h3 id="v-odontograma">Ficha ▸ Odontograma</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> — Administración <b>no</b></p>
+<p>El estado de la boca y el plan de tratamiento, en dos pestañas.</p>
+<ul>
+  <li><b>Diagnóstico</b> — lo que hay hoy. Se marca por cara del diente.</li>
+  <li><b>Plan</b> — lo que se propone hacer. Es un odontograma aparte.</li>
+  <li><b>Dentición</b> — adulto, pediátrico o mixto.</li>
+  <li><b>Historial de versiones</b> — cada versión guardada, con su fecha.</li>
+</ul>
+<div class="caja aviso">
+  <span class="et">Si dos personas lo abren a la vez</span>
+  <p>El sistema no deja que la segunda pise lo de la primera: avisa y pide <b>recargar</b>.
+  Reintentar volvería a fallar, y forzar borraría el trabajo del otro.</p>
+</div>
+
+<h3 id="v-tratamientos">Ficha ▸ Tratamientos</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-adm">Administración</span> — Recepción <b>no</b></p>
+<p>Lo que se le está haciendo al paciente y cuánto se ha cobrado de cada cosa.</p>
+<ul>
+  <li><b>Registrar un tratamiento</b> — el selector del tarifario precarga nombre y precio.</li>
+  <li><b>Columna Cobro</b> — lo acordado frente a lo cobrado. Se llena vinculando el
+  movimiento de cartera al tratamiento.</li>
+  <li><b>Columna Registró</b> — quién lo registró. Los anteriores a esta función salen como
+  «Sin registrar».</li>
+  <li><b>Crear desde el plan</b> — trae los procedimientos marcados en el odontograma.</li>
+</ul>
+
+<h3 id="v-presupuesto">Ficha ▸ Presupuesto</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span> — el auxiliar <b>no</b></p>
+<p>Lo propuesto al paciente y qué aceptó, línea por línea.</p>
+<ul>
+  <li><b>Añadir líneas</b> — desde el tarifario o escritas a mano, con diente y cantidad.</li>
+  <li><b>Descuento</b> — se teclea en porcentaje y se guarda en pesos, que es lo que el
+  paciente paga.</li>
+  <li><b>Aceptar / No acepta</b> — por línea. Aceptar <b>crea el tratamiento</b>. Solo
+  <span class="rol r-odo">Odontólogo</span> <span class="rol r-adm">Administración</span>.</li>
+  <li><b>PDF y firma</b> — imprimirlo o pedirle al paciente que lo firme.</li>
+</ul>
+
+<h3 id="v-cartera-paciente">Ficha ▸ Cartera</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span></p>
+<p>Los movimientos de ese paciente y su saldo. Es la misma pantalla de Cartera, filtrada.</p>
+
+<h3 id="v-documentos">Ficha ▸ Documentos</h3>
+<p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span> — cada uno ve los suyos</p>
+<p>Los <b>cuatro documentos que firma el paciente</b>, en un solo sitio. <b>No es una
+pestaña</b>: se abre desde el menú de cada fila en Pacientes.</p>
+<table>
+  <thead><tr><th>Documento</th><th>Quién lo emite</th></tr></thead>
+  <tbody>
+    <tr><td><b>Consentimiento informado</b></td><td><span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span></td></tr>
+    <tr><td><b>Autorización de tratamiento de datos</b></td><td><span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-rec">Recepción</span></td></tr>
+    <tr><td><b>Rechazo de tratamiento</b></td><td><span class="rol r-odo">Odontólogo</span> — el auxiliar solo lo ve</td></tr>
+    <tr><td><b>Revocatoria de consentimiento</b></td><td><span class="rol r-rec">Recepción</span> <b>registra</b> la solicitud · <span class="rol r-odo">Odontólogo</span> la <b>resuelve</b></td></tr>
+  </tbody>
+</table>
+<div class="caja nota">
+  <span class="et">Recibir un trámite no es resolverlo</span>
+  <p>Recepción puede anotar que un paciente pide revocar su consentimiento, porque es quien lo
+  atiende en el mostrador. Decidir si procede es del profesional, y por eso recepción no tiene
+  esos botones.</p>
+</div>
+
+<h3 id="v-firma">La pantalla del paciente</h3>
+<p class="quien">La abre el <b>paciente</b>, sin usuario del sistema</p>
+<p>Cuando se pide una firma, el sistema genera un <b>enlace con código QR</b>. El paciente lo
+abre en su celular o en la tablet que se le pasa, lee el documento y firma con el dedo.</p>
+<ul>
+  <li>No lleva menú ni da acceso a ninguna otra parte del sistema.</li>
+  <li>El enlace <b>caduca</b>, y una vez firmado no sirve otra vez.</li>
+  <li>En la autorización de datos, el paciente <b>marca qué autoriza</b>: las opcionales nacen
+  desmarcadas.</li>
+</ul>
+<figure>
+  <img src="capturas/21-pantalla-paciente-firma.png" alt="La pantalla que ve el paciente para firmar">
+  <figcaption>Lo que ve el paciente. Si no puede firmar en pantalla, se imprime el documento
+  en blanco y se firma a mano.</figcaption>
+</figure>
 
 <h2 id="ref-roles">Qué puede hacer cada rol</h2>
 
@@ -862,12 +1249,29 @@ cuando termina. No la haga con pacientes esperando.</p>
     <tr><td>Cartera y abonos</td><td>Sí</td><td>Sí</td><td>Sí, sin detalle clínico</td><td>Sí, sin detalle clínico</td></tr>
     <tr><td>Tarifario</td><td>Solo leer</td><td>Solo leer</td><td>Solo leer</td><td><b>Crear y poner precios</b></td></tr>
     <tr><td>Usuarios, respaldo, textos</td><td>No</td><td>No</td><td>No</td><td>Sí</td></tr>
+    <tr><td>Alertas clínicas del paciente</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
+    <tr><td>Documentos que firma el paciente</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+    <tr><td>· Emitir la autorización de datos</td><td>Sí</td><td>Sí</td><td>Sí</td><td>No</td></tr>
+    <tr><td>· Registrar un rechazo de tratamiento</td><td>Sí</td><td>Solo verlo</td><td>No</td><td>No</td></tr>
+    <tr><td>· Revocatoria de consentimiento</td><td>La resuelve</td><td>Solo verla</td><td>La registra</td><td>No</td></tr>
+    <tr><td>Catálogo de actuaciones del auxiliar</td><td>Solo el responsable clínico lo cambia</td><td>Solo consultarlo</td><td>Solo consultarlo</td><td>Solo consultarlo</td></tr>
+    <tr><td>Notificaciones: leerlas</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+    <tr><td>Notificaciones: escribirlas</td><td>Sí</td><td>Sí</td><td>No</td><td>Sí</td></tr>
+    <tr><td>Mi perfil, contraseña y firma</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+    <tr><td>PIN de firma propio</td><td>Sí</td><td>No lo necesita</td><td>No lo necesita</td><td>No lo necesita</td></tr>
     <tr><td>Registro de accesos</td><td>Solo el responsable clínico</td><td>No</td><td>No</td><td>No</td></tr>
   </tbody>
 </table>
 </div>
 
 <div class="caja nota">
+  <span class="et">Cómo se hizo esta tabla</span>
+  <p>Cada celda se comprobó <b>pidiéndole el dato al sistema con la cuenta de cada rol</b> y
+  anotando si respondía o lo negaba — no se copió de la documentación. Si alguna celda no
+  coincide con lo que usted ve en pantalla, mándelo a soporte: manda lo que hace el sistema.</p>
+</div>
+
+<div class="caja">
   <span class="et">Por qué Administración no ve lo clínico</span>
   <p>Administración gestiona el sistema, no atiende pacientes. Ve la agenda, la ficha, la cartera
   y los presupuestos, pero no las fórmulas, ni las evoluciones, ni los documentos clínicos. Si
@@ -1022,19 +1426,40 @@ poder equivocarse sin consecuencias.</p>
   <li><code>npm run seed</code> — crea el usuario administrador.</li>
   <li><code>npm run seed:procedimientos</code> — carga el catálogo CUPS (sin precios).</li>
   <li><code>npm run seed:permisos</code> — carga la matriz de permisos. <b>Después</b> del anterior.</li>
-  <li><code>npm run seed:demo</code> — siembra los pacientes de ejemplo.</li>
+  <li><code>npm run seed:poblacion</code> — siembra el consultorio de ejemplo.</li>
+  <li><code>npm run seed:poblacion:documental</code> — y lo que se firma, se autoriza y se
+  registra. <b>Después</b> del anterior.</li>
 </ol>
 
-<p>Qué queda sembrado: <b>55 pacientes</b>, 85 citas, 35 historias clínicas, 40 tratamientos,
-81 movimientos, 45 evoluciones y 20 fórmulas médicas, con nombres y datos colombianos ficticios.</p>
+<p>Queda un consultorio con <b>tres años de uso</b>: 1.000 pacientes, unas 2.900 citas, 1.000
+atenciones —la mayoría firmadas y cerradas—, 780 historias clínicas con sus alergias, 570
+odontogramas, 900 tratamientos, 4.200 movimientos de cartera, 400 presupuestos, 120
+cotizaciones, 530 consentimientos, 540 autorizaciones de datos y <b>37.700 asientos en el
+registro de accesos</b>. Todos los nombres son ficticios.</p>
+
+<div class="caja ok">
+  <span class="et">Trae lo que hace falta para practicar de verdad</span>
+  <p><b>El tarifario con precios</b>, así que los presupuestos de práctica no salen en $0.
+  ⚠️ Son cifras verosímiles inventadas: <b>no son un tarifario real</b> y no deben copiarse a
+  la instalación del consultorio.</p>
+  <p><b>Alergias registradas</b> en unos 150 pacientes, para ver la alerta clínica funcionando;
+  <b>PIN de firma activo</b> en los cuatro odontólogos, así que se puede firmar; y los
+  <b>cuatro documentos que firma el paciente</b>, en todos sus estados.</p>
+</div>
+
+<div class="caja nota">
+  <span class="et">Se puede volver a sembrar sin miedo</span>
+  <p>Los dos comandos son <b>repetibles</b>: correrlos otra vez no duplica nada ni añade
+  pacientes de más — reconocen lo que ya sembraron. Y siempre producen lo mismo, así que dos
+  equipos con la misma base de prueba ven exactamente el mismo consultorio.</p>
+  <p>Para un juego más pequeño: <code>node prisma/seed-poblacion.js --pacientes 150</code>.</p>
+</div>
 
 <div class="caja aviso">
-  <span class="et">Dos cosas que el ejemplo no trae</span>
-  <p><b>Precios en el tarifario</b>: los presupuestos de práctica saldrán en $0 hasta que se
-  carguen.</p>
-  <p><b>Alergias registradas ni PIN de firma</b>: para practicar la alerta clínica y la firma hay
-  que registrarlas a mano siguiendo <a href="#alergias">Registrar una alergia</a> y
-  <a href="#pin">El PIN de firma</a>.</p>
+  <span class="et">El seed antiguo BORRA la población</span>
+  <p><code>npm run seed:demo</code> es el juego anterior, de 55 pacientes, y <b>empieza
+  borrando</b> citas, tratamientos, movimientos, historias y odontogramas. Si ya sembró la
+  población de arriba, ejecutarlo la destruye.</p>
 </div>
 
 <h3>Un recorrido de práctica sugerido</h3>
@@ -1051,8 +1476,8 @@ poder equivocarse sin consecuencias.</p>
   <li>Hágale un presupuesto de tres procedimientos y acepte solo uno.</li>
   <li>Vaya a <b class="btn">Tratamientos</b> y compruebe que apareció el procedimiento que
   aceptó, con su monto.</li>
-  <li>Vaya a <b class="btn">Cartera</b> y verá que <b>todavía está vacía</b>: aceptar no cobra.
-  Registre ahí el ingreso y vincúlelo a ese tratamiento.</li>
+  <li>Vaya a <b class="btn">Cartera</b> y verá que <b>ese tratamiento no tiene ningún
+  cobro</b>: aceptar no cobra. Registre ahí el ingreso y vincúlelo a ese tratamiento.</li>
 </ol>
 
 <p>Si los once pasos le salen, sabe usar Biodont para el día a día.</p>
