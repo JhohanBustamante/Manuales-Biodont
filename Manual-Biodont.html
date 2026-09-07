@@ -124,6 +124,7 @@ footer{margin-left:var(--ancho-nav);padding:26px 52px 60px;color:var(--gris);fon
   <a href="#que-es">Qué es Biodont</a>
   <a href="#entrar">Entrar al sistema</a>
   <a href="#puesta-en-marcha">Puesta en marcha</a>
+  <a href="#ver-mejor">Ver mejor la pantalla</a>
 
   <div class="grupo">Parte 1 · Cómo se hace</div>
   <a href="#paciente-nuevo">Llega un paciente nuevo</a>
@@ -202,17 +203,28 @@ como se comporta:</p>
 
 <div class="caja aviso">
   <span class="et">Si se equivoca cinco veces</span>
-  <p>El sistema bloquea los intentos durante <b>15 minutos</b>. El bloqueo es por equipo, no por
-  persona: si alguien agota los cinco intentos en el computador del mostrador, los demás tampoco
-  podrán entrar desde ese equipo hasta que pasen los 15 minutos.</p>
+  <p>El sistema bloquea los intentos durante <b>15 minutos</b>. El bloqueo es <strong>de esa cuenta en ese equipo</strong>: si usted agota los cinco intentos en el computador del mostrador, sus compañeros <strong>sí pueden entrar</strong> desde ahí con su propio correo. Espere los 15 minutos o entre desde otro equipo.</p>
 </div>
 
 <div class="caja nota">
-  <span class="et">Cerrar sesión cierra todas sus sesiones</span>
-  <p>Si pulsa <b class="btn">Salir</b>, se cierra su sesión en <b>todos</b> los dispositivos donde
-  la tuviera abierta, no solo en ese equipo. Si trabaja con el computador y una tablet, tendrá que
-  volver a entrar en las dos.</p>
+  <span class="et">Al salir, el sistema le pregunta hasta dónde</span>
+  <p>Si pulsa <b class="btn">Salir</b> aparece una pregunta con dos opciones, porque no siempre se
+  quiere lo mismo:</p>
+  <ul>
+    <li><b class="btn">Salir solo en este equipo</b> — cierra su sesión <b>aquí</b>. Si la tenía
+    abierta en la tablet o en otro computador, <b>esas siguen funcionando</b>. Es lo que conviene
+    cuando termina en el mostrador y deja su consulta abierta.</li>
+    <li><b class="btn">Salir en todos los equipos</b> — cierra su sesión <b>en todas partes</b>.
+    Es la opción que viene marcada, y la que hay que usar si sospecha que alguien más pudo quedar
+    dentro con su cuenta.</li>
+  </ul>
+  <p>Y <b class="btn">Cancelar</b> no cierra nada: vuelve a donde estaba.</p>
 </div>
+
+<figure>
+  <img src="capturas/25-cerrar-sesion.png" alt="Pregunta al cerrar sesión, con las opciones de salir solo en este equipo o en todos">
+  <figcaption>La pregunta al pulsar Salir. La opción resaltada cierra en todos los equipos.</figcaption>
+</figure>
 
 <h2 id="puesta-en-marcha">Puesta en marcha</h2>
 <p class="sub">Lo que hay que hacer <b>una sola vez</b>, el primer día, antes de atender pacientes.</p>
@@ -294,6 +306,49 @@ firmar y estar dentro del sistema serían lo mismo, y la firma no probaría nada
   <b>más abajo</b>, sin llegar a verse aquí, están el PIN de firma y su firma o sello.</figcaption>
 </figure>
 <hr>
+<h2 id="ver-mejor">Ver mejor la pantalla</h2>
+<p class="quien"><span class="rol r-adm">Administrador</span> <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-rec">Recepción</span></p>
+
+<p>Si le cuesta leer la pantalla, o trabaja con poca luz, o el reflejo le molesta, hay tres
+ajustes en <b class="btn">Mi perfil</b> → <b>Cómo ves la interfaz</b>. <b>Son suyos</b>: se
+guardan en su cuenta y le acompañan a cualquier computador del consultorio, sin cambiar lo que
+ven los demás.</p>
+
+<div class="caja">
+  <span class="et">Los tres son distintos, y conviene saber cuál usar</span>
+  <ul>
+    <li><b>Apariencia</b> — cambia solo los colores. Nada se mueve de sitio. Hay cuatro:
+      <b>Clínico</b> (la normal), <b>Sereno</b> (más suave, para jornadas largas),
+      <b>Alto contraste</b> (letra más marcada; para baja visión o pantallas con reflejo) y
+      <b>Nocturno</b> (fondo oscuro, para consultar con poca luz).</li>
+    <li><b>Tamaño de la interfaz</b> — agranda <i>todo</i> a la vez: textos, botones y
+      espacios, igual que el zoom del navegador.</li>
+    <li><b>Tamaño del texto</b> — agranda <b>solo la letra</b>, sin separar más las cosas.
+      Úselo si le cuesta leer pero no quiere que quepan menos filas en pantalla.</li>
+  </ul>
+</div>
+
+<ol class="pasos">
+  <li>Abra <b class="btn">Mi perfil</b> desde el menú de arriba a la derecha.</li>
+  <li>Baje hasta <b>Cómo ves la interfaz</b>.</li>
+  <li>Pulse la opción que quiera. <b>Se aplica al instante</b> y se guarda sola: no hay botón
+    de guardar.</li>
+</ol>
+
+<figure>
+  <img src="capturas/24-ver-mejor.png" alt="Los tres ajustes de apariencia y tamaño en Mi perfil">
+  <figcaption>Mi perfil → Cómo ves la interfaz. Las cuatro apariencias, con una muestra de
+  cómo se ve cada una.</figcaption>
+</figure>
+
+<div class="caja">
+  <span class="et">Dos cosas que suelen preguntarse</span>
+  <p><b>¿Le cambia la pantalla a los demás?</b> No. Cada persona tiene la suya, aunque
+  compartan el mismo computador — el del mostrador o la tablet.</p>
+  <p><b>¿Se pierde al entrar desde otro equipo?</b> No. Va con su cuenta: entre donde entre,
+  la interfaz aparece como usted la dejó.</p>
+</div>
+
 <h2 id="paciente-nuevo">Llega un paciente nuevo</h2>
 <p class="quien"><span class="rol r-rec">Recepción</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-odo">Odontólogo</span> <span class="rol r-adm">Administración</span></p>
 
@@ -493,6 +548,18 @@ historia clínica, en <b>Antecedentes patológicos → 4. Alergias</b>.</p>
   <p>Una vez registrada, la alergia aparece en el <b>odontograma</b> (panel «Condiciones del
   paciente»), en la <b>atención</b> y en la propia historia clínica.</p>
 </div>
+
+<h3>Si se equivocó al escribirla</h3>
+<p>Pulse <b class="btn">Corregir</b> en la alergia y arregle el agente, la categoría o la
+reacción. <b>No la borre para volver a crearla</b>: al corregir se conserva quién la registró y
+cuándo, y al borrar y recrear esos dos datos cambian.</p>
+
+<div class="caja alto">
+  <span class="et">Si le dice que no se puede corregir</span>
+  <p>Significa que esa alergia pertenece a una versión de antecedentes <b>ya cerrada</b> — se
+  guardó una edición de la historia después de registrarla. Lo que consta en una atención ya
+  firmada no se reescribe. Registre la corrección como una alergia nueva.</p>
+</div>
 <hr>
 <h2 id="atender">Atender y firmar la atención</h2>
 <p class="quien"><span class="rol r-odo">Odontólogo</span> crea, revisa, firma y cierra · <span class="rol r-aux">Auxiliar</span> registra contenido, <b>no</b> firma ni cierra</p>
@@ -519,6 +586,19 @@ la atención es una por visita y no se sobrescribe nunca.</p>
   <figcaption>Atención en curso. Mientras esté <b>Sin firmar</b> se puede editar; a la derecha se
   ven las atenciones anteriores del paciente.</figcaption>
 </figure>
+
+<h3>Corregir un diagnóstico</h3>
+<p>Si escribió mal un diagnóstico, pulse <b class="btn">Corregir</b> junto a él y arregle el
+texto, el código o el tipo. <b>No use «Quitar» para volver a añadirlo</b>: al corregir se
+conserva quién lo registró y cuándo, y al borrar y recrear esos dos datos cambian — en un
+documento que se conserva quince años, eso no es lo mismo.</p>
+
+<div class="caja alto">
+  <span class="et">Después de firmar ya no se corrige</span>
+  <p>La firma deja una huella del contenido, así que una atención firmada no admite cambios: el
+  sistema responde que lo posterior se registra como <b>adenda</b>. Es lo correcto — corregir a
+  escondidas un documento firmado es justo lo que la norma impide.</p>
+</div>
 
 <h3>Firmar</h3>
 <p>Firmar cierra el contenido: a partir de ahí <b>no se puede editar</b>, y el sistema guarda una
@@ -821,6 +901,32 @@ no pudo</b>.</p>
   <p>La pantalla dice que <b>la ausencia de asientos no significa ausencia de accesos</b>: el
   registro automático cubre las rutas que pasan por el motor de permisos. Léalo como una fuente
   parcial, no como la lista completa de todo lo que ocurrió.</p>
+</div>
+
+<h3>¿Estaba autorizada esa actuación el día que se hizo?</h3>
+<p>Es la otra pregunta de auditoría, y se responde en <b>Actuaciones</b>, no aquí. Al revisar una
+atención de hace meses puede necesitar saber si quien la registró <b>podía hacerlo entonces</b> —
+no ahora—, porque el catálogo del auxiliar cambia con el tiempo.</p>
+<ol>
+  <li>Entre a <b class="btn">Actuaciones</b>.</li>
+  <li>Busque el procedimiento y pulse <b class="btn">¿Autorizada el…?</b>.</li>
+  <li>Escriba la fecha de la atención y pulse <b class="btn">Consultar</b>.</li>
+</ol>
+
+<div class="caja aviso">
+  <span class="et">Tres respuestas, y la tercera no es un «no»</span>
+  <p><b>Sí estaba autorizada</b> o <b>No estaba autorizada</b> vienen acompañadas del cambio que
+  lo sostiene: la fecha, quién lo hizo y el motivo. La tercera es <b>«No hay constancia»</b>, y
+  significa que no existe ningún cambio registrado antes de esa fecha — la actuación quedó como
+  la dejó la instalación inicial. El sistema no afirma que se hubiera denegado, porque nadie
+  decidió nada al respecto.</p>
+</div>
+
+<div class="caja ok">
+  <span class="et">Para qué sirve en la práctica</span>
+  <p>El histórico de la actuación le da la lista de cambios; esta consulta le da <b>la respuesta
+  a una fecha concreta</b>. Deducirla leyendo el histórico es fácil de hacer mal, y equivocarse
+  aquí es afirmar que alguien hizo algo que no podía.</p>
 </div>
 
 <hr>
@@ -1236,7 +1342,7 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
   <tbody>
     <tr><td>Agenda y citas</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
     <tr><td>Ficha del paciente</td><td>Sí</td><td>Sí</td><td>Sí, sin campos clínicos</td><td>Sí, sin campos clínicos</td></tr>
-    <tr><td>Historia clínica</td><td>Ver y editar</td><td>Ver</td><td>No</td><td>Ver sin el detalle clínico</td></tr>
+    <tr><td>Historia clínica</td><td>Ver y editar</td><td>Ver</td><td>No</td><td>Ver y editar <b>solo la parte administrativa</b>, sin el detalle clínico</td></tr>
     <tr><td>Atención: crear y editar</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
     <tr><td>Atención: firmar y cerrar</td><td>Sí</td><td><b>No</b></td><td>No</td><td>No</td></tr>
     <tr><td>Odontograma</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
@@ -1327,13 +1433,14 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
   <tbody>
     <tr>
       <td>«Sesión expirada» sin haber hecho nada</td>
-      <td>Cerró sesión en otro dispositivo, o pasaron 8 horas.</td>
+      <td>Pasaron 8 horas, o alguien salió <b>en todos los equipos</b> con su cuenta. Salir
+      <b>solo en un equipo</b> no le cierra los demás.</td>
       <td>Vuelva a entrar.</td>
     </tr>
     <tr>
       <td>No deja entrar y dice que hay demasiados intentos</td>
       <td>Cinco contraseñas falladas desde ese equipo.</td>
-      <td>Espere 15 minutos. Afecta al equipo, no a la persona.</td>
+      <td>Espere 15 minutos. Afecta a <strong>su cuenta en ese equipo</strong>, no a sus compañeros.</td>
     </tr>
     <tr>
       <td>Una pantalla dice que no tiene permiso</td>
