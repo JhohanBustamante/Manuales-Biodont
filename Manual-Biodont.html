@@ -59,6 +59,8 @@ b.campo{background:#eef2f0;border:1px solid var(--linea);padding:1px 7px;border-
 figure{margin:20px 0 26px}
 figure img{width:100%;border:1px solid var(--linea);border-radius:10px;display:block;
   box-shadow:0 2px 10px rgba(0,0,0,.06)}
+figure.estrecha img{width:auto;max-width:100%}
+figure.celular img{width:330px;max-width:100%}
 figcaption{font-size:13.5px;color:var(--gris);margin-top:8px;font-style:italic}
 
 /* Diagramas. Un SVG que se escala con la columna deja el texto por debajo de lo
@@ -510,8 +512,11 @@ funcionan igual: <b>se escribe para acotar</b>. Al hacer clic en el buscador pue
 <ol class="pasos">
   <li>Escriba <b>parte del nombre, el apellido o el documento</b>. Bastan tres o cuatro letras.</li>
   <li>Espere un instante: la búsqueda la hace el servidor sobre <b>todos</b> los pacientes.</li>
-  <li>Pulse el que corresponda. Para cambiarlo, pulse la <b>✕</b> y busque otro.</li>
+  <li>Pulse el que corresponda. Para cambiarlo, en la nueva cita y en el aviso pulse la <b>✕</b> y busque otro; en el buscador de la barra superior, vacíe la casilla (o pulse <b>Escape</b>) y escriba otro.</li>
 </ol>
+
+<p><b>Con el teclado</b>: las flechas ↓ y ↑ recorren la lista, <b>Enter</b> elige el resaltado (o el único que haya) sin enviar el
+formulario, y <b>Escape</b> cierra la lista sin elegir.</p>
 
 <div class="caja nota">
   <span class="et">«Se muestran 8 de 300»</span>
@@ -627,7 +632,7 @@ crea una nueva en cada visita: lo que se registra por visita es la <a href="#ate
   <span class="et">Lo que no toca, no se guarda</span>
   <p>Los desplegables de antecedentes muestran «No» mientras nadie los haya llenado, porque solo ofrecen «No» y «Sí». Si usted solo escribe el
   motivo de consulta, esos antecedentes <b>siguen sin diligenciar</b>: solo se guarda un grupo (hábitos, embarazo, cirugías…) cuando usted lo cambia
-  o cuando ya tenía datos. Si quiere dejar un «No» como respuesta, cámbielo a «Sí» y vuélvalo a «No», o cambie otro dato de ese grupo.</p>
+  o cuando ya tenía datos. Si quiere dejar un «No» como respuesta, cambie otro dato de ese grupo: volver un «Sí» a «No» deja el grupo como estaba y no cuenta como un cambio.</p>
 </div>
 
 <div class="caja nota">
@@ -686,9 +691,17 @@ historia clínica, en la pestaña <b>Antecedentes → 4. Alergias</b>.</p>
 
 <div class="caja ok">
   <span class="et">Dónde aparece después</span>
-  <p>Una vez registrada, la alergia aparece en el <b>odontograma</b> (panel «Condiciones del
-  paciente»), en la <b>atención</b> y en la propia historia clínica.</p>
+  <p>Una vez registrada, la alergia aparece, con su agente, en la <b>franja de condiciones</b> que va arriba de todas las pantallas del
+  paciente: Atención, Historia clínica, Odontograma, Periodontograma, Tratamientos, Presupuesto, Documentos y Archivos. Las alergias a
+  <b>medicamentos</b>, <b>anestésicos</b> y <b>látex</b> (el de los guantes y el dique) son además alerta <b>alta</b>, en rojo, en el Resumen.
+  Si la respuesta es <b>No sabe</b>, la franja lo dice: <i>«Alergias: el paciente no sabe si tiene»</i>.</p>
 </div>
+
+<h3>Si ya no corresponde: retirarla</h3>
+<p>Si una alergia se registró por error o resultó no ser tal, pulse <b class="btn">Quitar</b> junto a ella. El sistema pide el
+<b>motivo</b> (al menos 5 caracteres); escríbalo y pulse <b class="btn">Sí, retirar</b> (o Enter). La alergia <b>no se borra</b>: queda
+anulada con quién la retiró, cuándo y por qué, y deja de salir en la franja, las alertas y la atención. Si era la única, la respuesta vuelve a
+<b>Sin diligenciar</b>: retirar la última no equivale a afirmar que el paciente no tiene alergias. <b class="btn">Cancelar</b> (o Escape) la deja como estaba.</p>
 
 <h3>Si se equivocó al escribirla</h3>
 <p>Pulse <b class="btn">Corregir</b> en la alergia y arregle el agente, la categoría o la
@@ -744,7 +757,9 @@ remisiones</b>, <b>Archivos</b> y <b>Constancias y correcciones</b>.</p>
   cuando lo hay, el CIE-11— a partir de lo marcado. Solo se guarda lo que usted <b class="btn">Confirmar</b>: el sistema
   sugiere, el diagnóstico lo hace el profesional.</li>
   <li>En <b>Plan de tratamiento</b> aparecen los procedimientos pendientes del plan. Al terminar
-  uno en esta visita, pulse <b class="btn">Realizado en esta atención</b>.</li>
+  uno en esta visita, pulse <b class="btn">Realizado en esta atención</b>. Cada línea dice, entre paréntesis, los datos que
+  deciden su código (por ejemplo «quirúrgica» o «provisional», o «sin decidir si es simple o quirúrgica» si falta) y su
+  código CUPS, o <b>sin CUPS</b> si todavía no lo tiene: antes de marcarla, revise que lo que se hizo coincide.</li>
   <li>Añada los <b>signos vitales</b> si los tomó. Los <b>antecedentes</b> aparecen resumidos, en
   solo lectura: se editan en la historia clínica.</li>
   <li>En <b>Próximo control</b> elija un atajo (1 semana, 15 días, 1 mes, 6 meses) o una fecha, y
@@ -809,6 +824,8 @@ atiende.</p>
   <li><b>Periodontal (PRA)</b>, para pacientes en terapia de soporte: pulse
   <b class="btn">Tomar del periodontograma y del odontograma</b> para prellenar el sangrado, las
   bolsas y los dientes perdidos; el aviso dice de dónde sale cada cifra y qué no se pudo tomar.
+  <b>El sangrado no se trae si el periodontograma tiene sitios sondados sin evaluar</b> (por ejemplo, «cobertura incompleta: 72 de 168 sitios
+  evaluados»): un porcentaje sobre la mitad de la boca no es el de la boca, así que el aviso lo dice y hay que escribirlo.
   Complete el resto y guarde.</li>
 </ol>
 <figure>
@@ -860,6 +877,14 @@ alteró.</p>
   contraseña— y pulse <b class="btn">Firmar</b>.</li>
 </ol>
 
+<div class="caja alto">
+  <span class="et">Revisa, firma y cierra solo quien la creó</span>
+  <p>Una atención la revisa, la firma y la cierra <b>su autor</b>: quien la abrió. A cualquier otra persona la pantalla le dice quién la creó
+  y no le ofrece <b>Firmar</b> ni <b>Cerrar atención</b>. Si cambió el profesional que atiende (por ejemplo, la abrió alguien que ya no está ese
+  día), el <b>responsable clínico</b> pulsa <b class="btn">Reasignar autor…</b>, elige el odontólogo en <b>Nuevo autor</b> y pulsa
+  <b class="btn">Reasignar</b>. Solo se reasigna lo que aún no está firmado, y queda constancia de quién lo hizo.</p>
+</div>
+
 <div class="caja aviso">
   <span class="et">Con el RDA activo, faltan datos para firmar</span>
   <p>Si el consultorio genera el RDA, la atención no se firma sin la <b>consulta (CUPS)</b>, la
@@ -891,6 +916,9 @@ alteró.</p>
     <tr><td><b class="btn">Anular</b></td><td>Deja la atención sin efecto <b>dejando constancia</b> de quién la anuló y por qué. No la borra.</td></tr>
   </tbody>
 </table>
+
+<p>Las atenciones anuladas no salen en la lista; para verlas, marque <b>Ver anuladas</b>. Una anulada se abre <b>solo para leer</b>, con su
+fecha y su motivo de anulación, y se puede imprimir como constancia (el impreso lo obtiene quien puede ver la atención entera).</p>
 
 <div class="caja alto">
   <span class="et">Un error después de firmar se corrige con una adenda</span>
@@ -985,7 +1013,7 @@ sus rehabilitaciones. Ningún hallazgo es solo un color: cada marca lleva su sig
   examinar, márquela como <b>no examinable</b>. Para una restauración que abarca varias caras,
   marque <b>Una sola restauración en varias caras</b>.</li>
   <li>En <b class="btn">Diente completo</b> registre la <b>presencia</b> (presente, o ausente
-  <i>con su causa</i>: por caries, agenesia, no erupcionado…), el <b>diagnóstico pulpar</b> —uno
+  <i>con su causa</i>: por caries, agenesia, no erupcionado…), el <b>número de raíces</b>, el <b>diagnóstico pulpar</b> —uno
   solo vigente por diente—, el <b>periápice</b>, el tratamiento pulpar que ya tiene y las
   rehabilitaciones (corona, prótesis…).</li>
   <li>Lo marcado se guarda solo a los pocos segundos y aparece abajo, en <b>Registro</b>.</li>
@@ -994,6 +1022,50 @@ sus rehabilitaciones. Ningún hallazgo es solo un color: cada marca lleva su sig
 <p>Un diente que ya tiene caras registradas <b>no se puede pasar a ausente</b>: el odontograma no lo hace, no pide un motivo y no
 borra nada, sino que avisa «El diente N tiene caras registradas: anúlalas antes de registrarlo …». Primero se anulan las caras
 (con su motivo) y después se registra la ausencia. Lo mismo vale para la pulpa y para las rehabilitaciones que no caben en un diente ausente.</p>
+
+<div class="caja nota">
+  <span class="et">El número de raíces decide el código del plan</span>
+  <p>En <b>Diente completo</b>, <b>Número de raíces</b> (una a cuatro, o «Sin registrar») sirve para elegir el CUPS de la
+  <b>endodoncia</b> y de la <b>exodoncia</b> de ese diente en el plan: con las raíces registradas, el código de la endodoncia
+  sale «sugerido» en vez de «por confirmar»; el de la exodoncia, cuando además se elige si es simple o quirúrgica (ver
+  <a href="#plan-candidatos">los candidatos CUPS</a>). Regístrelo cuando lo vea en la
+  radiografía, sobre todo en el 14 y el 24, que tienen a menudo dos raíces y a veces una; también se puede en un diente
+  incluido. Quitarlo pide motivo, como cualquier anulación. Si el diente pasa después a ausente (por ejemplo, tras la
+  exodoncia), las raíces se conservan: son del diente que hubo. En un diente ausente el campo solo aparece si ya tenía las
+  raíces registradas: no se registran de nuevo.</p>
+</div>
+
+<figure class="estrecha">
+  <img src="capturas/52-numero-raices.png" alt="Panel Diente completo del molar 36 con el campo Número de raíces en «Dos raíces»">
+  <figcaption>El número de raíces, en <b>Diente completo</b>, debajo de la presencia.</figcaption>
+</figure>
+
+<div class="caja nota" id="leer-el-dibujo">
+  <span class="et">Cómo leer el dibujo del diente</span>
+  <p>Debajo de la rejilla, la <b>leyenda</b> nombra cada marca con su color, el patrón dicho con palabras, dónde va
+  y cómo se ve, así que se entiende también impresa en gris. Hay tres clases de marca, además de la cruz del diente ausente:</p>
+  <ul>
+    <li><b>Relleno de la cara</b>: el estado de cada cara. Caries y restauración con caries, relleno macizo; sellante,
+    rayas cruzadas; restauración, rayas diagonales /; restauración perdida, fracturada o temporal, y fractura, desgaste o
+    fisura, rayas diagonales \; sana (ICDAS 00), puntos; no examinable (ICDAS 96), rayas horizontales. La <b>corona</b> pinta
+    todas las caras que cubre con <b>rayas verticales</b>, igual que en el PDF.</li>
+    <li><b>Silueta del diente rellena</b>: la corona, el implante y las piezas de una prótesis rellenan la silueta entera del
+    diente, cada una con su color. Por eso la corona sale dos veces en la leyenda: una por sus caras (rayas verticales) y
+    otra por la silueta. Si la rehabilitación es defectuosa o temporal, el contorno del diente se dibuja en rojo y
+    discontinuo.</li>
+    <li><b>Dibujo en la raíz</b>: el tratamiento pulpar se dibuja dentro del diente, y la forma dice cuál es. La
+    <b>endodoncia</b> es la cámara y el conducto completo con trazo continuo; la <b>pulpectomía</b>, la cámara y el conducto
+    completo con trazo discontinuo; la <b>pulpotomía</b>, solo la cámara.</li>
+  </ul>
+  <p>Un diente ausente lleva una cruz encima. La leyenda de diente completo solo muestra las marcas que tiene el paciente:
+  explica lo que se ve, no el catálogo entero.</p>
+</div>
+
+<figure>
+  <img src="capturas/53-leyenda.png" alt="Rejilla del odontograma con caries, restauración, sellante, una corona en el 46 y una endodoncia en el 37, y la leyenda debajo">
+  <figcaption>La corona del 46 rellena la silueta y raya en vertical sus caras; la endodoncia del 37 se dibuja en la raíz.
+  La leyenda dice, para cada marca, dónde va, cómo se ve y su patrón.</figcaption>
+</figure>
 
 <div class="caja aviso">
   <span class="et">Quitar algo pide un motivo</span>
@@ -1005,7 +1077,10 @@ borra nada, sino que avisa «El diente N tiene caras registradas: anúlalas ante
 <h3>El plan de tratamiento</h3>
 <p>La pestaña <b>Plan de tratamiento</b> es una <b>lista de procedimientos</b>: cada uno con dónde
 se hace (unas caras, un diente, una prótesis o la boca completa), su código CUPS si lo tiene y su
-estado. Va aparte del diagnóstico a propósito: la norma exige que lo encontrado y lo que se va a
+estado. Para poner el CUPS no hace falta saberse el código: al entrar en el campo vacío se ofrecen los
+<a href="#plan-candidatos">candidatos</a> de ese procedimiento en ese diente, y también se puede escribir el nombre del procedimiento
+(«resina», «exodoncia», «profilaxis») o parte del código y elegir de la lista con el ratón o con las flechas y
+<b>Enter</b>. Solo se guarda un código del catálogo activo del consultorio. Va aparte del diagnóstico a propósito: la norma exige que lo encontrado y lo que se va a
 hacer no se confundan.</p>
 
 <figure>
@@ -1017,19 +1092,150 @@ hacer no se confundan.</p>
 <ol class="pasos">
   <li>En <b>Plan de tratamiento</b>, elija un diente y añada el procedimiento (por cara, en
   <b>Procedimientos</b>, o del diente entero, en <b>Piezas</b>). Lo de toda la boca —profilaxis,
-  blanqueamiento…— está en <b>Procedimientos generales</b>.</li>
+  blanqueamiento…— está en <b>Procedimientos generales</b>; ahí también está la <a href="#plan-ortodoncia">aparatología fija para ortodoncia</a>.</li>
   <li>Cada procedimiento queda como una línea de la lista, <b>Planificado</b>. Mientras no se
   haga, puede pasarlo a <b>En curso</b> o <b>Quitar</b>.</li>
   <li><b>Lo realizado se marca desde la atención</b> en la que se hizo (ver abajo). Desde
   entonces la línea no se edita: si fue un error, se anula con motivo.</li>
 </ol>
 
+<div class="caja nota" id="otro-procedimiento">
+  <span class="et">«Otro procedimiento (CUPS)»: lo que no está en la lista</span>
+  <p>El plan ofrece una lista corta de procedimientos. Para cualquier otro, en cada sitio donde se añade —las caras de un diente, el diente
+  completo, varios dientes y los procedimientos generales— está <b>Otro procedimiento (CUPS)</b>: al pulsarlo se busca por código o nombre
+  en el catálogo del consultorio y se elige uno. Sin código no se añade. La línea se nombra por el procedimiento elegido, con su código,
+  y en el dibujo lleva un patrón propio (cuadrícula recta). Si después se cambia el nombre en el tarifario, lo planeado conserva el de
+  entonces.</p>
+</div>
+<figure>
+  <img src="capturas/55-otro-procedimiento.png" alt="Buscador de Otro procedimiento (CUPS) en los procedimientos generales, con dos detartrajes en la lista">
+  <figcaption>«Otro procedimiento (CUPS)» en los procedimientos generales: se busca en el catálogo y se elige el código.</figcaption>
+</figure>
+
+<div class="caja nota" id="plan-ortodoncia">
+  <span class="et">Incrustación, remoción de retenedor y aparatología fija</span>
+  <p>Tres procedimientos fijos más, cada uno con su color y su patrón en pantalla, y el código CUPS que el sistema sugiere. <b>En el PDF</b> no se ven igual: solo la incrustación se dibuja con su
+  tablero (y entra en la leyenda); la remoción sale como un número sobre el diente, explicado en la leyenda («Remoción de retenedor intrarradicular»); y la
+  aparatología no se dibuja, solo aparece en la tabla de procedimientos planificados, en texto («Boca completa · Aparatología fija para ortodoncia · arcada inferior»):</p>
+  <ul>
+    <li><b>Incrustación</b> (en <b>Procedimientos</b>, por caras; una o varias caras del mismo diente): CUPS <b>233101</b>, restauración mediante incrustación
+    metálica. Patrón de tablero.</li>
+    <li><b>Remoción de retenedor intrarradicular</b> (en <b>Piezas</b>, diente completo): CUPS <b>237505</b>. Se dibuja con un cuadradito propio, arriba a la
+    izquierda del diente, con patrón de ondas, así que <b>no tapa</b> la marca de una endodoncia, una pulpotomía, una pulpectomía ni una exodoncia del
+    mismo diente, ni ellas la tapan.</li>
+    <li><b>Aparatología fija para ortodoncia</b> (en <b>Procedimientos generales</b>, boca completa): hay <b>dos botones</b>, «Aparatología fija para ortodoncia —
+    arcada superior» y «… — arcada inferior». <b>La arcada es obligatoria</b>: se elige al pulsar el botón (no se añade sin ella) y la línea del plan la muestra en su
+    selector (<b>Superior</b> o <b>Inferior</b>). CUPS <b>247101</b>, por arcada: para las dos se añaden
+    dos líneas. Patrón de anillos.</li>
+  </ul>
+  <p>El campo CUPS de la línea nace vacío: al enfocarlo, la lista ofrece el código con la etiqueta «sugerido», y hay que <b>elegirlo</b>. Sin elegirlo, «Llevar desde el
+  plan» lo muestra «Sin CUPS · Sin precio: se revisa». Se elige igual que los demás (ver
+  <a href="#plan-candidatos">los candidatos CUPS</a>).</p>
+</div>
+<figure>
+  <img src="capturas/57-plan-incrustacion-remocion.png" alt="Plan con una incrustación en la cara oclusal del 36, una remoción de retenedor en el 47 con su cuadradito en el diente, y una aparatología fija con la arcada Inferior elegida">
+  <figcaption>El plan con los tres: la incrustación del 36 (oclusal), la remoción del 47 (el cuadradito arriba a la izquierda del diente) y la aparatología de la arcada inferior, con sus códigos ya elegidos.</figcaption>
+</figure>
+<figure>
+  <img src="capturas/58-plan-aparatologia.png" alt="Procedimientos generales con los dos botones de aparatología fija para ortodoncia, arcada superior y arcada inferior">
+  <figcaption>La aparatología fija se añade por arcada: un botón para cada una.</figcaption>
+</figure>
+
+<p>En el celular, en una pantalla estrecha o con la interfaz muy ampliada, la lista del plan se ve en <b>tarjetas</b>, una por
+procedimiento, con los mismos campos; no hace falta desplazarse de lado. En el computador, lo del plan que sale en el panel
+lateral de un diente se ve siempre así.</p>
+
+<figure class="celular">
+  <img src="capturas/54-plan-celular.png" alt="El plan de tratamiento en un celular: una tarjeta por procedimiento con su opción, el diente, el CUPS y el estado">
+  <figcaption>El plan en un celular.</figcaption>
+</figure>
+
+<div class="caja nota" id="plan-candidatos">
+  <span class="et">Los candidatos CUPS: «sugerido» y «por confirmar»</span>
+  <p>Al entrar en el campo CUPS de una línea que todavía no tiene código, la lista ofrece los códigos que corresponden a ese
+  procedimiento en ese diente. Ninguno se pone solo: lo elige usted.</p>
+  <ul>
+    <li><b>sugerido</b>: con lo registrado basta para saber el código (por ejemplo, la resina, la incrustación, la remoción de retenedor, la aparatología fija, o la endodoncia de un diente
+    con sus raíces registradas).</li>
+    <li><b>por confirmar</b>: falta un dato que cambia el código. Debajo, la línea «Por confirmar: elige según…» dice cuál
+    (si la extracción es simple o quirúrgica, el número real de raíces, si la corona es definitiva o provisional…).
+    Regístrelo (abajo) y el código pasa a «sugerido».</li>
+    <li><b>fuera de los candidatos</b>: al buscar se puede elegir cualquier código del catálogo. En los procedimientos que
+    tienen candidatos, los demás códigos salen con esta marca.</li>
+  </ul>
+  <p>Con el campo vacío, <b>Enter</b> solo elige cuando hay un único «sugerido»; con varios, o con alguno «por confirmar», no
+  queda nada resaltado y hay que elegir con el ratón o con las flechas. Al escribir, Enter elige la primera coincidencia, salvo
+  que sea «por confirmar».</p>
+</div>
+
+<figure>
+  <img src="capturas/50-plan-candidatos.png" alt="Campo CUPS de una exodoncia con dos candidatos «por confirmar» y la línea que dice qué decide entre ellos">
+  <figcaption>Una exodoncia sin decidir si es simple o quirúrgica: los dos códigos salen «por confirmar» y la última línea
+  dice qué elige entre ellos.</figcaption>
+</figure>
+
+<h4>Los datos que deciden el código</h4>
+<p>Algunos procedimientos tienen, en su línea del plan, un selector con la pregunta que elige su código:</p>
+<ul>
+  <li><b>Exodoncia</b>: «¿Quirúrgica?»: simple o quirúrgica. No se pregunta en un diente temporal (la CUPS no distingue) ni en un diente
+  incluido.</li>
+  <li><b>Exodoncia de un diente incluido</b> (incluido, impactado o retenido en el diagnóstico): «¿Ectópico? Abordaje»: no
+  ectópico, ectópico con abordaje intraoral o ectópico con abordaje extraoral.</li>
+  <li><b>Corona</b>: en un permanente, «¿Definitiva o provisional?»; en un temporal, el «Material de la corona» (acero,
+  policarboxilato o, en los anteriores, forma plástica).</li>
+  <li><b>Implante</b>: el «Tipo de implante» (aloplástico de oseointegración, metálico o cerámico). Solo se planea en dientes
+  permanentes.</li>
+  <li><b>Tratamiento periodontal</b>: «¿Qué se hace?»: detartraje supragingival, detartraje subgingival o alisado radicular.
+  Es una prestación por línea: si se hacen dos, se añaden dos líneas.</li>
+  <li><b>Aparatología fija para ortodoncia</b>: la arcada, <b>Superior</b> o <b>Inferior</b>. Es obligatoria y sale de qué botón se pulsó.</li>
+</ul>
+<p>Las <b>raíces</b> registradas en el diagnóstico (ver arriba) también cuentan: deciden el código de la endodoncia y, con la
+cirugía, el de la exodoncia. Una línea ya realizada muestra estos datos como texto y no se cambian.</p>
+
+<figure>
+  <img src="capturas/51-plan-opcion.png" alt="Línea de una corona con «Provisional» elegido y el código 234106 marcado «sugerido» en la lista">
+  <figcaption>Una corona del 46 con <b>Provisional</b> elegido en su selector: el único código que corresponde sale
+  «sugerido» y queda resaltado, así que Enter lo elige.</figcaption>
+</figure>
+
+<div class="caja aviso">
+  <span class="et">Dos avisos de la línea</span>
+  <ul>
+    <li><i>«El 230101 no corresponde a lo registrado (quirúrgica, 1 raíz): revísalo.»</i> El código ya elegido no casa con lo
+    que se registró después. No se borra: elija el que corresponde, o corrija el dato si el que estaba mal era ese.</li>
+    <li><i>«La opción guardada ya no corresponde a este diente: cámbiala o quítala.»</i> La opción se eligió cuando el diente
+    estaba de otra forma (por ejemplo, ya no consta como incluido). Se muestra marcada para poder cambiarla.</li>
+  </ul>
+</div>
+
+<div class="caja alto">
+  <span class="et">Quién hace qué en el plan</span>
+  <p>El plan lo <b>elabora el odontólogo</b>: añadir, pasar a <b>En curso</b> y quitar procedimientos es suyo. El <b>auxiliar</b> lo ve y puede
+  <b>marcar realizado</b>, desde la atención, un procedimiento cuya actuación tenga habilitada (ver <a href="#v-actuaciones">Actuaciones</a>):
+  el botón solo le sale en esos. Un procedimiento sin código CUPS del catálogo lo marca solo el odontólogo. <b>Anular lo realizado</b> es solo
+  del odontólogo, con su motivo.</p>
+</div>
+
+<div class="caja aviso">
+  <span class="et">Un procedimiento sobre un diente ausente avisa, pero no se impide</span>
+  <p>Si se planifica un procedimiento de caras o de raíz en un diente que el diagnóstico vigente da por <b>ausente</b>, el plan lo guarda y
+  muestra arriba el aviso <i>«Un procedimiento del plan va sobre un diente que el diagnóstico da por ausente.»</i> Revise si el diente está
+  bien marcado o si el procedimiento es otro. Los de reposición (implante, póntico, prótesis) no avisan: van justo donde falta un diente.</p>
+</div>
+
 <div class="caja nota">
   <span class="et">Lo hecho, de vuelta al diagnóstico</span>
   <p>Cuando un procedimiento del plan se marca realizado, el Odontograma muestra la tarjeta
   <b>Hecho según el plan y aún no en el diagnóstico</b>: con un clic lo registra en el diagnóstico
   (por ejemplo, la resina pasa a ser una restauración existente). No lo hace solo: lo confirma
-  usted.</p>
+  usted. Lo que se eligió en el plan pasa con él: una corona <b>provisional</b> entra como corona temporal, y la de
+  <b>acero</b>, con su material. Una <b>incrustación</b> realizada pasa a sus caras como restauración de <b>incrustación metálica</b> (ICDAS 6), «existente, hecho en
+  este consultorio, según el plan»; en el registro del diagnóstico el hallazgo se lee «…de incrustación metálica». La <b>remoción de retenedor</b> y la
+  <b>aparatología fija</b> no pasan al diagnóstico: son actos, no hallazgos del diente.</p>
+  <figure class="estrecha">
+    <img src="capturas/59-incrustacion-al-diagnostico.png" alt="Panel del molar 26 con la cara oclusal marcada como restauración y el historial que dice que se registró la incrustación metálica">
+    <figcaption>La incrustación del 26 ya en el diagnóstico: la cara oclusal se pinta como restauración (rayas diagonales /).</figcaption>
+  </figure>
 </div>
 
 <h3>Índices, corona y radiografías</h3>
@@ -1060,7 +1266,7 @@ hacer no se confundan.</p>
   <p>Los cambios se guardan solos sobre la versión vigente. Cuando se cierra una atención, esa versión queda congelada:
   el siguiente cambio que se marque crea una <b>versión nueva</b> y la anterior se conserva intacta. Las versiones anteriores se
   abren en solo lectura desde <b>Ver otra
-  versión</b>, y cada una se puede <b>descargar en PDF</b>. Hay además un <b>resumen para el
+  versión</b> (si hay muchas, <b class="btn">Ver versiones anteriores</b> trae las más viejas), y cada una se puede <b>descargar en PDF</b>. Hay además un <b>resumen para el
   paciente</b>, con los hallazgos en lenguaje sencillo, que se puede imprimir.</p>
   <p>Un odontograma registrado con el formato anterior se muestra en el formato clínico, con lo
   que el formato viejo no guardaba marcado como «no consta». Si no se pudo pasar sin perder
@@ -1076,20 +1282,32 @@ hacer no se confundan.</p>
 <h2 id="periodontograma">Registrar el periodontograma</h2>
 <p class="quien"><span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span></p>
 <p>El sondaje en seis sitios por diente, con recesión, sangrado, placa, supuración, movilidad y
-furcas. Cada examen es una <b>versión</b>: el anterior se conserva.</p>
+furcas, y el diagnóstico periodontal con la clasificación de 2017 de las sociedades americana y europea (AAP/EFP). Cada
+examen es una <b>versión</b>: el anterior se conserva. Un examen guardado antes de esta clasificación se sigue leyendo
+(ver <a href="#perio-anterior">Un examen del formato anterior</a>).</p>
 <ol class="pasos">
   <li>Abra el paciente y entre a <b class="btn">Periodontograma</b>.</li>
   <li>Pulse <b class="btn">Nuevo examen</b> (o <b class="btn">Registrar el primer examen</b>). Si hay
-  una atención abierta, ofrece registrarlo en ella; si no, queda sin atención. Puede copiar del examen anterior los
-  dientes ausentes y los implantes; los sondajes no se copian. Pulse
+  una atención abierta, ofrece registrarlo en ella; si no, queda sin atención. Si el paciente tiene odontograma en el formato
+  actual, el <b>primer examen</b> trae marcados los dientes permanentes que el odontograma da por ausentes y los implantes, cada
+  uno con su motivo; los que no han erupcionado (incluidos,
+  impactados o retenidos) aparecen aparte y sin marcar: márquelos ausentes si no los va a sondear. Revise lo que trae antes de crear. Los exámenes
+  siguientes pueden copiar del anterior los dientes ausentes y los implantes. Los sondajes no se copian nunca. Pulse
   <b class="btn">Crear examen</b>.</li>
   <li>Escriba el sondaje en milímetros: al teclear un dígito el cursor pasa solo al sitio
   siguiente, en el orden clínico. El <b>1</b> espera: puede ser el comienzo de 10 a 15, así que el cursor
   no avanza solo; si el valor es solo 1, pase al sitio siguiente con <b>Tab</b> o con un clic (si escribe otro dígito justo después, se une: 1 y 2 quedan en 12). Marque el sangrado, la placa y la supuración pulsando sus
-  círculos.</li>
+  círculos o, sin soltar el teclado, con las teclas <b>B</b> (sangrado), <b>P</b> (placa) y <b>S</b> (supuración): marcan
+  el sitio recién medido. Cada círculo tiene <b>tres estados</b>: vacío y tenue (<b>sin evaluar</b>), relleno (<b>sí</b>) y
+  círculo con borde oscuro (<b>no</b>: se miró y no está). Cada pulsación pasa al estado siguiente (sin evaluar, sí, no y otra vez sin
+  evaluar). Ver <a href="#perio-sangrado">Sangrado, placa y supuración: tres estados</a>.</li>
   <li>Se guarda solo («Guardado»). Abajo, los <b>indicadores</b> del examen se recalculan.</li>
-  <li>El <b>diagnóstico periodontal</b> (estadio, grado y extensión) lo elige usted: el sistema no
-  clasifica.</li>
+  <li>En un <b>implante</b> no se registra la movilidad: la escala de Miller es de dientes naturales. Un valor que ya estaba
+  registrado se conserva y se muestra con un asterisco para revisarlo; solo se puede <b>quitar</b>, con su motivo. Por lo mismo,
+  un diente con movilidad registrada no se puede marcar implante: primero se quita la movilidad.</li>
+  <li>El <b>diagnóstico periodontal</b> está al final del examen y lo establece el <b>odontólogo</b>: el sistema no
+  clasifica ni propone nada. El auxiliar no lo decide: solo transcribe lo que un odontólogo ya estableció en otro registro
+  (ver <a href="#perio-diagnostico">El diagnóstico periodontal</a>).</li>
 </ol>
 <figure>
   <img src="capturas/36-periodontograma.png" alt="Periodontograma con sondajes, recesiones y sangrado registrados">
@@ -1097,11 +1315,152 @@ furcas. Cada examen es una <b>versión</b>: el anterior se conserva.</p>
   sondaje más la recesión.</figcaption>
 </figure>
 <div class="caja nota">
+  <span class="et">El gráfico y la comparación con el examen anterior</span>
+  <p>Encima de la tabla, <b class="btn">Ver el gráfico</b> dibuja cada arcada con el margen gingival, el fondo del
+  sondaje y el área entre los dos, las profundidades de 4 y de 6 mm o más, el sangrado, la supuración, las furcas, la
+  movilidad y los implantes. Se lee sin color y también sale en el PDF. Es una representación: la tabla sigue siendo el
+  examen completo. En los indicadores, el NIC dice sobre cuántos sitios se pudo calcular (hace falta la recesión).</p>
+  <p>Si el paciente tiene exámenes anteriores, <b>Comparar con el examen anterior</b> lista, sitio a sitio, los que
+  cambiaron en sondaje, recesión o NIC, y cuenta aparte cuántos cambiaron 2 mm o más en el sondaje. Por defecto compara con el anterior no anulado;
+  puede elegir otro. Un sitio sin medir en uno de los dos dice «no comparable».</p>
+</div>
+<figure>
+  <img src="capturas/48-periodontograma-grafico.png" alt="Gráfico del periodontograma: margen gingival, fondo del sondaje y área entre ambos en las cuatro vistas de las arcadas">
+  <figcaption>El gráfico: las barras gruesas marcan los sondajes de 4 y de 6 mm o más; «V II» es una furca vestibular de
+  grado II y «M1», movilidad grado 1.</figcaption>
+</figure>
+<figure>
+  <img src="capturas/49-periodontograma-comparacion.png" alt="Comparación con el examen anterior: sitios con diferencia de sondaje de 2 mm o más">
+  <figcaption>La comparación: valor anterior → actual · diferencia, en milímetros.</figcaption>
+</figure>
+<div class="caja nota">
   <span class="et">Quitar un dato pide motivo</span>
-  <p>Borrar un valor ya guardado pide un motivo y queda en el historial. Un examen equivocado se
-  <b>anula</b> con motivo: no se borra, queda visible y fuera de los indicadores. Cada examen se
+  <p>Borrar un valor ya guardado pide un motivo y queda en el historial. Un examen equivocado lo
+  <b>anula</b> el odontólogo, con motivo: no se borra, queda visible y fuera de los indicadores. Cada examen se
   descarga en PDF con <b class="btn">Descargar PDF</b>, y al cerrarse la atención queda congelado.</p>
 </div>
+
+<h3 id="perio-sangrado">Sangrado, placa y supuración: tres estados</h3>
+<p>En cada sitio, la marca puede estar en uno de tres estados, y no significan lo mismo:</p>
+<ul>
+  <li><b>Sin evaluar</b> (círculo vacío y tenue): nadie lo miró. No cuenta como «no».</li>
+  <li><b>Sí</b> (círculo relleno): se midió y está presente.</li>
+  <li><b>No</b> (círculo con borde oscuro): se midió y no está.</li>
+</ul>
+<p>Pasar de «no» a «sin evaluar» es quitar un dato que ya estaba guardado, así que pide un motivo, como cualquier dato
+guardado que se quita. Para no pulsar sitio por sitio, sobre la tabla hay un <b>atajo del sangrado</b>:
+<b>cuadrante 1</b>, <b>cuadrante 2</b>, <b>cuadrante 3</b> y <b>cuadrante 4</b>
+marcan «no sangra» solo en los sitios <b>con sondaje</b> y sin marca; los sitios sin sondaje, los que ya tenían un «sí» y los
+de los implantes no se tocan (el sangrado de un implante se anota en su condición periimplantar). Debajo de la leyenda, el sistema dice cuántos sitios marcó.</p>
+<figure>
+  <img src="capturas/62-perio-sangrado-estados.png" alt="Arcada superior con el atajo del sangrado por cuadrante y los círculos de sangrado, placa y supuración en sus tres estados">
+  <figcaption>El cuadrante 1 ya tiene «no sangra» en sus sitios sondados (círculos con borde oscuro); en el resto, los círculos tenues están
+  sin evaluar y los rellenos marcan «sí».</figcaption>
+</figure>
+<p>Los <b>porcentajes</b> de sangrado, placa y supuración se calculan <b>solo sobre los sitios evaluados</b> (los que están en «sí» o en
+«no»), y el indicador dice sobre cuántos: por ejemplo «47,2 % (34 de 72 sitios evaluados; 168 sondados)». Un sitio sin evaluar no baja el
+porcentaje. Si no hay ningún sitio evaluado, el indicador dice <b>no evaluado</b> en vez de mostrar 0 %.</p>
+<p>Además de los porcentajes, la tarjeta <b>Indicadores de este examen</b> calcula lo que el diagnóstico necesita tener a la vista. Nada de esto
+clasifica: lo muestra con su cobertura, y lo que no se pudo calcular dice «no consta», nunca un cero.</p>
+<ul>
+  <li><b>Sangrado al sondaje</b> con su <b>banda</b> (menos de 10 %, entre 10 % y 30 %, más de 30 %), rotulada como extensión epidemiológica, y la
+  <b>cobertura del sondaje</b>: si no se sondaron todos los sitios, dice que no describe la boca completa.</li>
+  <li><b>Profundidad de sondaje máxima</b>, con su diente y su sitio, y las <b>bolsas de 4 mm o más que sangran</b>; las que tienen el sangrado sin evaluar se cuentan aparte.</li>
+  <li><b>Dientes con pérdida de inserción interproximal</b> de 1, 3 y 5 mm o más, y si hay dos o más dientes no vecinos con pérdida.</li>
+  <li><b>Furca y movilidad registradas</b>, cada una con su escala (Hamp, Miller).</li>
+  <li><b>Extensión</b>: el porcentaje de dientes en el estadio elegido (ver «El diagnóstico periodontal», más abajo).</li>
+  <li><b>Cambios desde el examen anterior</b>: el mayor aumento de la pérdida de inserción, cuántos sitios perdieron 2 mm o más y los meses entre los dos.
+  Solo compara los sitios medidos en los dos exámenes, y con menos de 5 años lo dice. Un examen anulado no cuenta como anterior.</li>
+  <li><b>Pérdida ósea / edad</b>, si algún diente tiene la pérdida ósea anotada en porcentaje.</li>
+  <li>Por cada <b>implante</b>: la profundidad máxima, su cambio desde el examen anterior y el sangrado.</li>
+  <li><b>Para el estado evolutivo</b>: el sangrado, las bolsas que sangran y los sitios que perdieron inserción. Sin un examen anterior comparable dice
+  «información insuficiente». El estado lo elige el odontólogo.</li>
+</ul>
+<figure>
+  <img src="capturas/63-perio-indicadores.png" alt="Indicadores del examen: sangrado con su banda, cobertura, bolsas, pérdida de inserción por diente, extensión, cambios desde el examen anterior y datos para el estado evolutivo">
+  <figcaption>Los indicadores de un examen con otro anterior: cada cifra dice sobre cuántos sitios o dientes se calculó.</figcaption>
+</figure>
+
+<h3 id="perio-diagnostico">El diagnóstico periodontal (clasificación de 2017)</h3>
+<p class="quien"><span class="rol r-odo">Odontólogo</span> lo establece, lo confirma y lo descarta · <span class="rol r-aux">Auxiliar</span> solo transcribe lo ya establecido</p>
+<p>Al final del examen está el cuadro <b>Diagnóstico periodontal</b>. El sistema <b>no clasifica ni propone nada</b>: todo lo elige el odontólogo con el
+examen a la vista, y lo que nadie dio queda en «no consta» o «sin evaluar», nunca como un «no». La única ayuda es la <b>extensión
+calculada</b>, que se propone y el odontólogo acepta o cambia (ver el paso del estadio). Se llena de arriba abajo:</p>
+<ol class="pasos">
+  <li><b>Categoría</b>: salud gingival (tres variantes), gingivitis inducida por biofilm, periodontitis, o pérdida de inserción por una causa
+  independiente de la periodontitis. Según la categoría aparecen las preguntas que corresponden (por ejemplo, en la gingivitis, el contexto y los factores).</li>
+  <li><b>Estado del diagnóstico</b>: <b>Borrador</b> o <b>Definitivo</b>. Un borrador no alimenta ninguna opción de tratamiento hasta que se confirme como definitivo.</li>
+  <li><b>Forma y condiciones sistémicas</b>: periodontitis, o periodontitis como manifestación de una enfermedad sistémica (que hay que nombrar),
+  con los descriptores que correspondan.</li>
+  <li><b>Definición de caso y causas no periodontales</b>: la vía por la que se define el caso y, para cada causa que podría explicar la pérdida de inserción
+  (recesión de origen traumático, caries cervical, un segundo molar afectado por un tercero, lesión endodóntica, fractura radicular vertical), uno de cuatro estados:
+  <b>Descartada</b>, <b>Presente</b> (con los dientes), <b>No evaluada</b> o <b>No concluyente</b>.</li>
+  <li><b>Estadio</b> (I a IV), de qué se deduce, si es inicial o posterior al tratamiento y la extensión; los <b>factores de complejidad</b> con su estado (el sistema no marca
+  ninguno, solo muestra a un lado lo registrado) y los dientes que los sostienen. La <b>pérdida dentaria por periodontitis</b>, los <b>dientes remanentes</b> y los
+  <b>pares oclusales</b> se proponen desde el odontograma, pero cuentan solo cuando el odontólogo pulsa <b class="btn">Confirmar</b> (<b class="btn">Quitar confirmación</b> la deshace).
+  En el estadio IV se elige el tipo de caso por arcada. Los dientes incluidos, impactados o sin erupcionar no cuentan como presentes.<br>
+  Bajo la extensión aparece la <b>extensión calculada</b>, con la fórmula que aprobó el responsable clínico: los dientes en el estadio elegido más los
+  ausentes por periodontitis, sobre los dientes presentes más esos ausentes, sin terceros molares. Menos de 30 % es localizada; 30 % o más,
+  generalizada. Si lo calculado da una extensión, el botón <b class="btn">Usar</b>, que lleva el nombre de la extensión («Usar «Generalizada»» o «Usar «Localizada»»), la pone; si los dientes sin datos,
+  la pérdida dentaria sin confirmar, un tercer molar que podría estar contado o un diente sondado que el odontograma da por ausente pueden
+  cambiar el resultado, lo dice y no propone nada. Se calcula con
+  lo guardado: con un estadio distinto en pantalla, o con cambios sin guardar, espera a que se guarden.</li>
+  <li><b>Grado</b> (A, B o C), quién lo asigna y con qué evidencia, el tabaco y la diabetes. Con diabetes se anota la <b>HbA1c</b> con su <b>fecha</b>: sin fecha no se guarda.</li>
+  <li>Datos por diente (pérdida ósea radiográfica con su radiografía de origen, migración), el estado evolutivo del examen y los hallazgos por sitio.</li>
+  <li><b>Condiciones periimplantares</b>, un bloque por cada implante, con la referencia clínica (un examen anterior) y la radiográfica. «Con datos previos» solo se marca si constan las dos.</li>
+</ol>
+<figure>
+  <img src="capturas/70-perio-extension-sugerida.png" alt="Estadio y extensión, con la extensión calculada y el botón Usar «Generalizada»">
+  <figcaption>La extensión calculada propone «Generalizada»; el odontólogo la acepta con el botón o deja la que eligió.</figcaption>
+</figure>
+<figure>
+  <img src="capturas/64-perio-diagnostico-causas.png" alt="Definición de caso y causas no periodontales, cada una con su estado">
+  <figcaption>Las cinco causas no periodontales, aquí todas «Descartada».</figcaption>
+</figure>
+<figure>
+  <img src="capturas/65-perio-estadio.png" alt="Estadio, factores de complejidad y cifras propuestas desde el odontograma">
+  <figcaption>El estadio con sus factores. Las cifras del odontograma (perdidos, remanentes, pares) esperan que el odontólogo las confirme.</figcaption>
+</figure>
+<figure>
+  <img src="capturas/68-perio-grado.png" alt="Grado, tabaco, diabetes y HbA1c con su fecha">
+  <figcaption>El grado, con el tabaco, la diabetes y la HbA1c con su fecha.</figcaption>
+</figure>
+<div class="caja aviso">
+  <span class="et">Un definitivo exige descartar las causas</span>
+  <p>Si el caso se define por la vía de la pérdida de inserción vestibular u oral, el diagnóstico <b>no se guarda como Definitivo</b> mientras alguna causa
+  no periodontal siga «No evaluada»: el sistema avisa cuáles faltan. Como <b>Borrador</b> sí se guarda así. Es a propósito: nadie debe
+  dar por periodontitis lo que puede ser una causa independiente sin haberla mirado.</p>
+</div>
+
+<h3 id="perio-transcribir">Cuando el auxiliar transcribe un diagnóstico</h3>
+<p>El auxiliar no establece el diagnóstico. Si debe pasarlo al examen, el cuadro le muestra <b>Transcribir un diagnóstico ya establecido</b> y le exige
+indicar el <b>Registro de origen</b> (obligatorio): una atención firmada o cerrada por un odontólogo, o un examen periodontal con diagnóstico establecido.
+Si no hay ninguno, el cuadro lo dice y no deja transcribir nada. Puede añadir un texto complementario de hasta 200 caracteres.</p>
+<p>Lo transcrito queda <b>pendiente de confirmar</b>: el cuadro lo dice con todas sus letras, nombra a quien lo estableció y es un borrador, que no alimenta ningún
+tratamiento. Firmar o cerrar la atención <b>no lo confirma</b>. Solo un odontólogo lo resuelve, con dos botones: <b class="btn">Confirmar esta versión</b>,
+que lo deja como diagnóstico transcrito y confirmado (con su nombre y la fecha), o <b class="btn">Descartar la transcripción</b>, que pide un motivo de al menos cinco
+caracteres y lo marca como «no es un diagnóstico establecido». Si el odontólogo cambia algo de lo transcrito, sigue pendiente hasta que lo confirme.
+El botón de confirmar espera a que el examen esté guardado, para confirmar la versión que ve.</p>
+<figure>
+  <img src="capturas/66-perio-transcripcion-pendiente.png" alt="Cuadro del diagnóstico con una transcripción pendiente y el registro de origen elegido por el auxiliar">
+  <figcaption>Lo que ve el auxiliar: el aviso «pendiente de confirmar por un odontólogo» y el registro de origen.</figcaption>
+</figure>
+<figure>
+  <img src="capturas/67-perio-confirmar-transcripcion.png" alt="Aviso de transcripción pendiente con los botones Confirmar esta versión y Descartar la transcripción">
+  <figcaption>Lo que ve el odontólogo: los dos botones, en el mismo aviso.</figcaption>
+</figure>
+<p>El PDF del examen también lo dice: imprime lo pendiente como pendiente («Transcrito por … el …, pendiente de confirmar por un odontólogo», con el
+estado «Borrador (transcrito, pendiente de confirmar)»), y lo que no consta como «no consta».</p>
+
+<h3 id="perio-anterior">Un examen del formato anterior</h3>
+<p>Los exámenes guardados antes de la clasificación de 2017 se siguen leyendo y, si hace falta, se siguen midiendo, pero su diagnóstico queda
+como <b>registro anterior</b>: la pantalla lo muestra tal cual se registró (por ejemplo, «Periodontitis (registro anterior al esquema 2017 completo): Estadio III · Grado B · Generalizada») y avisa de
+que <b>no se reescribe ni se completa</b>. El diagnóstico de 2017 se registra en un examen nuevo. En el examen anterior, el sangrado, la placa y la
+supuración se leen como siempre (sí o vacío): no tienen el estado «no».</p>
+<figure>
+  <img src="capturas/69-perio-registro-anterior.png" alt="Diagnóstico de un examen anterior mostrado como registro histórico">
+  <figcaption>El diagnóstico de un examen anterior: solo lectura.</figcaption>
+</figure>
 
 <hr>
 
@@ -1178,6 +1537,33 @@ cuántos siguen sin firma del paciente.</p>
   <figcaption>La ventana de trabajo. Las líneas escritas a mano quedan marcadas como tales.</figcaption>
 </figure>
 
+<h3 id="llevar-del-plan">Llevar desde el plan del odontograma</h3>
+<p class="quien"><span class="rol r-odo">Odontólogo</span></p>
+<p>Lo que ya está en el <a href="#odontograma">plan de tratamiento</a> no hay que volver a escribirlo: se lleva al presupuesto.</p>
+<ol class="pasos">
+  <li>En <b class="btn">Presupuesto</b>, pulse <b class="btn">Llevar desde el plan</b>. Se abre una lista con los procedimientos del plan que
+  siguen <b>planificados</b> o <b>en curso</b>, cada uno con su CUPS (o «Sin CUPS») y su precio del tarifario.</li>
+  <li>Marque los que pasan al presupuesto. Uno que ya está en otro presupuesto lo dice («Ya está en …»): marcarlo otra vez lo lleva
+  <b>repetido a propósito</b>.</li>
+  <li>En <b>Dónde</b> elija <b>Un presupuesto nuevo</b> o ampliar uno que todavía se pueda cambiar (sin líneas decididas, sin firma pendiente y
+  sin firmar).</li>
+  <li>Pulse <b class="btn">Crear presupuesto</b> o <b class="btn">Ampliar presupuesto</b>. Las líneas quedan marcadas <b>Del plan</b>, y los
+  precios se ajustan después en el presupuesto, como siempre.</li>
+</ol>
+<figure>
+  <img src="capturas/56-llevar-del-plan.png" alt="Ventana Llevar desde el plan con una corona elegida y una exodoncia sin precio">
+  <figcaption>La corona entra con el precio de su CUPS; la exodoncia, sin CUPS todavía, sale «Sin precio: se revisa».</figcaption>
+</figure>
+<p>La <b>aparatología fija para ortodoncia</b> se nombra con su arcada, tanto en esta lista como en la línea del presupuesto: «Aparatología fija para
+ortodoncia (Arcada inferior)». Si el plan tiene las dos arcadas, entran como dos líneas.</p>
+<div class="caja nota">
+  <span class="et">De un solo sentido</span>
+  <p>El plan no cambia: lo que se edite, rechace o anule en el presupuesto no vuelve al odontograma, y el odontograma sigue sin mostrar
+  precios. Un procedimiento sin CUPS, o con un CUPS sin precio en el tarifario, dice en la lista <b>«Sin precio: se revisa»</b>, entra a $0 y su línea queda marcada
+  <b>«Sin precio: revísalo»</b>; uno con un precio que no vale (con centavos, por ejemplo) se avisa como <b>«Precio a revisar»</b>. Si el plan cambia mientras la lista está abierta, el sistema lo avisa,
+  vuelve a leer la lista y hay que elegir de nuevo.</p>
+</div>
+
 <h3>Aceptar procedimiento por procedimiento</h3>
 <p>El paciente casi nunca acepta el plan entero de una vez. Por eso cada línea tiene
 <b class="btn">Aceptar</b> y <b>No acepta</b>, y cuando quedan varias por decidir aparece
@@ -1186,6 +1572,23 @@ cuántos siguen sin firma del paciente.</p>
 <figure>
   <img src="capturas/10-presupuesto.png" alt="Presupuesto con sus líneas aceptadas, quién las aceptó y el tratamiento creado">
   <figcaption>Cada línea dice quién la aceptó y cuándo, y enlaza al tratamiento que creó.</figcaption>
+</figure>
+
+<div class="caja aviso" id="aceptar-a-cero">
+  <span class="et">Una línea que queda en $0 pide confirmación</span>
+  <p>Si al aceptar una línea su valor queda en <b>$0</b> —porque la lista dice $0, o porque tras su parte del descuento queda neta en cero—, el sistema no la
+  acepta de inmediato. Avisa <i>«Con esta decisión una línea aceptada queda en $0 (sola o tras su parte del descuento): su tratamiento y su cargo en Cartera
+  quedan en cero.»</i> y ofrece <b class="btn">Aceptar a $0, como cortesía</b> o <b>No</b>.</p>
+  <ul>
+    <li><b>Aceptar todos</b> también avisa cuántas líneas quedan en $0 («Una línea queda en $0» o «N líneas quedan en $0») y su botón pasa a
+    <b class="btn">Aceptar todos, a $0 como cortesía</b>.</li>
+    <li><b>No acepta</b> pide la misma confirmación cuando, al rechazar una línea, otra ya aceptada queda en $0 neto (su parte del descuento crece).</li>
+    <li><b>Anular el tratamiento</b> de una línea no la pide.</li>
+  </ul>
+</div>
+<figure>
+  <img src="capturas/60-aceptar-a-cero.png" alt="Aviso de que la línea quedaría en $0, con los botones Aceptar a $0, como cortesía y No">
+  <figcaption>Un presupuesto con un descuento igual a su única línea: aceptarla pide confirmar la cortesía.</figcaption>
 </figure>
 
 <div class="caja ok">
@@ -1197,7 +1600,8 @@ cuántos siguen sin firma del paciente.</p>
 </div>
 
 <p>Una línea marcada <b>No acepta</b> puede volver a <b>Propuesto</b> con <b class="btn">Devolver a propuesta</b>, si el
-paciente cambió de idea o se marcó por error.</p>
+paciente cambió de idea o se marcó por error. Si esa línea vino del plan y el mismo procedimiento ya está en otra línea viva, el sistema
+pregunta <i>«¿Quieres tenerlo repetido a propósito?»</i>: con <b class="btn">Sí, devolverla igual</b> queda repetida.</p>
 <div class="caja aviso">
   <span class="et">Con una firma pendiente no se decide ni se edita nada</span>
   <p>Si el paciente tiene un enlace vivo para firmar el presupuesto, ni <b>Aceptar</b>, ni <b>No acepta</b>, ni
@@ -1239,7 +1643,7 @@ paciente cambió de idea o se marcó por error.</p>
   <span class="et">Precios en cero</span>
   <p>Si un procedimiento sale en <b>$0</b>, es que ese código todavía no tiene precio en el
   tarifario. Se carga desde <b class="btn">Administración</b> → <b>Tarifario de
-  procedimientos</b>.</p>
+  procedimientos</b>. Al aceptar, el sistema avisa si quedan líneas «Sin precio» ($0); no lo impide.</p>
 </div>
 
 <hr>
@@ -1273,6 +1677,13 @@ ponga el <b>concepto</b> y el <b>monto</b>, y pulse <b class="btn">Registrar car
   <li>Pulse <b class="btn">Registrar cobro</b>.</li>
 </ol>
 
+<div class="caja nota">
+  <span class="et">Los montos van en pesos enteros</span>
+  <p>Cargos, cobros, egresos, el efectivo contado al cerrar la caja, los precios del tarifario, de los presupuestos y de los tratamientos van
+  <b>sin centavos</b>: si se escriben, el sistema dice <i>«va en pesos enteros, sin centavos»</i> y no guarda. Lo que se registró antes con
+  centavos se conserva: puede editar otros datos de ese registro sin tocarlo, y el saldo exacto de un cargo así se puede cobrar.</p>
+</div>
+
 <h3>Pagos parciales (abonos)</h3>
 <p>Si el paciente paga a cuotas, cada pago es un cobro sobre el mismo cargo. El cargo queda
 <b>pagado</b> solo cuando sus cobros cubren el total; mientras tanto la fila muestra cuánto falta.</p>
@@ -1284,6 +1695,17 @@ ponga el <b>concepto</b> y el <b>monto</b>, y pulse <b class="btn">Registrar car
   quién lo anuló y por qué. Para verlos, marque <b>Mostrar pagados y anulados</b>.</p>
   <p><b>Anulan</b> los cuatro roles, con las mismas reglas: solo lo de la <b>caja abierta</b> (una caja ya cerrada, solo Administración), un <b>egreso</b>
   solo Administración, y un cargo que viene de un presupuesto aceptado se anula desde su tratamiento.</p>
+  <p><b>Anular un tratamiento anula con él sus cargos sin cobros.</b> Si el cargo ya tiene cobros, queda con la marca
+  <b>«De un tratamiento (Anulado)»</b> y la nota <i>«Tratamiento anulado. Para anular el cargo, anula antes sus cobros»</i>. Ese cargo <b>ya no cuenta como
+  deuda</b>: ni en «Por cobrar», ni en la cartera abierta de Inicio, ni en la campana, ni en el «debe» de Tratamientos. En Cartera se ve, con sus abonos y con
+  <b>saldo $0</b>, al marcar <b>Mostrar pagados y anulados</b> (en <b>Movimientos</b> sale siempre, con «Su tratamiento está anulado»). Al
+  <b>anular su último cobro</b>, el cargo se cancela solo, con el motivo del tratamiento. Desactivar a un paciente ya no avisa por ese cargo ni por tratamientos
+  anulados. Un cobro de un día con la caja cerrada dice <b>«Caja cerrada»</b> en lugar de
+  ofrecer anularlo (solo Administración lo anula).</p>
+  <figure>
+    <img src="capturas/61-cargo-de-tratamiento-anulado.png" alt="Cargo de un tratamiento anulado con un abono de 189.151, saldo 0 y la nota de que hay que anular antes sus cobros">
+    <figcaption>El cargo de un tratamiento anulado que tenía un abono: sigue visible con su abono, y su saldo es $0.</figcaption>
+  </figure>
 </div>
 
 <div class="caja nota">
@@ -1328,7 +1750,7 @@ avisa.</p>
   <thead><tr><th>Documento</th><th>Cuándo se usa</th><th>Quién lo emite</th></tr></thead>
   <tbody>
     <tr><td><b>Consentimiento informado</b></td><td>Antes de un procedimiento, dejando constancia de que se le explicaron riesgos y alternativas.</td><td>Odontólogo y <b>Auxiliar</b></td></tr>
-    <tr><td><b>Autorización de tratamiento de datos</b></td><td>Para poder tratar sus datos personales (Ley 1581). Conviene recogerla en la admisión, con cualquier paciente.</td><td>Odontólogo y <b>Recepción</b></td></tr>
+    <tr><td><b>Autorización de tratamiento de datos</b></td><td>Para poder tratar sus datos personales (Ley 1581). Conviene recogerla en la admisión, con cualquier paciente.</td><td>Odontólogo, auxiliar y <b>Recepción</b></td></tr>
     <tr><td><b>Rechazo de tratamiento</b></td><td>El paciente declina un procedimiento. Se registra <b>primero</b> de qué se le informó y se firma después.</td><td>Solo el odontólogo</td></tr>
     <tr><td><b>Revocatoria de consentimiento</b></td><td>El paciente retira un consentimiento que ya había dado.</td><td><b>Recepción registra</b> la petición (el odontólogo también puede registrarla); solo un odontólogo la <b>resuelve</b></td></tr>
   </tbody>
@@ -2006,6 +2428,10 @@ odontogramas.</p>
   <p>El bloque de alertas lee el <b>mismo registro</b> que el odontograma, la atención y la
   historia clínica: una alergia registrada con su agente dice lo mismo en todas ellas, sin
   copias que puedan discrepar.</p>
+  <p>Además, todas las pantallas del paciente (Atención, Historia clínica, Odontograma, Periodontograma, Tratamientos, Presupuesto,
+  Documentos y Archivos) llevan arriba la <b>franja de condiciones</b>: cada alergia con su agente, el riesgo hemorrágico, el embarazo o la
+  lactancia, y si las alergias están sin diligenciar o el paciente no sabe. Si la consulta falla, la franja dice que falló, no «sin alertas».
+  A Recepción y a Administración no se les muestra: no reciben los antecedentes.</p>
 </div>
 
 <div class="caja aviso">
@@ -2063,6 +2489,8 @@ atención.</p>
   estado pulpar y rehabilitaciones por diente.</li>
   <li><b>Plan de tratamiento</b> — la lista de procedimientos propuestos, con su estado. Lo
   realizado se marca desde la atención.</li>
+  <li><b>Leyenda</b> — debajo de la rejilla: qué significa cada color, patrón y dibujo (ver
+  <a href="#leer-el-dibujo">cómo leer el dibujo del diente</a>).</li>
   <li><b>Dentición</b> — permanente, temporal o mixta.</li>
   <li><b>Historial</b> — cada diente guarda lo que se registró y lo que se anuló, con autor y
   motivo.</li>
@@ -2080,7 +2508,7 @@ atención.</p>
 
 <h3 id="v-periodontograma">Ficha ▸ Periodontograma</h3>
 <p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> — Recepción y Administración <b>no</b></p>
-<p>El sondaje periodontal, un examen por versión, con sus indicadores, su historial y su PDF. Ver
+<p>El sondaje periodontal y su diagnóstico de 2017, un examen por versión, con sus indicadores, su historial y su PDF. Ver
 <a href="#periodontograma">Registrar el periodontograma</a>.</p>
 
 <h3 id="v-tratamientos">Ficha ▸ Tratamientos</h3>
@@ -2145,7 +2573,9 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
 <ul>
   <li>No lleva menú ni da acceso a ninguna otra parte del sistema.</li>
   <li>El enlace <b>caduca</b>, y una vez firmado no sirve otra vez.</li>
-  <li>El enlace <b>se muestra una sola vez</b>, al pedir la firma: el sistema no lo guarda en claro. Si salió de la pantalla sin dárselo al paciente, pida otra. En el consentimiento, <b>anule</b> antes la anterior (con motivo); la de la autorización de datos no se anula: caduca sola y mientras tanto sigue pudiendo firmarse, y el panel de la autorización la muestra con su fecha de caducidad.</li>
+  <li>El enlace <b>se muestra una sola vez</b>, al pedir la firma: el sistema no lo guarda en claro. Si salió de la pantalla sin dárselo al paciente, pida otra. Antes, <b>anule</b> la anterior con su motivo, para que no queden dos enlaces vivos: en el consentimiento y también en la autorización de
+  datos, donde la anula <b>quien la emitió</b> (odontólogo, auxiliar o Recepción) con <b class="btn">Anular</b> y <b class="btn">Sí, anular</b>. Si no se anula, la
+  de la autorización caduca sola en su fecha, que el panel muestra.</li>
   <li>En la autorización de datos, la <b>atención en salud</b> aparece como <b>deber legal</b>, sin
   casilla: la historia clínica no depende de esa autorización. Lo demás —contacto administrativo,
   docencia e investigación, publicidad— es <b>opcional</b> y nace desmarcado.</li>
@@ -2175,12 +2605,19 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
     <tr><td>Historia clínica</td><td>Ver y editar</td><td>Ver; guarda motivo y antecedentes, no los datos personales</td><td>No</td><td>Ver y editar <b>solo la parte administrativa</b>, sin el detalle clínico</td></tr>
     <tr><td>Atención: crear y editar</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
     <tr><td>Atención: leer examen, diagnósticos y pronóstico</td><td>Sí</td><td>Solo con alguna actuación habilitada</td><td>No</td><td>No</td></tr>
-    <tr><td>Atención: firmar y cerrar</td><td>Sí</td><td><b>No</b></td><td>No</td><td>No</td></tr>
+    <tr><td>Atención: firmar y cerrar</td><td>Sí, <b>las suyas</b> (solo el autor)</td><td><b>No</b></td><td>No</td><td>No</td></tr>
+    <tr><td>Atención: reasignar el autor (sin firmar)</td><td>Solo el responsable clínico</td><td>No</td><td>No</td><td>No</td></tr>
     <tr><td>Imprimir la atención (PDF)</td><td>Sí</td><td>Solo si su perfil le deja ver todo su contenido</td><td>No</td><td>No</td></tr>
     <tr><td>Control de placa</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
     <tr><td>Riesgo de caries y periodontal</td><td>Sí</td><td>Solo verlo, si tiene alguna actuación habilitada</td><td>No</td><td>No</td></tr>
     <tr><td>Odontograma</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
+    <tr><td>Plan de tratamiento: elaborarlo</td><td>Sí</td><td>Solo verlo</td><td>No</td><td>No</td></tr>
+    <tr><td>Plan de tratamiento: marcar realizado</td><td>Sí</td><td>Solo lo de una actuación habilitada</td><td>No</td><td>No</td></tr>
+    <tr><td>Plan de tratamiento: anular lo realizado</td><td>Sí</td><td>No</td><td>No</td><td>No</td></tr>
+    <tr><td>Periodontograma: anular un examen</td><td>Sí</td><td>No</td><td>No</td><td>No</td></tr>
     <tr><td>Periodontograma</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
+    <tr><td>Diagnóstico periodontal: establecerlo</td><td>Sí</td><td>No: solo transcribe lo ya establecido (queda pendiente)</td><td>No</td><td>No</td></tr>
+    <tr><td>Diagnóstico periodontal: confirmar o descartar lo transcrito</td><td>Sí</td><td>No</td><td>No</td><td>No</td></tr>
     <tr><td>Evoluciones (en la atención)</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
     <tr><td>Fijar el próximo control</td><td>Sí</td><td>No</td><td>No</td><td>No</td></tr>
     <tr><td>Controles por agendar (Inicio)</td><td>No los ve: los fija, no los agenda</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
@@ -2189,6 +2626,7 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
     <tr><td>Tratamientos</td><td>Sí</td><td>Sí, sin anular</td><td>No</td><td>Solo verlos, sin la descripción</td></tr>
     <tr><td>Presupuestos</td><td>Sí</td><td><b>No</b></td><td>Sí</td><td>Sí</td></tr>
     <tr><td>Aceptar líneas del presupuesto</td><td>Sí</td><td>No</td><td>No</td><td>Sí</td></tr>
+    <tr><td>Presupuesto: llevar desde el plan</td><td>Sí</td><td>No</td><td>No</td><td>No</td></tr>
     <tr><td>Cotizaciones</td><td>Sí</td><td><b>No</b></td><td>Sí</td><td>Sí</td></tr>
     <tr><td>Cartera: registrar cargos y cobros</td><td>Sí</td><td>Sí</td><td>Sí, sin detalle clínico</td><td>Sí, sin detalle clínico</td></tr>
     <tr><td>Cartera: anular con motivo (caja abierta)</td><td>Sí</td><td>Sí</td><td>Sí, sin detalle clínico</td><td>Sí, sin detalle clínico (y una caja cerrada y los egresos, solo él)</td></tr>
@@ -2200,6 +2638,7 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
     <tr><td>Alertas clínicas del paciente</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
     <tr><td>Documentos que firma el paciente</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
     <tr><td>· Emitir la autorización de datos</td><td>Sí</td><td>Sí</td><td>Sí</td><td>No</td></tr>
+    <tr><td>· Anular una autorización pendiente</td><td>La que emitió</td><td>La que emitió</td><td>La que emitió</td><td>No</td></tr>
     <tr><td>· Registrar un rechazo de tratamiento</td><td>Sí</td><td>Solo verlo</td><td>No</td><td>No</td></tr>
     <tr><td>· Revocatoria de consentimiento</td><td>La registra y la resuelve</td><td>Solo verla</td><td>La registra</td><td>No</td></tr>
     <tr><td>Catálogo de actuaciones del auxiliar</td><td>Solo el responsable clínico tiene la pantalla y lo cambia</td><td>Sin pantalla: ve las suyas al registrar una evolución</td><td>Sin pantalla</td><td>Sin pantalla</td></tr>
