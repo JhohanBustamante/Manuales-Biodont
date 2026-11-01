@@ -194,7 +194,8 @@ como se comporta:</p>
 
 <ul>
   <li><b>La información clínica es del consultorio y se protege.</b> Solo entra quien tiene cuenta, la
-  conexión va cifrada y cada acceso a la historia clínica queda registrado.</li>
+  conexión va cifrada y queda registrado quién consulta o cambia una historia clínica
+  (<a href="#accesos">Ver quién entró a qué</a>).</li>
   <li><b>Lo clínico no se borra: se anula.</b> La historia clínica es un documento con valor
   legal y hay que conservarla <b>15 años</b> desde la última atención. Cuando algo se registra
   mal, se anula dejando constancia de quién lo anuló y por qué — no desaparece.</li>
@@ -223,15 +224,15 @@ como se comporta:</p>
   <p>Cuando Administración le <b>restablece la contraseña</b>, al entrar el sistema le pide elegir una propia
   (<b class="btn">Guardar y continuar</b>) y lo devuelve a la pantalla de entrada: escriba la nueva y entre de nuevo. Después, la
   política de datos. A una cuenta de <b>Administración</b> nueva le toca además activar la <a href="#dos-pasos">verificación en dos pasos</a>,
-  <b>antes</b> de la política. Una cuenta <b>creada</b> por Administración con una clave que ella misma puso no obliga a cambiarla: si no quiere
-  que quede una clave que otra persona conoce, pídale que use <b class="btn">Contraseña</b> sobre su fila.</p>
+  <b>antes</b> de la política. Lo mismo pasa con una cuenta <b>nueva</b>: en su primera entrada debe cambiar la clave que
+  Administración le entregó, y no puede repetirla.</p>
 </div>
 
 <div class="caja nota">
   <span class="et">La primera vez: la política de datos</span>
   <p>Al entrar por primera vez —y de nuevo cada vez que el consultorio cambie su política de
-  tratamiento de datos— el sistema le muestra la política y le pide <b class="btn">Aceptar y continuar</b>
-  antes de dejarle trabajar. Es la misma para todo el equipo, Administración incluida: el
+  tratamiento de datos— el sistema le muestra la política y le pide marcar la casilla «He leído la política… y la acepto» y pulsar
+  <b class="btn">Aceptar y continuar</b> antes de dejarle trabajar. El botón está apagado hasta que marque la casilla. Es la misma para todo el equipo, Administración incluida: el
   sistema también trata sus datos (su firma, su registro de accesos).</p>
   <p>Lo que eso significa en el trabajo de cada día está en
   <a href="#cuidar-datos">Cuidar los datos de los pacientes</a>.</p>
@@ -335,7 +336,10 @@ y después el sistema lo lleva a Mi perfil para que vea cuántos le quedan.</p>
   <b>desactivado</b>. Para generarlo, en <b class="btn">Administración</b> → <b>RDA</b> elija
   <b>Sí</b> en <b>Generar el RDA</b> y complete los datos del prestador (nombre, NIT, código de
   habilitación, dirección…): la pantalla enumera lo que falta. Biodont arma el documento de cada
-  atención firmada; <b>no lo envía</b> a ningún sitio.</li>
+  atención firmada; <b>no lo envía</b> a ningún sitio. <b>Generarlo no demuestra que el consultorio cumple
+  la norma</b>: si debe reportarlo, cuándo y cómo, lo dice su asesor. Mientras no llegue ese concepto, en el servidor
+  web <b>no se cargan las llaves del Ministerio ni se prueba la conexión</b>: la pantalla de llaves lo avisa y no
+  ofrece hacerlo.</li>
 </ol>
 
 <figure>
@@ -630,9 +634,17 @@ crea una nueva en cada visita: lo que se registra por visita es la <a href="#ate
 
 <div class="caja aviso">
   <span class="et">Lo que no toca, no se guarda</span>
-  <p>Los desplegables de antecedentes muestran «No» mientras nadie los haya llenado, porque solo ofrecen «No» y «Sí». Si usted solo escribe el
-  motivo de consulta, esos antecedentes <b>siguen sin diligenciar</b>: solo se guarda un grupo (hábitos, embarazo, cirugías…) cuando usted lo cambia
-  o cuando ya tenía datos. Si quiere dejar un «No» como respuesta, cambie otro dato de ese grupo: volver un «Sí» a «No» deja el grupo como estaba y no cuenta como un cambio.</p>
+  <p>Cada pregunta de Sí o No de los antecedentes empieza en <b>«Sin diligenciar»</b>. Lo que nadie respondió no se guarda: no aparece como «No»
+  ni en la historia clínica ni en el resumen del paciente (por ejemplo, seda dental y enjuague dicen «Sin diligenciar»). Si usted solo escribe el
+  motivo de consulta, esos antecedentes <b>siguen sin diligenciar</b>. Un «No» que usted respondió sí se guarda y sigue siendo «No».</p>
+</div>
+
+<div class="caja aviso">
+  <span class="et">Devolver una respuesta a «Sin diligenciar» pide el motivo</span>
+  <p>Si una pregunta ya tenía guardado un «Sí» o un «No» y usted la devuelve a <b>«Sin diligenciar»</b>, la barra de guardado nombra esa
+  pregunta y pide el <b>motivo</b> (entre 5 y 300 caracteres, en una línea). Sin él, <b class="btn">Guardar</b> no se activa. El motivo
+  queda en la versión nueva de los antecedentes, con su fecha y quién la guardó; la respuesta anterior sigue en la versión anterior. La
+  historia lo muestra arriba mientras esa versión sea la vigente. Cambiar un «Sí» por un «No» no pide motivo: es otra respuesta.</p>
 </div>
 
 <div class="caja nota">
@@ -1040,6 +1052,29 @@ borra nada, sino que avisa «El diente N tiene caras registradas: anúlalas ante
   <figcaption>El número de raíces, en <b>Diente completo</b>, debajo de la presencia.</figcaption>
 </figure>
 
+<div class="caja nota" id="actividad-apice">
+  <span class="et">Actividad y profundidad de la lesión, madurez del ápice</span>
+  <p>Tres datos que usan las <a href="#plan-opciones">opciones de tratamiento</a>. Ninguno se supone: sin registrar quedan en <b>No evaluada</b>, que
+  nunca equivale a «inactiva» ni a «madura».</p>
+  <ul>
+    <li><b>Actividad de la lesión</b> (en la cara, cuando tiene caries de ICDAS 1 a 6): activa o inactiva, según color, brillo y textura al sondaje
+    suave. En la raíz expuesta con lesión, <b>Actividad de la lesión radicular</b>.</li>
+    <li><b>Profundidad de la caries</b> (caries en dentina, ICDAS 4 a 6): profunda o extremadamente profunda. No decide sola: se lee con el
+    diagnóstico pulpar.</li>
+    <li><b>Madurez del ápice</b> (en <b>Diente completo</b>, solo en dientes permanentes presentes): abierto o cerrado, con la <b>fecha de la
+    radiografía</b> en que se vio y, si está subida, la radiografía. Nunca se deduce de la edad. Quitarla pide motivo, y un diente con el ápice
+    registrado no se puede pasar a ausente sin quitarla antes.</li>
+  </ul>
+  <p>La <b>endodoncia</b> y la <b>pulpotomía</b> se nombran ahora según la dentición, y la <b>pulpectomía</b> dice lo que es. Por ejemplo, la endodoncia
+  de un temporal se lee «Pulpectomía del diente temporal: conductos con obturación reabsorbible…», y la pulpectomía, en cualquier diente, «Extirpación
+  de la pulpa, sin obturación de conductos». Lo registrado antes de este cambio conserva su nombre de entonces, en pantalla, en el PDF y en el
+  presupuesto.</p>
+</div>
+<figure class="estrecha">
+  <img src="capturas/72-actividad-profundidad.png" alt="Panel de una cara con caries: Actividad de la lesión y Profundidad de la caries, las dos en No evaluada">
+  <figcaption>En la cara con caries: la actividad y la profundidad, sin registrar («No evaluada»).</figcaption>
+</figure>
+
 <div class="caja nota" id="leer-el-dibujo">
   <span class="et">Cómo leer el dibujo del diente</span>
   <p>Debajo de la rejilla, la <b>leyenda</b> nombra cada marca con su color, el patrón dicho con palabras, dónde va
@@ -1172,6 +1207,41 @@ lateral de un diente se ve siempre así.</p>
   <img src="capturas/50-plan-candidatos.png" alt="Campo CUPS de una exodoncia con dos candidatos «por confirmar» y la línea que dice qué decide entre ellos">
   <figcaption>Una exodoncia sin decidir si es simple o quirúrgica: los dos códigos salen «por confirmar» y la última línea
   dice qué elige entre ellos.</figcaption>
+</figure>
+
+<div class="caja nota" id="plan-opciones">
+  <span class="et">Opciones de tratamiento: lo que dicen las guías para el diente</span>
+  <p>En el plan, al elegir un diente, debajo de sus procedimientos aparece <b>Opciones de tratamiento · diente</b> con lo que las guías clínicas
+  dan para lo registrado en el <b>diagnóstico</b> de ese diente: caries (coronal y radicular), restauraciones y sellantes defectuosos, y la pulpa. Es
+  <b>apoyo a la decisión</b>: nada se preselecciona ni se resalta, y el diagnóstico y la elección son del profesional. Lo ve solo el <b>odontólogo</b>,
+  que es quien elabora el plan: el auxiliar lee el plan pero no ve este bloque. Con el plan en solo lectura no salen los botones.</p>
+  <ul>
+    <li><b>Cada regla</b> sale con su título (por ejemplo «Lesión extensa (ICDAS 5–6) · cara O»), la guía de la que viene y su referencia; cada opción
+    dice también la suya.</li>
+    <li><b>Si falta un dato</b> que cambia las opciones (la actividad de la lesión, la madurez del ápice), se muestran <b>todas las ramas</b>,
+    rotuladas («si la lesión está activa:», «si el ápice está abierto (inmaduro):»…), y un aviso dice qué registrar para ver solo una. Nunca se supone
+    el dato, ni se deduce de la edad. En las caras vestibular y palatina salen siempre dos ramas («si es superficie lisa» / «si es fosa vestibular o
+    palatina»): el odontograma no distingue una de otra.</li>
+    <li>Cuando la guía da un orden, las opciones van con <b>Paso 1, Paso 2…</b> («En el orden de la guía»); cuando da alternativas, van sin orden.
+    Lo que no es un procedimiento (una indicación al paciente, una vigilancia) va aparte, en <b>Sin procedimiento facturable</b>; dentro de una
+    secuencia se queda en su paso, con esa misma aclaración.</li>
+    <li><b>Llevar al plan</b> añade la línea al plan del diente (o a la boca completa, si es general). El código CUPS no se pone solo: en los
+    procedimientos de la lista se confirma después en la línea, como siempre; cuando la opción va como «Otro procedimiento (CUPS)», se elige antes
+    entre los candidatos («Elige el código…») y el botón no se activa hasta elegirlo. Una opción «sin CUPS» lo dice, con su porqué; si se lleva al
+    plan (el sellado de una lesión), la línea también dice «Sin CUPS hasta validar» y no propone ningún código. La <b>técnica de Hall</b> entra como
+    corona de acero inoxidable, con «Técnica de Hall» como detalle. Las que no tienen
+    un procedimiento del plan que las represente (una indicación, o una maniobra sin código) no tienen el botón: se dice por qué y, si la elige, se
+    anota a mano.</li>
+    <li><b>Descartar</b> pide un motivo opcional («Descartar esta opción») y deja constancia de quién, cuándo, la versión de la tabla y el plan. Lo
+    descartado se lista en <b>Descartadas en este diente</b>, donde se puede <b>Restaurar</b>. Una opción que sale en las dos ramas de una lesión
+    (por ejemplo, la restauración «si activa» y «si inactiva») se descarta en las dos a la vez.</li>
+  </ul>
+  <p>Las opciones se calculan con el diagnóstico <b>guardado</b>: después de cambiarlo, se actualizan solas. La tabla es la versión 1.0, validada por
+  el responsable clínico.</p>
+</div>
+<figure>
+  <img src="capturas/71-opciones-tratamiento.png" alt="Opciones de tratamiento del diente 46 con una lesión extensa en la cara oclusal: las ramas «si la lesión está activa» y «si la lesión está inactiva», cada una con la restauración, sus CUPS candidatos, la fuente y los botones Llevar al plan y Descartar">
+  <figcaption>Opciones del 46: como no consta si la lesión está activa, salen las dos ramas, cada una con su fuente.</figcaption>
 </figure>
 
 <h4>Los datos que deciden el código</h4>
@@ -1321,7 +1391,7 @@ examen es una <b>versión</b>: el anterior se conserva. Un examen guardado antes
   movilidad y los implantes. Se lee sin color y también sale en el PDF. Es una representación: la tabla sigue siendo el
   examen completo. En los indicadores, el NIC dice sobre cuántos sitios se pudo calcular (hace falta la recesión).</p>
   <p>Si el paciente tiene exámenes anteriores, <b>Comparar con el examen anterior</b> lista, sitio a sitio, los que
-  cambiaron en sondaje, recesión o NIC, y cuenta aparte cuántos cambiaron 2 mm o más en el sondaje. Por defecto compara con el anterior no anulado;
+  cambiaron en sondaje, recesión o NIC, y cuenta aparte cuántos cambiaron 2 mm o más en el sondaje. Por defecto compara con el anterior no anulado que tenga sondaje (uno que solo trae el diagnóstico se salta);
   puede elegir otro. Un sitio sin medir en uno de los dos dice «no comparable».</p>
 </div>
 <figure>
@@ -1824,7 +1894,7 @@ avisa.</p>
 
 <p>La historia clínica es información reservada, y la norma exige poder saber quién la consultó.
 El <b>Registro de accesos</b> guarda quién entró, a qué, cuándo — y también <b>quién lo intentó y
-no pudo</b>.</p>
+no pudo</b> (con los límites que se dicen abajo).</p>
 
 <figure>
   <img src="capturas/13-registro-accesos.png" alt="Registro de accesos con sus filtros">
@@ -1834,11 +1904,30 @@ no pudo</b>.</p>
 <p>Se filtra por <b>acción</b> (consulta, creación, modificación, firma, anulación…), por
 <b>resultado</b> (concedidos o solo denegados), por <b>persona</b> y por <b>fechas</b>.</p>
 
+<p><b>Qué queda.</b> Deja asiento, con el nombre del paciente, la consulta y el cambio de la historia
+clínica de un paciente: atenciones, diagnósticos, odontograma, periodontograma, evoluciones, fórmulas,
+documentos e imágenes, firmas, presupuestos y cobros, y también su anulación. Los listados (pacientes,
+agenda, cartera, cotizaciones) dejan asiento <b>sin</b> paciente: dicen quién vio la lista, no a quién.
+La pantalla de <b>Inicio</b> y la <b>campana</b> de avisos también dejan uno por cada vez que se cargan, sin
+paciente y con cuántos pacientes o avisos se mostraron, nunca cuáles.
+Una importación de pacientes deja un solo asiento con cuántos se crearon, actualizaron y rechazaron.
+De los <b>intentos que no se permiten</b> quedan todos los que niega el sistema, por permisos o por rol.</p>
+
+<p><b>Qué no queda.</b></p>
+<ul>
+  <li>Las <b>solicitudes de datos personales</b>: si una está vinculada a un paciente muestra su ficha, y esa
+  consulta tampoco queda.</li>
+  <li>La <b>revisión previa</b> de una importación (no escribe nada) y las entregas del cierre del consultorio.</li>
+  <li>La firma del paciente desde su enlace no es un acceso del personal y no se busca aquí.</li>
+</ul>
+<p>Dos consultas clínicas no se han podido medir todavía y no se afirma nada de ellas: el RDA de una atención y
+la entrega de las historias de un paciente al cerrar el consultorio.</p>
+
 <div class="caja aviso">
   <span class="et">Lo que el propio sistema advierte</span>
-  <p>La pantalla dice que <b>la ausencia de asientos no significa ausencia de accesos</b>: el
-  registro automático cubre las rutas que pasan por el motor de permisos. Léalo como una fuente
-  parcial, no como la lista completa de todo lo que ocurrió.</p>
+  <p>La pantalla dice que <b>la ausencia de asientos no significa ausencia de accesos</b>. El asiento
+  se escribe justo después de entregar la información y, si esa escritura fallara, la atención no se
+  detiene. Léalo como la fuente de quién abrió qué, no como prueba de que nadie más lo hizo.</p>
 </div>
 
 <h3>¿Estaba autorizada esa actuación el día que se hizo?</h3>
@@ -1995,8 +2084,8 @@ radicada. Todas aparecen en la misma lista.</p>
   (presencial, correo o teléfono), quién la presenta (el titular, su representante legal, un causahabiente o un
   apoderado), el nombre completo, el documento, <b>un correo o un teléfono</b> y qué solicita. <b>Sin correo ni teléfono no se
   puede radicar</b>: sin cómo entregar la respuesta, el término corre igual y no se puede cumplir. Un
-  <b>causahabiente</b> (alguien que pide la historia de una persona fallecida) debe además declarar el parentesco y las
-  pruebas de fallecimiento y de parentesco.</li>
+  <b>causahabiente</b> (alguien que pide la historia de una persona fallecida) debe además declarar el parentesco, las
+  pruebas de fallecimiento y de parentesco, y marcar que <b>se comprometió a no divulgar</b> la información que se le entregue.</li>
   <li>Al radicar, el sistema da el <b>número de radicado</b> (por ejemplo <code>HD-2026-00001</code>) y la fecha en que vence. Dele
   ese número al titular: con él y su documento puede consultar cómo va.</li>
   <li>En cada fila: <b class="btn">Vincular paciente</b> (si el titular es paciente del consultorio: lo busca y lo
@@ -2022,16 +2111,16 @@ radicada. Todas aparecen en la misma lista.</p>
 
 <p>Si algo dejó datos de pacientes donde no debían estar (ver <a href="#cuidar-datos">Cuidar los datos de los
 pacientes</a>), Administración lo registra el mismo día. Si hay que informarlo a la autoridad, el plazo es de
-<b>15 días hábiles desde la detección</b>. El sistema toma la fecha del registro como la de detección, aunque el hecho sea anterior: por
-eso conviene registrarlo <b>el día que se detecta</b>. Si se registra tarde, el plazo legal ya venía corriendo y el sistema no lo sabe.</p>
+<b>15 días hábiles desde la detección</b>. El formulario pregunta <b>Cuándo se detectó</b> (por defecto, hoy). Si ya se sabía antes de registrarlo, ponga ese día: el plazo de 15 días
+hábiles corre desde ahí, y el plazo que muestra el sistema al registrar ya es el real. Conviene registrarlo <b>el día que se detecta</b>.</p>
 
 <ol class="pasos">
   <li>Menú <b>Datos personales</b> → <b class="btn">Incidentes</b> → <b class="btn">+ Registrar incidente</b>.</li>
   <li>Elija <b>qué pasó</b> (alguien entró a datos que no le corresponden, datos expuestos a quien no debía,
   borrados o dañados, modificados sin autorización, el sistema o los respaldos dejaron de estar disponibles, u otro),
-  describa lo ocurrido, marque si <b>afecta datos de salud</b> (son datos sensibles) y cuántas personas afectadas hay, si se sabe.</li>
+  describa lo ocurrido, marque si <b>afecta datos de salud</b> (son datos sensibles) y cuántas personas afectadas hay, si se sabe. Si quiere, indique también <b>Cuándo se avisó internamente</b> (al responsable dentro del consultorio).</li>
   <li>Al registrarlo, el sistema dice cuándo vence el plazo para informar. Pulse <b class="btn">Trabajar</b> en la fila
-  para abrir el incidente.</li>
+  para abrir el incidente. Allí se ven por separado cuándo ocurrió, se detectó, se avisó, se registró y se informó a la autoridad. La fecha de detección <b>no se corrige</b> después de registrar: el plazo queda fijo a propósito. El aviso interno sí se puede anotar después, una sola vez.</li>
   <li>En <b>Qué se hizo para contenerlo</b> anote las medidas y pulse <b class="btn">Guardar medidas</b>.</li>
   <li>Decida <b>¿Hay que informarlo a la autoridad?</b>: <b class="btn">Sí, hay que informarlo</b> o
   <b class="btn">No procede</b>. Si es que sí, el incidente queda pendiente hasta que anote la <b>Constancia del
@@ -2246,7 +2335,10 @@ desde la que se llega a todo lo demás del paciente.</p>
   <li><b>Nuevo paciente</b> — ver <a href="#paciente-nuevo">Llega un paciente nuevo</a>.</li>
   <li><b>Importar</b> — cargar pacientes desde un archivo CSV o Excel. Solo
   <span class="rol r-odo">Odontólogo</span> y <span class="rol r-adm">Administración</span>: a Recepción y al Auxiliar no se
-  les ofrece.</li>
+  les ofrece.
+  <b>Dos cosas al importar:</b> Administración no puede importar la columna «observaciones» (es información clínica): si el archivo la trae,
+  todas las filas salen con error; quite esa columna o pídale la importación a un odontólogo. Y el documento solo puede llevar números: un paciente con
+  <b>pasaporte</b> (que lleva letras) se registra a mano desde <b class="btn">Nuevo paciente</b>, eligiendo el tipo de documento Pasaporte.</li>
   <li><b>El menú de cada fila</b> — lleva a las pantallas del paciente, incluida
   <a href="#v-documentos">Documentos</a>, que no es una pestaña.</li>
 </ul>
@@ -2850,7 +2942,7 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
     <tr><td><b>PIN de firma</b></td><td>Clave numérica del acto de firmar. Distinta de la contraseña.</td></tr>
     <tr><td><b>PRA</b></td><td>Valoración del riesgo periodontal de Lang y Tonetti (2003), para pacientes en terapia de soporte.</td></tr>
     <tr><td><b>Presupuesto</b></td><td>Lo propuesto a un paciente registrado, con precio por procedimiento.</td></tr>
-    <tr><td><b>RDA</b></td><td>Resumen Digital de Atención (Res. 1888/2025): el documento de cada atención firmada según la guía del Ministerio. Biodont lo genera, no lo envía.</td></tr>
+    <tr><td><b>RDA</b></td><td>Resumen Digital de Atención (Res. 1888/2025): el documento de cada atención firmada según la guía del Ministerio. Biodont lo genera, no lo envía; generarlo no demuestra cumplimiento (eso lo dice el asesor).</td></tr>
     <tr><td><b>Responsable clínico</b></td><td>Odontólogo designado que responde por la historia clínica y consulta el registro de accesos.</td></tr>
     <tr><td><b>Retención</b></td><td>Los 15 años que hay que conservar la historia desde la última atención.</td></tr>
   </tbody>
