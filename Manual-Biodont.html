@@ -173,6 +173,8 @@ table.constancia td{height:42px}
 
 <h1>Manual de Biodont</h1>
 <p class="sub">Sistema de gestión para consultorio odontológico · Versión 1.0</p>
+<p class="sub" id="build-manual">Describe Biodont con el servidor <code>954f5c0</code> y las pantallas <code>debdeea</code> (versión de la pantalla <code>main-4WZLGFED</code>) · revisado el 2026-11-02.</p>
+<!-- Detalle técnico: servidor (backend) 954f5c0, pantallas (front odontograma) debdeea, bundle main-4WZLGFED; validado el 2026-11-02. Si la versión de su pantalla es otra, este manual puede no coincidir. -->
 
 <div class="caja nota">
   <span class="et">Cómo está organizado</span>
@@ -268,9 +270,9 @@ como se comporta:</p>
 autenticadora en el celular (Google Authenticator, Microsoft Authenticator o cualquier otra; son
 gratuitas y funcionan sin internet). Así, aunque alguien sepa su contraseña, no entra sin el celular.</p>
 <ul>
-  <li><span class="rol r-adm">Administración</span> <b>tiene que activarla</b>: la primera vez que entra,
-  el sistema la lleva a <b>Verificación en dos pasos</b> y no deja hacer nada más hasta terminar.</li>
-  <li>Los demás roles pueden activarla desde <b>Mi perfil → Seguridad</b>, con
+  <li><span class="rol r-adm">Administración</span> y <span class="rol r-odo">Odontólogo</span> <b>tienen que activarla</b>: la primera vez que entran,
+  el sistema las lleva a <b>Verificación en dos pasos</b> y no deja hacer nada más hasta terminar. Si cambia de celular, otro administrador se la restablece desde Usuarios.</li>
+  <li>Auxiliar y Recepción pueden activarla desde <b>Mi perfil → Seguridad</b>, con
   <b class="btn">Activar la verificación en dos pasos</b>.</li>
 </ul>
 <p><b>Para activarla:</b></p>
@@ -380,8 +382,9 @@ firmar y estar dentro del sistema serían lo mismo, y la firma no probaría nada
   <p>Mientras el profesional no lo cambie, el sistema lo tiene por temporal y <b>rechaza la
   firma</b>. Es deliberado: si el PIN que puso Administración sirviera para firmar, Administración
   podría firmar en nombre del odontólogo.</p>
-  <p>El PIN tiene entre 6 y 12 dígitos. A los <b>5 intentos fallidos</b> se bloquea, y hay que
-  pedirle a Administración que lo restablezca.</p>
+  <p>El PIN tiene entre 6 y 12 dígitos. A los <b>5 intentos fallidos</b> se bloquea durante
+  <b>15 minutos</b> y luego vuelve a admitir intentos; el quinto fallo ya lo avisa («quedó bloqueado por 15 minutos»). Si no puede esperar,
+  Administración le pone un PIN temporal, que quita el bloqueo; para firmar, el profesional tiene que cambiarlo antes por uno suyo.</p>
 </div>
 
 <figure>
@@ -599,6 +602,8 @@ Inicio, en <b>Controles por agendar</b>, <b class="btn">Recordar por WhatsApp</b
   <p>Una cita <b>Atendida</b> es un hecho ya ocurrido y moverla cambiaría cuándo se atendió al
   paciente. Una <b>Cancelada</b> se vuelve a agendar, que es otra decisión. Solo se reprograman
   las que están <b>Programada</b> o <b>Confirmada</b>, y siempre a una fecha futura.</p>
+  <p>El sistema no impide marcar <b>Atendida</b> una cita de un día que todavía no ha llegado. Márquela solo cuando el paciente
+  haya venido: después ya no se puede reprogramar y, si era la cita de un control, el control deja de salir como pendiente.</p>
 </div>
 
 <hr>
@@ -803,8 +808,9 @@ y, si está alterada, describa lo que ve. Debajo hay la apertura bucal (opcional
 
 <h3>Datos para el RDA</h3>
 <p>Bajo el diagnóstico, <b>Datos para el RDA</b> pide la <b>consulta (CUPS)</b>, el <b>tipo del
-diagnóstico principal</b> y la <b>causa externa</b>. No traen valor por defecto: los marca quien
-atiende.</p>
+diagnóstico principal</b> y la <b>causa externa</b>. No traen valor por defecto. La consulta (CUPS) la puede
+marcar quien registra la atención, también el auxiliar; el tipo del diagnóstico y la causa externa, como el diagnóstico,
+los marca solo el odontólogo.</p>
 <figure>
   <img src="capturas/33-datos-rda-atencion.png" alt="Bloque Datos para el RDA de la atención, con sus tres campos sin registrar">
   <figcaption>Los tres datos del RDA de la atención. Con el RDA activo, la atención no se firma sin
@@ -1369,8 +1375,9 @@ examen es una <b>versión</b>: el anterior se conserva. Un examen guardado antes
   no avanza solo; si el valor es solo 1, pase al sitio siguiente con <b>Tab</b> o con un clic (si escribe otro dígito justo después, se une: 1 y 2 quedan en 12). Marque el sangrado, la placa y la supuración pulsando sus
   círculos o, sin soltar el teclado, con las teclas <b>B</b> (sangrado), <b>P</b> (placa) y <b>S</b> (supuración): marcan
   el sitio recién medido. Cada círculo tiene <b>tres estados</b>: vacío y tenue (<b>sin evaluar</b>), relleno (<b>sí</b>) y
-  círculo con borde oscuro (<b>no</b>: se miró y no está). Cada pulsación pasa al estado siguiente (sin evaluar, sí, no y otra vez sin
-  evaluar). Ver <a href="#perio-sangrado">Sangrado, placa y supuración: tres estados</a>.</li>
+  círculo con borde oscuro (<b>no</b>: se miró y no está). Cada clic pasa al estado siguiente (sin evaluar, sí, no y otra vez sin
+  evaluar). Las teclas solo alternan entre <b>sí</b> y <b>sin evaluar</b>: el <b>no</b> se marca con el clic, para que no quede
+  escrito por una tecla pulsada de más. Ver <a href="#perio-sangrado">Sangrado, placa y supuración: tres estados</a>.</li>
   <li>Se guarda solo («Guardado»). Abajo, los <b>indicadores</b> del examen se recalculan.</li>
   <li>En un <b>implante</b> no se registra la movilidad: la escala de Miller es de dientes naturales. Un valor que ya estaba
   registrado se conserva y se muestra con un asterisco para revisarlo; solo se puede <b>quitar</b>, con su motivo. Por lo mismo,
@@ -1742,7 +1749,7 @@ ponga el <b>concepto</b> y el <b>monto</b>, y pulse <b class="btn">Registrar car
   <li>Busque al paciente escribiendo parte del nombre o el documento. Aparecen sus cargos con el
   <b>saldo</b> de cada uno: elija el que paga. Si no debe nada, la ventana lo dice; registre
   primero el cargo.</li>
-  <li>Ponga el <b>monto</b> (hasta el saldo), el <b>medio de pago</b> y, si quiere, una
+  <li>Ponga el <b>monto</b> (hasta el saldo), el <b>medio de pago</b> (se elige de la lista del consultorio: Efectivo, Nequi, Daviplata, Bancolombia, Bre-B, Pibank, Nubank, Transferencia bancaria, Tarjeta débito, Tarjeta crédito, PSE o Cheque; el sistema no admite otro) y, si quiere, una
   <b>referencia</b> (número de transacción…).</li>
   <li>Pulse <b class="btn">Registrar cobro</b>.</li>
 </ol>
@@ -1763,15 +1770,15 @@ ponga el <b>concepto</b> y el <b>monto</b>, y pulse <b class="btn">Registrar car
   <p>Un cobro, un cargo o un egreso equivocado se <b class="btn">Anular</b> con un motivo (mínimo
   5 caracteres). Deja de sumar en la caja y en el saldo, pero queda en el registro, atenuado, con
   quién lo anuló y por qué. Para verlos, marque <b>Mostrar pagados y anulados</b>.</p>
-  <p><b>Anulan</b> los cuatro roles, con las mismas reglas: solo lo de la <b>caja abierta</b> (una caja ya cerrada, solo Administración), un <b>egreso</b>
-  solo Administración, y un cargo que viene de un presupuesto aceptado se anula desde su tratamiento.</p>
+  <p><b>Anulan</b> los cuatro roles, con las mismas reglas: solo lo de la <b>caja abierta</b> (una caja ya cerrada, solo Administración y Odontología), un <b>egreso</b>
+  solo Administración y Odontología, y un cargo que viene de un presupuesto aceptado se anula desde su tratamiento.</p>
   <p><b>Anular un tratamiento anula con él sus cargos sin cobros.</b> Si el cargo ya tiene cobros, queda con la marca
   <b>«De un tratamiento (Anulado)»</b> y la nota <i>«Tratamiento anulado. Para anular el cargo, anula antes sus cobros»</i>. Ese cargo <b>ya no cuenta como
   deuda</b>: ni en «Por cobrar», ni en la cartera abierta de Inicio, ni en la campana, ni en el «debe» de Tratamientos. En Cartera se ve, con sus abonos y con
   <b>saldo $0</b>, al marcar <b>Mostrar pagados y anulados</b> (en <b>Movimientos</b> sale siempre, con «Su tratamiento está anulado»). Al
   <b>anular su último cobro</b>, el cargo se cancela solo, con el motivo del tratamiento. Desactivar a un paciente ya no avisa por ese cargo ni por tratamientos
   anulados. Un cobro de un día con la caja cerrada dice <b>«Caja cerrada»</b> en lugar de
-  ofrecer anularlo (solo Administración lo anula).</p>
+  ofrecer anularlo (solo Administración y Odontología lo anulan).</p>
   <figure>
     <img src="capturas/61-cargo-de-tratamiento-anulado.png" alt="Cargo de un tratamiento anulado con un abono de 189.151, saldo 0 y la nota de que hay que anular antes sus cobros">
     <figcaption>El cargo de un tratamiento anulado que tenía un abono: sigue visible con su abono, y su saldo es $0.</figcaption>
@@ -1799,8 +1806,8 @@ cobros de hoy y, al lado, el <b>Cierre de caja</b>:</p>
 avisa.</p>
 
 <div class="caja nota">
-  <span class="et">Los egresos son de Administración</span>
-  <p>Solo Administración ve <b class="btn">Registrar egreso</b> (categoría, fecha, concepto,
+  <span class="et">Los egresos son de Administración y Odontología</span>
+  <p>Solo Administración y Odontología ven <b class="btn">Registrar egreso</b> (categoría, fecha, concepto,
   monto y medio) y el balance del consultorio.</p>
 </div>
 
@@ -1876,17 +1883,33 @@ avisa.</p>
 </div>
 
 <div class="caja alto">
-  <span class="et">El texto sale marcado como BORRADOR</span>
-  <p>Mientras el consultorio no registre la <b>aprobación</b> de cada texto, el documento lleva un
-  aviso de borrador <b>dentro de lo que firma el paciente</b>. Es intencional: así nadie puede
-  sostener después que firmó un texto aprobado. La aprobación se registra en
-  <b class="btn">Administración</b> → <b>Documentos legales</b>, en el campo <b>Aprobación
-  jurídica</b> de cada documento; ahí mismo se puede cargar un texto propio.</p>
+  <span class="et">Un texto sin aprobar no se pide a firmar</span>
+  <p>Cada texto que firma el paciente (consentimiento, autorización de datos, rechazo de tratamiento, revocatoria) tiene que estar
+  <b>aprobado</b> por el consultorio antes de pedir la firma. Mientras no lo esté, <b>Biodont no genera la solicitud</b>: el sistema responde
+  <i>«Este texto todavía no está aprobado: no se puede pedir la firma en producción. Administración → Textos legales.»</i> y no se crea ni el código QR
+  ni el documento. Lo mismo vale para un enlace ya emitido: si la aprobación se retira o el texto cambia después, el paciente no puede firmar con
+  ese enlace y hay que emitir otro. La aprobación de cada texto es <b>propia</b>: aprobar uno no aprueba los demás.</p>
+  <p><b>Cómo se aprueba</b> (solo <span class="rol r-adm">Administración</span>): <b class="btn">Administración</b> → <b>Documentos legales</b>. El consentimiento
+  y los demás textos se eligen en el selector <b>Documento</b> de la tarjeta <b>Textos legales</b>. Se revisa el texto con el asesor jurídico y se
+  guarda con <b>Guardar documento</b> llenando:</p>
+  <ul>
+    <li><b>Aprobación jurídica</b>: quién lo revisó y cuándo (por ejemplo «Dra. Ana Ruiz — 12/09/2026»). Vacío significa «sin aprobar».</li>
+    <li><b>Referencia del concepto del asesor</b>: obligatoria al aprobar (al retirar la aprobación es el motivo, y es opcional).</li>
+    <li><b>Código de tu segundo factor</b>: el de 6 dígitos de su aplicación autenticadora (o un código de recuperación). Se pide al <b>aprobar</b> y
+    también al <b>retirar</b> una aprobación, siempre en ese momento.</li>
+  </ul>
+  <p>Queda guardada la <b>constancia</b>: quién aprobó, cuándo, la versión del texto y la referencia. Si el texto se edita después, la aprobación
+  deja de cubrirlo: el sistema avisa «El texto cambió después de aprobarse» y ofrece <b class="btn">Aprobar de nuevo este texto</b> (que también pide el
+  código). Los documentos ya firmados no cambian: guardan su propia copia del texto y su huella.</p>
+  <p>El aviso de <b>borrador</b> dentro del documento solo se ve en un servidor declarado de pruebas (un equipo de práctica): allí sí se puede pedir la
+  firma sin aprobar, y el texto lleva el aviso. En el consultorio, y en cualquier instalación que no esté declarada como de pruebas, el bloqueo rige
+  siempre. La <b>política de tratamiento de datos</b> y el <b>aviso de privacidad</b> siguen la misma aprobación, y mientras estén sin aprobar se
+  publican con su aviso de borrador.</p>
 </div>
 
 <figure>
   <img src="capturas/18-admin-consentimiento.png" alt="Configuración del texto del consentimiento en Administración">
-  <figcaption>Aquí se reemplaza el texto de borrador por el del consultorio.</figcaption>
+  <figcaption>Configuración del texto del consentimiento en Administración. La aprobación de cada texto va en la tarjeta «Textos legales» de «Documentos legales».</figcaption>
 </figure>
 <hr>
 <h2 id="accesos">Ver quién entró a qué</h2>
@@ -2337,8 +2360,8 @@ desde la que se llega a todo lo demás del paciente.</p>
   <span class="rol r-odo">Odontólogo</span> y <span class="rol r-adm">Administración</span>: a Recepción y al Auxiliar no se
   les ofrece.
   <b>Dos cosas al importar:</b> Administración no puede importar la columna «observaciones» (es información clínica): si el archivo la trae,
-  todas las filas salen con error; quite esa columna o pídale la importación a un odontólogo. Y el documento solo puede llevar números: un paciente con
-  <b>pasaporte</b> (que lleva letras) se registra a mano desde <b class="btn">Nuevo paciente</b>, eligiendo el tipo de documento Pasaporte.</li>
+  todas las filas salen con error; quite esa columna o pídale la importación a un odontólogo. Y el documento solo puede llevar números, salvo con la columna
+  tipoDocumento en «PA» (<b>pasaporte</b>), que admite letras; sin esa columna, un pasaporte se registra a mano desde <b class="btn">Nuevo paciente</b>.</li>
   <li><b>El menú de cada fila</b> — lleva a las pantallas del paciente, incluida
   <a href="#v-documentos">Documentos</a>, que no es una pestaña.</li>
 </ul>
@@ -2385,7 +2408,7 @@ desde la que se llega a todo lo demás del paciente.</p>
   resta (<b>«ya descontado»</b>); el descuento aparece en <b>Movimientos</b> como una fila aparte que <b>no se cobra, no se edita ni se anula</b>.</li>
   <li><b>Movimientos</b> — todo, filtrable por cobros, cargos, egresos y anulados. Nada se borra:
   se <b>anula</b> con motivo.</li>
-  <li><b>Registrar egreso</b> — solo Administración.</li>
+  <li><b>Registrar egreso</b> — solo Administración y Odontología.</li>
 </ul>
 <div class="caja nota">
   <span class="et">Qué ven Recepción y Administración</span>
@@ -2438,6 +2461,9 @@ toma Administración sino el responsable clínico. Los demás odontólogos no ve
 <p class="quien">Entra: <span class="rol r-odo">Odontólogo</span> — <b>solo</b> el designado responsable clínico</p>
 <p>Quién abrió qué historia y cuándo. También quedan los <b>intentos denegados</b>, que suelen
 decir más que los accesos correctos.</p>
+<p>Registra lo clínico y, de lo administrativo, solo lo que muestra datos de personas: quién consultó la <b>lista de usuarios</b> o la de
+<b>ingresos</b> al sistema, y quién lo intentó sin permiso. El resto de la administración (configuración, respaldo, resúmenes de solicitudes e
+incidentes) no deja asiento aquí.</p>
 <ul>
   <li><b>Filtrar</b> — por persona, por paciente, por tipo de acción y por fechas.</li>
   <li><b>Ventana de 30 días</b> — la pantalla abre acotada al último mes y lo dice. «Ver todo
@@ -2721,9 +2747,9 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
     <tr><td>Presupuesto: llevar desde el plan</td><td>Sí</td><td>No</td><td>No</td><td>No</td></tr>
     <tr><td>Cotizaciones</td><td>Sí</td><td><b>No</b></td><td>Sí</td><td>Sí</td></tr>
     <tr><td>Cartera: registrar cargos y cobros</td><td>Sí</td><td>Sí</td><td>Sí, sin detalle clínico</td><td>Sí, sin detalle clínico</td></tr>
-    <tr><td>Cartera: anular con motivo (caja abierta)</td><td>Sí</td><td>Sí</td><td>Sí, sin detalle clínico</td><td>Sí, sin detalle clínico (y una caja cerrada y los egresos, solo él)</td></tr>
+    <tr><td>Cartera: anular con motivo (caja abierta)</td><td>Sí (y también una caja cerrada y los egresos)</td><td>Sí</td><td>Sí, sin detalle clínico</td><td>Sí, sin detalle clínico (y también una caja cerrada y los egresos)</td></tr>
     <tr><td>Cerrar la caja del día</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
-    <tr><td>Registrar egresos y ver el balance</td><td>No</td><td>No</td><td>No</td><td>Sí</td></tr>
+    <tr><td>Registrar egresos y ver el balance</td><td>Sí</td><td>No</td><td>No</td><td>Sí</td></tr>
     <tr><td>Tarifario</td><td>Solo leer</td><td>Solo leer</td><td>Solo leer</td><td><b>Crear, poner precios y ver su historial</b></td></tr>
     <tr><td>Usuarios, respaldo, textos</td><td>No</td><td>No</td><td>No</td><td>Sí</td></tr>
     <tr><td>RDA: activarlo y descargarlo</td><td>No</td><td>No</td><td>No</td><td>Sí</td></tr>
@@ -2769,7 +2795,7 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
   <tbody>
     <tr><td><b>Programada</b></td><td>Agendada, sin confirmar con el paciente.</td></tr>
     <tr><td><b>Confirmada</b></td><td>El paciente confirmó que viene.</td></tr>
-    <tr><td><b>Atendida</b></td><td>Ya ocurrió. No se reprograma.</td></tr>
+    <tr><td><b>Atendida</b></td><td>Ya ocurrió. No se reprograma. El sistema deja marcarla antes de su fecha: hágalo solo cuando el paciente vino.</td></tr>
     <tr><td><b>Cancelada</b></td><td>No se hizo. Para volver a citar se agenda una nueva.</td></tr>
   </tbody>
 </table>
@@ -2832,10 +2858,10 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
   <thead><tr><th>Lo que pasa</th><th>Por qué</th><th>Qué hacer</th></tr></thead>
   <tbody>
     <tr>
-      <td>«Sesión expirada» sin haber hecho nada</td>
-      <td>Pasaron 8 horas, o alguien salió <b>en todos los equipos</b> con su cuenta. Salir
-      <b>solo en un equipo</b> no le cierra los demás.</td>
-      <td>Vuelva a entrar.</td>
+      <td>«Tu sesión venció» o «Tu sesión se cerró» sin haber hecho nada</td>
+      <td>«Venció»: pasaron 8 horas. «Se cerró»: alguien salió <b>en todos los equipos</b> con su cuenta, o cambió su
+      contraseña o su rol. Salir <b>solo en un equipo</b> no le cierra los demás.</td>
+      <td>Vuelva a entrar. Revise lo último que estaba marcando: pudo no guardarse.</td>
     </tr>
     <tr>
       <td>No deja entrar y dice que hay demasiados intentos</td>
@@ -2860,7 +2886,7 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
     <tr>
       <td>El PIN quedó bloqueado</td>
       <td>Cinco intentos fallidos.</td>
-      <td>Administración lo restablece desde Gestión de usuarios.</td>
+      <td>Espere 15 minutos, o pida a Administración un PIN temporal desde Gestión de usuarios (quita el bloqueo).</td>
     </tr>
     <tr>
       <td>El QR no abre en el celular del paciente</td>
