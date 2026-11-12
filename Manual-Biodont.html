@@ -1749,7 +1749,7 @@ ponga el <b>concepto</b> y el <b>monto</b>, y pulse <b class="btn">Registrar car
   <li>Busque al paciente escribiendo parte del nombre o el documento. Aparecen sus cargos con el
   <b>saldo</b> de cada uno: elija el que paga. Si no debe nada, la ventana lo dice; registre
   primero el cargo.</li>
-  <li>Ponga el <b>monto</b> (hasta el saldo), el <b>medio de pago</b> (se elige de la lista del consultorio: Efectivo, Nequi, Daviplata, Bancolombia, Bre-B, Pibank, Nubank, Transferencia bancaria, Tarjeta débito, Tarjeta crédito, PSE o Cheque; el sistema no admite otro) y, si quiere, una
+  <li>Ponga el <b>monto</b> (hasta el saldo; si el cargo viene de un presupuesto con descuento, hasta lo que queda <b>con el descuento ya restado</b>), el <b>medio de pago</b> (obligatorio: la lista empieza en «Elige el medio…» y sin elegirlo no se registra; se elige de la lista del consultorio: Efectivo, Nequi, Daviplata, Bancolombia, Bre-B, Pibank, Nubank, Transferencia bancaria, Tarjeta débito, Tarjeta crédito, PSE o Cheque; el sistema no admite otro) y, si quiere, una
   <b>referencia</b> (número de transacción…).</li>
   <li>Pulse <b class="btn">Registrar cobro</b>.</li>
 </ol>
@@ -1808,8 +1808,24 @@ avisa.</p>
 <div class="caja nota">
   <span class="et">Los egresos son de Administración y Odontología</span>
   <p>Solo Administración y Odontología ven <b class="btn">Registrar egreso</b> (categoría, fecha, concepto,
-  monto y medio) y el balance del consultorio.</p>
+  monto y medio) y el balance del consultorio. El <b>medio de pago es obligatorio</b> en todo egreso nuevo; un egreso de antes
+  guardado sin medio se puede seguir editando tal cual.</p>
 </div>
+
+<h3 id="saldo-a-favor">Saldo a favor del paciente</h3>
+<p>Si se rechaza una línea de un presupuesto <b>después</b> de cobrar otra por su valor con descuento, el descuento se reparte de
+nuevo y la línea cobrada queda pagada por encima de lo que ahora vale. Esa diferencia no es deuda: es dinero <b>del paciente</b>.
+Cartera la muestra como <b>Saldo a favor del paciente</b> (arriba y en el grupo del paciente), el cargo dice <b>Cobrado de más</b>,
+Tratamientos dice «cobrado de más» e Inicio la suma en <b>Cartera abierta</b>.</p>
+<ol class="pasos">
+  <li>En <b>Por cobrar</b>, en el grupo del paciente, pulse <b class="btn">Devolver</b> o <b class="btn">Abonar a otra deuda</b>.</li>
+  <li><b>Devolver</b> es una salida de la <b>caja de hoy</b>: pide el monto y el medio, y con la caja del día cerrada no se puede.
+  La caja la muestra en «Devoluciones de saldo a favor» y la descuenta del efectivo esperado.</li>
+  <li><b>Abonar a otra deuda</b> baja otra deuda del mismo paciente <b>sin tocar la caja</b>: ese dinero ya entró cuando se cobró.</li>
+  <li>Confirme: la ventana pide un segundo «Sí, confirmar».</li>
+</ol>
+<p>Lo pueden hacer Administración, Odontología y Recepción. Mientras un paciente tenga saldo a favor, no se puede desactivar ni
+borrar: primero se devuelve o se abona.</p>
 
 <hr>
 <h2 id="firmar-docs">Documentos que firma el paciente</h2>
@@ -2573,7 +2589,10 @@ cierra. Tiene cinco pestañas.</p>
   <li><b>Órdenes y remisiones</b> — estudios pedidos y remisiones a especialista.</li>
   <li><b>Archivos</b> — radiografías y documentos de esta visita.</li>
   <li><b>Constancias y correcciones</b> — adendas, imposibilidad de consentir y
-  <b>Comprobar integridad</b>.</li>
+  <b>Comprobar integridad</b>. La constancia de imposibilidad de consentir sale en el impreso de la atención y la cubre la
+  firma. Una constancia equivocada se <b class="btn">Anular</b> con un motivo (mínimo 5 caracteres), también con la atención
+  ya firmada: lo firmado no cambia, la anulación queda registrada y sellada aparte, y el impreso la muestra como «anulada
+  después de la firma», con fecha, quién y por qué. Anulan los odontólogos.</li>
   <li><b>Revisar, firmar y cerrar</b> — ver <a href="#flujo-atencion">El ciclo de una
   atención</a>.</li>
 </ul>
@@ -2750,6 +2769,7 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
     <tr><td>Cartera: anular con motivo (caja abierta)</td><td>Sí (y también una caja cerrada y los egresos)</td><td>Sí</td><td>Sí, sin detalle clínico</td><td>Sí, sin detalle clínico (y también una caja cerrada y los egresos)</td></tr>
     <tr><td>Cerrar la caja del día</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
     <tr><td>Registrar egresos y ver el balance</td><td>Sí</td><td>No</td><td>No</td><td>Sí</td></tr>
+    <tr><td>Devolver o abonar el saldo a favor de un paciente</td><td>Sí</td><td>No (lo ve)</td><td>Sí</td><td>Sí</td></tr>
     <tr><td>Tarifario</td><td>Solo leer</td><td>Solo leer</td><td>Solo leer</td><td><b>Crear, poner precios y ver su historial</b></td></tr>
     <tr><td>Usuarios, respaldo, textos</td><td>No</td><td>No</td><td>No</td><td>Sí</td></tr>
     <tr><td>RDA: activarlo y descargarlo</td><td>No</td><td>No</td><td>No</td><td>Sí</td></tr>
