@@ -173,8 +173,8 @@ table.constancia td{height:42px}
 
 <h1>Manual de Biodont</h1>
 <p class="sub">Sistema de gestión para consultorio odontológico · Versión 1.0</p>
-<p class="sub" id="build-manual">Describe Biodont con el servidor <code>954f5c0</code> y las pantallas <code>debdeea</code> (versión de la pantalla <code>main-4WZLGFED</code>) · revisado el 2026-11-02.</p>
-<!-- Detalle técnico: servidor (backend) 954f5c0, pantallas (front odontograma) debdeea, bundle main-4WZLGFED; validado el 2026-11-02. Si la versión de su pantalla es otra, este manual puede no coincidir. -->
+<p class="sub" id="build-manual">Describe Biodont con el servidor <code>b1a9401</code> y las pantallas <code>705308c</code> (versión de la pantalla <code>main-DRW3YPMH</code>) · revisado el 2026-11-17.</p>
+<!-- Detalle técnico: servidor (backend) b1a9401, pantallas (front odontograma) 705308c, bundle main-DRW3YPMH; validado el 2026-11-17. Si la versión de su pantalla es otra, este manual puede no coincidir. -->
 
 <div class="caja nota">
   <span class="et">Cómo está organizado</span>
@@ -559,7 +559,8 @@ formulario, y <b>Escape</b> cierra la lista sin elegir.</p>
   <li><b>Busque el paciente</b>: escriba parte del nombre o el documento y elíjalo de la lista.
   No es un desplegable con todos los pacientes — se busca escribiendo. Ver
   <a href="#buscar-paciente">Buscar un paciente para agendar o cobrar</a>.</li>
-  <li>Elija el <b>profesional</b>, la <b>fecha</b> y la <b>hora</b>.</li>
+  <li>Elija el <b>profesional</b>, la <b>fecha</b> y la <b>hora</b>. Una cita también se puede asignar a una auxiliar: en las listas de profesionales
+  (al agendar, al reprogramar y en el filtro de la agenda general) aparece como «Nombre (auxiliar)», para no confundirla con un odontólogo.</li>
   <li>Elija el <b>tipo de atención</b>: Valoración, Limpieza, Control o Urgencia. Son los
   cuatro valores que admite el sistema.</li>
   <li>Escriba el <b>motivo</b> — es lo que verá el profesional al abrir su agenda, y también Recepción en el Inicio. Es el motivo de la <b>cita</b>, en pocas palabras: no escriba diagnósticos ni datos clínicos.</li>
@@ -689,8 +690,10 @@ historia clínica, en la pestaña <b>Antecedentes → 4. Alergias</b>.</p>
     </ul>
   </li>
   <li>Pulse <b class="btn">+ Registrar alergia</b>.</li>
-  <li>Indique el <b>agente</b> (a qué es alérgico: penicilina, látex…), la <b>categoría</b> y la
-  <b>reacción</b> que le produce.</li>
+  <li>Indique la <b>categoría</b>, el <b>agente</b> (a qué es alérgico: penicilina, látex…) y la
+  <b>reacción</b> que le produce. En <b>Medicamentos</b> y <b>Anestésicos</b> el campo se llama <b>Principio activo</b>: escriba el principio activo
+  (amoxicilina, lidocaína), no la marca, porque el aviso de la fórmula compara por principio activo y no reconoce marcas. Si el paciente la conoce por la
+  marca, póngala entre paréntesis después: «amoxicilina y ácido clavulánico (Clavulin)».</li>
   <li>Guarde.</li>
 </ol>
 
@@ -769,7 +772,10 @@ remisiones</b>, <b>Archivos</b> y <b>Constancias y correcciones</b>.</p>
   <b class="btn">Guardar</b>. Si sale de la pantalla sin guardar, el sistema pregunta.</li>
   <li>En <b>Diagnóstico</b>, pulse <b class="btn">+ Nuevo diagnóstico</b>. Se abre una ventana
   aparte que se puede mover o minimizar sin perder lo escrito. Solo puede haber <b>un
-  diagnóstico principal</b>; los demás se registran como relacionados.</li>
+  diagnóstico principal</b>; los demás se registran como relacionados. Esto vale para todas las ventanas de este tipo (el
+  diagnóstico, la fórmula, pedir un estudio, el cobro cuando ya eligió el cargo…): si hay algo escrito y pulsa <b class="btn">Cancelar</b>, la ✕ o Escape, el sistema <b>no cierra
+  sin más</b>: pregunta «Hay datos escritos. ¿Descartarlos y cerrar?» y ofrece <b class="btn">Seguir escribiendo</b> o <b class="btn">Descartar</b>. Con la ventana
+  vacía, cierra directamente.</li>
   <li>Debajo, <b>Sugeridos por el odontograma</b> propone diagnósticos con su código CIE-10 —y,
   cuando lo hay, el CIE-11— a partir de lo marcado. Solo se guarda lo que usted <b class="btn">Confirmar</b>: el sistema
   sugiere, el diagnóstico lo hace el profesional.</li>
@@ -968,6 +974,31 @@ constancia de quién y por qué.</p>
   formato, no valores: si no los escribe, el sistema no guarda y dice «Cada medicamento necesita nombre, dosis y
   frecuencia».</figcaption>
 </figure>
+<div class="caja nota" id="formula-familias">
+  <span class="et">El aviso de alergias al recetar, y el aviso por familia</span>
+  <p>Al pulsar <b class="btn">Guardar fórmula</b>, el sistema compara los medicamentos con las alergias registradas del paciente. Si no hay coincidencia pide
+  marcar <b>Revisé las alergias del paciente</b>; si hay una, muestra <b>Coincidencia con una alergia registrada</b> y solo el <b>odontólogo</b> puede emitir
+  la fórmula, eligiendo el <b>motivo</b> y pulsando <b class="btn">Emitir igualmente</b>: queda registrado el motivo, quién y cuándo.</p>
+  <p>Por defecto la comparación es <b>por nombre</b>: no reconoce que la amoxicilina es una penicilina. Una combinación escrita con «+» («Amoxicilina + ácido
+  clavulánico») se compara por cada uno de sus componentes. El consultorio puede encender un aviso más amplio, <b>por
+  familia de medicamento</b>, en <b class="btn">Administración</b> → <b>Consultorio</b>, en la tarjeta «Fórmula médica: aviso por familia de medicamento»
+  (opción <b>Avisar por familia de medicamento</b>, «Sí» o «No (solo por nombre)», y <b class="btn">Guardar</b>). <b>Viene apagado</b>: se enciende cuando el
+  responsable del consultorio apruebe la lista de familias.</p>
+  <ul>
+    <li><b>Encendido</b>, si el paciente es alérgico a un medicamento de una familia y la fórmula lleva <b>otro de la misma familia</b> (alergia a la penicilina y se
+    formula amoxicilina), sale la coincidencia con la familia («coincidencia de precaución por familia farmacológica: …») y se pide el motivo para emitirla, igual
+    que con el nombre. Debajo aparece la nota «Una coincidencia por familia no confirma por sí sola reactividad cruzada entre los dos medicamentos: valórela antes de
+    emitir.»: es un aviso de precaución, y quien decide es el odontólogo. Las familias son una lista corta: penicilinas, cefalosporinas, antiinflamatorios no
+    esteroideos (AINE), anestésicos locales tipo amida y tipo éster, y sulfonamidas antibióticas (una selección: no alcanza a las sulfonamidas que no son antibióticos).</li>
+    <li><b>Pares con la misma cadena lateral</b>: además avisa entre la amoxicilina y el cefadroxilo o el cefprozilo, y entre la ampicilina y la cefalexina o el
+    cefaclor, en los dos sentidos («coincidencia de precaución por cadena lateral compartida: …»). También es de precaución.</li>
+    <li><b>Fuera de esos pares, no cruza familias entre sí</b> (alergia a penicilinas y se formula otra cefalosporina no avisa) <b>y no conoce marcas comerciales</b>:
+    por eso la alergia se registra por el principio activo. Que no avise no significa
+    que no haya riesgo: la revisión es siempre del odontólogo.</li>
+    <li><b>Apagado</b>, la fórmula sigue avisando por nombre, como siempre.</li>
+    <li>Al encenderlo o apagarlo, las fórmulas que estaban a medio hacer vuelven a pedir la revisión de alergias, y rige desde la próxima fórmula.</li>
+  </ul>
+</div>
 <p>La fórmula guardada queda <b>Vigente</b> en la lista, con quien la hizo. Desde ahí se descarga en PDF con
 <b class="btn">Descargar PDF</b>. <b class="btn">Anular</b> solo se ofrece a quien la prescribió, y pide un motivo de al menos cinco
 caracteres: la fórmula anulada se queda en la lista, marcada, con su motivo.</p>
@@ -981,18 +1012,28 @@ caracteres: la fórmula anulada se queda en la lista, marcada, con su motivo.</p
 <ol class="pasos">
   <li>Abra la atención → pestaña <b class="btn">Órdenes y remisiones</b>.</li>
   <li>Para pedir un estudio pulse <b class="btn">+ Pedir estudio</b>, escriba el estudio (por ejemplo «Radiografía
-  panorámica») y, si quiere, notas. <b class="btn">Guardar orden</b>. La orden queda <b>Pendiente</b>.</li>
+  panorámica») y, si quiere, notas para quien realiza el estudio: <b>esas notas salen impresas en la orden</b>, y el formulario
+  lo avisa. <b class="btn">Guardar orden</b>. La orden queda <b>Pendiente</b>.</li>
   <li>Cuando llega el resultado, <b>súbalo primero en Archivos</b> y pulse <b class="btn">Resolver</b> en la orden: elija el
   documento con el resultado y, si el documento no lo dice por sí solo, escriba su interpretación. La orden pasa a
   <b>Resuelta</b>.</li>
   <li>Para derivar al paciente pulse <b class="btn">+ Remitir a especialista</b>: la <b>especialidad</b> y el
   <b>motivo</b> son obligatorios; los hallazgos relevantes, el diagnóstico y la pregunta al especialista, opcionales.
   Cuando el especialista responde, <b class="btn">Registrar resultado</b> en la remisión.</li>
+  <li>Para entregarle el papel al paciente, pulse <b class="btn">Imprimir (PDF)</b> en la fila de la orden o de la remisión.</li>
 </ol>
 <figure>
   <img src="capturas/46-ordenes-remisiones.png" alt="Pestaña Órdenes y remisiones con una orden pendiente">
-  <figcaption>Una orden pendiente, con sus acciones <b>Resolver</b> y <b>Anular</b>.</figcaption>
+  <figcaption>Una orden pendiente, con sus acciones <b>Resolver</b> y <b>Anular</b>. Hoy cada fila trae además <b>Imprimir (PDF)</b>.</figcaption>
 </figure>
+<div class="caja nota">
+  <span class="et">El papel para el paciente</span>
+  <p><b class="btn">Imprimir (PDF)</b> aparece en cada orden y cada remisión <b>vigente</b> y descarga un PDF con el encabezado del consultorio, los datos
+  del paciente, la fecha y el espacio para la firma y el sello del profesional. La <b>orden</b> lleva el estudio solicitado y las notas; la
+  <b>remisión</b> lleva la especialidad, el motivo y, si se escribieron, el diagnóstico, los hallazgos relevantes y la pregunta al especialista.
+  <b>No lleva el resultado</b> (ni el de la remisión ni la interpretación de la orden): es un papel que sale hacia un tercero antes de que haya
+  resultado. Una orden o remisión <b>anulada no se imprime</b>. Lo imprimen los mismos perfiles que las ven: odontólogo y auxiliar.</p>
+</div>
 <div class="caja nota">
   <span class="et">Con la atención ya cerrada</span>
   <p>Una orden o una remisión <b>sí se puede pedir con la atención cerrada</b>: no es parte de lo que se firmó, así que no altera
@@ -1000,8 +1041,12 @@ caracteres: la fórmula anulada se queda en la lista, marcada, con su motivo.</p
 </div>
 <div class="caja nota">
   <span class="et">Anular no borra</span>
+  <p>Se puede anular una orden o una remisión <b>también cuando ya está resuelta</b>, desde su propia fila con <b class="btn">Anular</b>: la
+  pantalla avisa «Esta orden ya tenía resultado» (o «Esta remisión…») y aclara que se anula la orden, no el resultado, que queda en el
+  registro junto con el motivo. Al terminar dice que quedó anulada y que se ve con «Mostrar anuladas».</p>
   <p>La orden y la remisión anuladas se conservan con su motivo, como el resto de lo clínico (15 años), aunque la lista de la
-  atención solo muestra las vigentes: si todas están anuladas, dice «Sin órdenes registradas». Como en la fórmula y en la
+  atención muestra por defecto solo las vigentes: si todas están anuladas, dice «Sin órdenes vigentes» y cuántas hay anuladas, y la casilla
+  <b>Mostrar anuladas</b> las enseña. Como en la fórmula y en la
   evolución, <b>anular pide un motivo de al menos cinco caracteres</b>: «Sí, anular» no se activa hasta escribirlo.</p>
 </div>
 
@@ -1372,7 +1417,7 @@ examen es una <b>versión</b>: el anterior se conserva. Un examen guardado antes
   <b class="btn">Crear examen</b>.</li>
   <li>Escriba el sondaje en milímetros: al teclear un dígito el cursor pasa solo al sitio
   siguiente, en el orden clínico. El <b>1</b> espera: puede ser el comienzo de 10 a 15, así que el cursor
-  no avanza solo; si el valor es solo 1, pase al sitio siguiente con <b>Tab</b> o con un clic (si escribe otro dígito justo después, se une: 1 y 2 quedan en 12). Marque el sangrado, la placa y la supuración pulsando sus
+  no avanza solo; si el valor es solo 1, pase al sitio siguiente con <b>Enter</b>, con <b>Tab</b> o con un clic (si escribe otro dígito justo después, se une: 1 y 2 quedan en 12). Marque el sangrado, la placa y la supuración pulsando sus
   círculos o, sin soltar el teclado, con las teclas <b>B</b> (sangrado), <b>P</b> (placa) y <b>S</b> (supuración): marcan
   el sitio recién medido. Cada círculo tiene <b>tres estados</b>: vacío y tenue (<b>sin evaluar</b>), relleno (<b>sí</b>) y
   círculo con borde oscuro (<b>no</b>: se miró y no está). Cada clic pasa al estado siguiente (sin evaluar, sí, no y otra vez sin
@@ -1381,7 +1426,9 @@ examen es una <b>versión</b>: el anterior se conserva. Un examen guardado antes
   <li>Se guarda solo («Guardado»). Abajo, los <b>indicadores</b> del examen se recalculan.</li>
   <li>En un <b>implante</b> no se registra la movilidad: la escala de Miller es de dientes naturales. Un valor que ya estaba
   registrado se conserva y se muestra con un asterisco para revisarlo; solo se puede <b>quitar</b>, con su motivo. Por lo mismo,
-  un diente con movilidad registrada no se puede marcar implante: primero se quita la movilidad.</li>
+  un diente con movilidad registrada no se puede marcar implante: primero se quita la movilidad. Si el diente tiene furca o factores de
+  complejidad (también datos de dientes naturales), al marcarlo implante el sistema pide el motivo para quitarlos; con <b class="btn">No quitarlo</b> el diente
+  queda como estaba, sin marcar como implante.</li>
   <li>El <b>diagnóstico periodontal</b> está al final del examen y lo establece el <b>odontólogo</b>: el sistema no
   clasifica ni propone nada. El auxiliar no lo decide: solo transcribe lo que un odontólogo ya estableció en otro registro
   (ver <a href="#perio-diagnostico">El diagnóstico periodontal</a>).</li>
@@ -1466,7 +1513,9 @@ calculada</b>, que se propone y el odontólogo acepta o cambia (ver el paso del 
 <ol class="pasos">
   <li><b>Categoría</b>: salud gingival (tres variantes), gingivitis inducida por biofilm, periodontitis, o pérdida de inserción por una causa
   independiente de la periodontitis. Según la categoría aparecen las preguntas que corresponden (por ejemplo, en la gingivitis, el contexto y los factores).</li>
-  <li><b>Estado del diagnóstico</b>: <b>Borrador</b> o <b>Definitivo</b>. Un borrador no alimenta ninguna opción de tratamiento hasta que se confirme como definitivo.</li>
+  <li><b>Estado del diagnóstico</b>: <b>Borrador</b> o <b>Definitivo</b>. Un borrador no alimenta ninguna opción de tratamiento hasta que se confirme como definitivo. Lo que el odontólogo deja en borrador se rotula
+  <i>«Registrado por … el …, en borrador»</i> (en la pantalla y en el PDF), no «Establecido por»: esa frase queda para el definitivo. El PDF añade a qué
+  «versión del diagnóstico» corresponde.</li>
   <li><b>Forma y condiciones sistémicas</b>: periodontitis, o periodontitis como manifestación de una enfermedad sistémica (que hay que nombrar),
   con los descriptores que correspondan.</li>
   <li><b>Definición de caso y causas no periodontales</b>: la vía por la que se define el caso y, para cada causa que podría explicar la pérdida de inserción
@@ -1696,6 +1745,9 @@ pregunta <i>«¿Quieres tenerlo repetido a propósito?»</i>: con <b class="btn"
   debe es el saldo menos esa parte, y pagar ese saldo deja el tratamiento <b>finalizado</b>. En el presupuesto, «Aceptado (a precio de
   lista)» y «Lo aceptado, con descuento» muestran las dos cifras. Si se rechaza o se agrega una línea, las partes se recalculan; si se
   anula el tratamiento de una línea, su parte deja de contar.</p>
+  <p>Cuando un mismo tratamiento tiene <b>varios cargos</b>, el descuento es del tratamiento y se descuenta <b>una sola vez</b>: se aplica primero al cargo
+  más antiguo y, si le sobra, al siguiente. Cartera, el cobro y Tratamientos cuentan lo mismo, así que lo que le falta por pagar al paciente es igual en
+  las tres pantallas. Y pagar solo uno de los cargos <b>no finaliza</b> el tratamiento: se finaliza cuando ninguno de sus cargos debe nada.</p>
 </div>
 
 <div class="caja aviso">
@@ -1751,8 +1803,15 @@ ponga el <b>concepto</b> y el <b>monto</b>, y pulse <b class="btn">Registrar car
   primero el cargo.</li>
   <li>Ponga el <b>monto</b> (hasta el saldo; si el cargo viene de un presupuesto con descuento, hasta lo que queda <b>con el descuento ya restado</b>), el <b>medio de pago</b> (obligatorio: la lista empieza en «Elige el medio…» y sin elegirlo no se registra; se elige de la lista del consultorio: Efectivo, Nequi, Daviplata, Bancolombia, Bre-B, Pibank, Nubank, Transferencia bancaria, Tarjeta débito, Tarjeta crédito, PSE o Cheque; el sistema no admite otro) y, si quiere, una
   <b>referencia</b> (número de transacción…).</li>
-  <li>Pulse <b class="btn">Registrar cobro</b>.</li>
+  <li>Pulse <b class="btn">Registrar cobro</b>. El sistema pide confirmar («¿Cobrar … en …?») y el cobro se registra al pulsar
+  <b class="btn">Sí, cobrar</b>.</li>
 </ol>
+<div class="caja aviso">
+  <span class="et">Si la caja de hoy ya está cerrada</span>
+  <p>Una caja cerrada no se reabre. Si ya cerró la caja de hoy, el cobro <b>se registra en la caja del día siguiente</b>, y la pantalla lo dice antes
+  de cobrar —junto a <b>Registrar cobro</b> y dentro de la ventana, «La caja de hoy ya está cerrada: este cobro quedará en la caja de mañana»— y
+  otra vez en la confirmación y al terminar, con la fecha de mañana.</p>
+</div>
 
 <div class="caja nota">
   <span class="et">Los montos van en pesos enteros</span>
@@ -1802,8 +1861,20 @@ cobros de hoy y, al lado, el <b>Cierre de caja</b>:</p>
   <li>Si no coinciden, explique la diferencia (es obligatorio).</li>
   <li>Pulse <b class="btn">Cerrar caja de hoy</b>.</li>
 </ol>
-<p>Cerrada la caja, ya no se registran cobros con la fecha de hoy: la ventana de cobro lo
-avisa.</p>
+<p>El sistema pide confirmar con <b class="btn">Sí, cerrar la caja</b> (o <b class="btn">Volver</b>), porque cerrar es definitivo. Cerrada la caja,
+ya no se registran cobros ni devoluciones con la fecha de hoy. Un cobro nuevo se registra en la caja del día siguiente (ver más arriba); una
+devolución de saldo a favor no pasa a mañana: el sistema la rechaza y hay que hacerla con la caja del día abierta. Después del
+cierre, solo Administración y Odontología corrigen la caja, anulando un cobro.</p>
+<ul>
+  <li><b>Con más efectivo del que entró:</b> si lo que salió en efectivo en el día (egresos y devoluciones) supera lo que entró en efectivo, el sistema no habla de «sobrante»: dice
+  <i>«Salió más efectivo del que entró»</i> con la cifra, y la diferencia con lo contado como «Diferencia con lo contado».</li>
+  <li><b>Corregido después del cierre:</b> si tras cerrar se anula algo, la caja muestra el aviso <i>«Corregido después del cierre»</i> con lo que
+  cambió —el efectivo esperado y, <b>en cualquier medio de pago</b> (Nequi, tarjeta, transferencia…), el total que había al cerrar y el de ahora—. El
+  cierre grabado no cambia.</li>
+  <li><b>Días sin cerrar:</b> en Cartera aparece el aviso <i>«Hay N días con movimientos sin cerrar»</i> con el más antiguo, en forma de enlace que abre
+  la caja de ese día. Cuenta los días anteriores a hoy que tuvieron cobros, devoluciones o egresos y no se cerraron, <b>desde el día siguiente al primer
+  cierre de caja</b> del consultorio: si nunca se ha cerrado una caja, no avisa. Solo avisa: no impide nada ni sale en la campana.</li>
+</ul>
 
 <div class="caja nota">
   <span class="et">Los egresos son de Administración y Odontología</span>
@@ -1940,7 +2011,7 @@ no pudo</b> (con los límites que se dicen abajo).</p>
   <figcaption>Registro de accesos. Es solo lectura: no se edita ni se borra.</figcaption>
 </figure>
 
-<p>Se filtra por <b>acción</b> (consulta, creación, modificación, firma, anulación…), por
+<p>Se filtra por <b>acción</b> (consulta, creación, modificación, firma, anulación, eliminación…), por
 <b>resultado</b> (concedidos o solo denegados), por <b>persona</b> y por <b>fechas</b>.</p>
 
 <p><b>Qué queda.</b> Deja asiento, con el nombre del paciente, la consulta y el cambio de la historia
@@ -2419,7 +2490,7 @@ desde la que se llega a todo lo demás del paciente.</p>
   <li><b>Registrar cargo</b> y <b>Registrar cobro</b> — la deuda y el pago, por separado. El
   paciente <b>se busca escribiendo</b>: ver <a href="#buscar-paciente">Buscar un paciente</a>.</li>
   <li><b>Ver cartera de</b> — todos, los movimientos sin paciente, o un paciente buscado.</li>
-  <li><b>Caja del día</b> — los cobros de hoy y el <b>cierre de caja</b>.</li>
+  <li><b>Caja del día</b> — los cobros de hoy y el <b>cierre de caja</b>. Con la caja de hoy ya cerrada, un cobro nuevo entra en la caja de mañana.</li>
   <li><b>Por cobrar</b> — los cargos con saldo, con su botón <b>Cobrar</b>. Si el cargo viene de un presupuesto con descuento, el saldo ya lo
   resta (<b>«ya descontado»</b>); el descuento aparece en <b>Movimientos</b> como una fila aparte que <b>no se cobra, no se edita ni se anula</b>.</li>
   <li><b>Movimientos</b> — todo, filtrable por cobros, cargos, egresos y anulados. Nada se borra:
@@ -2586,7 +2657,8 @@ cierra. Tiene cinco pestañas.</p>
   enfermedad actual; el examen, los diagnósticos y el pronóstico solo los lee si el responsable clínico le habilitó
   alguna actuación. El próximo control lo fija el odontólogo.</li>
   <li><b>Evolución</b> — lo que se hizo en la sesión, por pieza. Se firma con la atención.</li>
-  <li><b>Órdenes y remisiones</b> — estudios pedidos y remisiones a especialista.</li>
+  <li><b>Órdenes y remisiones</b> — estudios pedidos y remisiones a especialista, cada una con su <b>Imprimir (PDF)</b> y, si hace falta, su <b>Anular</b>
+  (también si ya está resuelta).</li>
   <li><b>Archivos</b> — radiografías y documentos de esta visita.</li>
   <li><b>Constancias y correcciones</b> — adendas, imposibilidad de consentir y
   <b>Comprobar integridad</b>. La constancia de imposibilidad de consentir sale en el impreso de la atención y la cubre la
