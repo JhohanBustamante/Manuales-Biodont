@@ -156,6 +156,7 @@ table.constancia td{height:42px}
   <a href="#derechos">Atender una solicitud sobre datos personales</a>
   <a href="#incidentes">Registrar un incidente de seguridad</a>
   <a href="#respaldo">Respaldar la información</a>
+  <a href="#rips">El RIPS</a>
   <a href="#cierre">Si el consultorio cierra</a>
 
   <div class="grupo">Parte 2 · Referencia</div>
@@ -173,8 +174,8 @@ table.constancia td{height:42px}
 
 <h1>Manual de Biodont</h1>
 <p class="sub">Sistema de gestión para consultorio odontológico · Versión 1.0</p>
-<p class="sub" id="build-manual">Describe Biodont con el servidor <code>b1a9401</code> y las pantallas <code>705308c</code> (versión de la pantalla <code>main-DRW3YPMH</code>) · revisado el 2026-11-17.</p>
-<!-- Detalle técnico: servidor (backend) b1a9401, pantallas (front odontograma) 705308c, bundle main-DRW3YPMH; validado el 2026-11-17. Si la versión de su pantalla es otra, este manual puede no coincidir. -->
+<p class="sub" id="build-manual">Describe Biodont con el servidor <code>638f10a</code> y las pantallas <code>8c1311b</code> (versión de la pantalla <code>main-CBP3PXPW</code>) · revisado el 2026-11-20.</p>
+<!-- Detalle técnico: servidor (backend) 638f10a, pantallas (front odontograma) 8c1311b, bundle main-CBP3PXPW; validado el 2026-11-20. Si la versión de su pantalla es otra, este manual puede no coincidir. -->
 
 <div class="caja nota">
   <span class="et">Cómo está organizado</span>
@@ -342,6 +343,8 @@ y después el sistema lo lleva a Mi perfil para que vea cuántos le quedan.</p>
   la norma</b>: si debe reportarlo, cuándo y cómo, lo dice su asesor. Mientras no llegue ese concepto, en el servidor
   web <b>no se cargan las llaves del Ministerio ni se prueba la conexión</b>: la pantalla de llaves lo avisa y no
   ofrece hacerlo.</li>
+  <li><b>Decida si genera el RIPS.</b> El reporte de servicios al Ministerio también viene <b>apagado</b>. Se enciende y se configura en
+  <b class="btn">Administración</b> → <b>RIPS</b>: ver <a href="#rips">El RIPS</a>. Encendido, firmar una atención pide el diagnóstico principal.</li>
 </ol>
 
 <figure>
@@ -426,6 +429,14 @@ ven los demás.</p>
   <li>Pulse la opción que quiera. <b>Se aplica al instante</b> y se guarda sola: no hay botón
     de guardar.</li>
 </ol>
+<p>Si trabaja con el <b>teclado</b> (sin ratón, o con un lector de pantalla), la primera pulsación de <b>Tab</b> en cualquier pantalla
+muestra el enlace <b>«Saltar al contenido»</b>, que lleva directo al título de la pantalla sin recorrer el menú. Al cambiar de pantalla,
+el teclado queda también en su título.</p>
+<p>Con el teclado: en la <b>agenda</b> (vistas Mes y Semana) el calendario es una sola parada de <b>Tab</b>; las <b>flechas</b> cambian de día, <b>Inicio</b>
+y <b>Fin</b> van al primero y al último de la semana, <b>RePág</b> y <b>AvPág</b> cambian de mes (de semana, en la vista Semana), <b>Enter</b>
+(o <b>F2</b>) entra al día (sus citas y el «+») y <b>Escape</b> vuelve al calendario. En la <b>atención</b>, <b>Ctrl+S</b> (⌘S en Mac) guarda
+los cambios. En el <b>buscador de pacientes</b> de arriba, <b>Enter</b> abre la atención del paciente elegido (o lo primero que su rol pueda ver) y
+<b>Alt+Enter</b> muestra todas sus opciones.</p>
 
 <figure>
   <img src="capturas/24-ver-mejor.png" alt="Los tres ajustes de apariencia y tamaño en Mi perfil">
@@ -916,6 +927,15 @@ alteró.</p>
   falta y no firma.</p>
 </div>
 
+<div class="caja aviso" id="rips-firma">
+  <span class="et">Con el RIPS encendido, firmar pide el diagnóstico principal</span>
+  <p>Si el consultorio genera el RIPS (ver <a href="#rips">El RIPS</a>), la atención se firma con un <b>diagnóstico principal</b> que tenga
+  su código CIE-10 del catálogo, y sin diagnósticos relacionados repetidos ni iguales al principal. Si falta, al firmar sale
+  <b>«No se firmó: el RIPS está encendido en este consultorio»</b> con lo que falta (por ejemplo, «Diagnóstico principal con código CIE-10
+  del catálogo») y «Corrígelo en «Diagnóstico» y vuelve a firmar. Tu PIN no se usó.» Los procedimientos de la atención toman ese mismo
+  diagnóstico. Con el RIPS apagado, el diagnóstico sigue siendo opcional, y lo ya firmado antes no se cambia.</p>
+</div>
+
 <figure>
   <img src="capturas/23-firmar-pin.png" alt="Diálogo de firma con el resumen, la casilla de revisión y el PIN">
   <figcaption>El botón no se activa hasta marcar la casilla: al firmar se hace responsable del
@@ -937,12 +957,16 @@ alteró.</p>
     <tr><td><b class="btn">Agregar corrección</b></td><td>Añade una <b>adenda</b>, en la pestaña <b>Constancias y correcciones</b>. Lo firmado no se toca: la corrección se suma después, fechada y firmada, como manda la norma para un documento clínico.</td></tr>
     <tr><td><b class="btn">Imprimir (PDF)</b></td><td>Descarga el impreso de la atención con todo lo registrado, sus firmas y su huella. Solo lo obtiene quien puede ver todo su contenido: a un rol que no ve alguna parte (el auxiliar sin actuaciones habilitadas, por ejemplo) el botón aparece desactivado y, al pasar el cursor, dice por qué. Si hay cambios sin guardar, guarde antes: el impreso es lo guardado.</td></tr>
     <tr><td><b class="btn">Comprobar integridad</b></td><td>Verifica que el contenido firmado no ha sido alterado. Si algo cambió por fuera del sistema, lo dice.</td></tr>
-    <tr><td><b class="btn">Anular</b></td><td>Deja la atención sin efecto <b>dejando constancia</b> de quién la anuló y por qué. No la borra.</td></tr>
+    <tr><td><b class="btn">Anular</b></td><td>Deja la atención sin efecto <b>dejando constancia</b> de quién la anuló y por qué. No la borra. <b>Tampoco anula sus evoluciones</b>: antes de confirmar, la ventana dice cuántas siguen vigentes y en cuántos tratamientos, y al terminar lo repite.</td></tr>
   </tbody>
 </table>
 
 <p>Las atenciones anuladas no salen en la lista; para verlas, marque <b>Ver anuladas</b>. Una anulada se abre <b>solo para leer</b>, con su
 fecha y su motivo de anulación, y se puede imprimir como constancia (el impreso lo obtiene quien puede ver la atención entera).</p>
+
+<p>Si la atención anulada tenía evoluciones que siguen vigentes, aparecen en <b>Evoluciones que siguen vigentes</b>: siguen contando en sus
+tratamientos. Si eran de otro paciente, anúlelas ahí con <b class="btn">Anular</b> y un motivo; lo puede hacer quien registró la evolución o el
+responsable clínico (el odontólogo que Administración marcó como tal), aunque la atención estuviera firmada. La evolución no se borra: queda con su motivo y deja de contar en su tratamiento.</p>
 
 <div class="caja alto">
   <span class="et">Un error después de firmar se corrige con una adenda</span>
@@ -1881,8 +1905,11 @@ cierre, solo Administración y Odontología corrigen la caja, anulando un cobro.
   <li><b>Con más efectivo del que entró:</b> si lo que salió en efectivo en el día (egresos y devoluciones) supera lo que entró en efectivo, el sistema no habla de «sobrante»: dice
   <i>«Salió más efectivo del que entró»</i> con la cifra, y la diferencia con lo contado como «Diferencia con lo contado».</li>
   <li><b>Corregido después del cierre:</b> si tras cerrar se anula algo, la caja muestra el aviso <i>«Corregido después del cierre»</i> con lo que
-  cambió —el efectivo esperado y, <b>en cualquier medio de pago</b> (Nequi, tarjeta, transferencia…), el total que había al cerrar y el de ahora—. El
-  cierre grabado no cambia.</li>
+  cambió —el efectivo esperado y, <b>en cualquier medio de pago</b> (Nequi, tarjeta, transferencia…), el total que había al cerrar y el de ahora—. Lo
+  mismo con los <b>egresos</b>: se puede registrar un egreso con la fecha de un día ya cerrado, y si después de cerrar se registra, se anula o se
+  cambia uno, el aviso lo dice como <i>«Egresos por Nequi: $40.000 → $65.000»</i> (o <i>«Egresos en efectivo: …»</i>). El cierre grabado no cambia.
+  Al registrar o editar un egreso con la fecha de un día cerrado, la ventana lo avisa antes de guardar: <i>«La caja de ese día ya está cerrada: el
+  egreso se guarda igual y la caja lo mostrará como corregido después del cierre»</i>.</li>
   <li><b>Días sin cerrar:</b> en Cartera aparece el aviso <i>«Hay N días con movimientos sin cerrar»</i> con el más antiguo, en forma de enlace que abre
   la caja de ese día. Cuenta los días anteriores a hoy que tuvieron cobros, devoluciones o egresos y no se cerraron, <b>desde el día siguiente al primer
   cierre de caja</b> del consultorio: si nunca se ha cerrado una caja, no avisa. Solo avisa: no impide nada ni sale en la campana.</li>
@@ -2291,7 +2318,9 @@ pierde la historia clínica de todos los pacientes.</p>
 <p>Para <b>restaurar</b>, en la misma pantalla: <b class="btn">Seleccionar backup (.zip, .cifrado o .db)</b>. Si el archivo es un
 backup cifrado (<b>.cifrado</b>), aparece <b>Frase del backup cifrado</b>: escriba la frase con la que se descargó. Después marque
 <b>Entiendo que se reemplazan todos los datos actuales por los del respaldo</b> y pulse
-<b class="btn">Restaurar base de datos</b>. Todo lo que se registró después de ese respaldo se pierde.</p>
+<b class="btn">Restaurar base de datos</b>. Todo lo que se registró después de ese respaldo se pierde, <b>también las solicitudes de derechos sobre datos personales</b>
+  que llegaron después: tras restaurar, revise el canal por donde llegan (correo, teléfono, mostrador o la página pública) y vuelva a radicarlas, porque
+  su plazo legal sigue corriendo.</p>
 <p>Durante una <b>restauración</b> el sistema entero deja de responder a propósito, y vuelve
 cuando termina. No la haga con pacientes esperando. Al terminar, la pantalla se recarga sola a los tres segundos y,
 ya recargada, deja un aviso verde con lo que se restauró.</p>
@@ -2299,6 +2328,154 @@ ya recargada, deja un aviso verde con lo que se restauró.</p>
 no se restaura nada y la información actual queda como estaba. Un respaldo de una versión anterior se
 pone al día solo, y el mensaje lo dice. La información que había antes de restaurar queda guardada en
 el servidor, por si hiciera falta recuperarla.</p>
+
+<hr>
+
+<h2 id="rips">El RIPS (Administración → RIPS)</h2>
+<p class="quien"><span class="rol r-adm">Administración</span> — nadie más</p>
+
+<p>El <b>RIPS</b> (Registro Individual de Prestación de Servicios de Salud) es el reporte que el Ministerio de Salud pide de
+los servicios que presta el consultorio: cada consulta y cada procedimiento, con el paciente, la fecha, el diagnóstico y el
+valor. Biodont <b>prepara</b> ese reporte con lo que ya está registrado, lo <b>comprueba</b> con las reglas que se pueden revisar
+sin el Ministerio y <b>genera el archivo</b>. <b>No lo envía</b>: el archivo se carga en la aplicación de validación del Ministerio, y lo
+que responda el Ministerio se anota después en Biodont.</p>
+
+<div class="caja alto">
+  <span class="et">Un archivo listo en Biodont no es un RIPS aprobado</span>
+  <p>Lo aprueba el Ministerio cuando devuelve el <b>CUV</b> (código único de validación). Que Biodont diga «Listo localmente» solo
+  significa que el archivo cumple las reglas que Biodont puede comprobar por su cuenta: no dice que el Ministerio lo vaya a aceptar,
+  ni que la factura esté bien emitida, ni que el pagador lo reciba.</p>
+</div>
+
+<h3 id="rips-configurar">Encenderlo y configurarlo</h3>
+<p>El RIPS <b>viene apagado</b>. Apagado, nada cambia en el consultorio y no se puede preparar ningún reporte.</p>
+<ol class="pasos">
+  <li>Entre a <b class="btn">Administración</b> → <b>RIPS</b>, al bloque <b>Configuración del consultorio</b>.</li>
+  <li>En <b>Generar el RIPS</b> elija <b>Sí</b>.</li>
+  <li>Elija la <b>Modalidad</b>, una sola por consultorio:
+    <ul>
+      <li><b>Sin factura electrónica</b>: para quien atiende particulares y no está obligado a facturar electrónicamente. Se reporta lo
+      que pagó el paciente, ya con el descuento.</li>
+      <li><b>Con factura electrónica</b>: para quien factura electrónicamente o le factura a una EPS u otro pagador; el reporte va junto
+      con la factura. <b>La unión con la factura todavía no está construida en Biodont.</b></li>
+    </ul>
+    La decide quien administra el consultorio, según su situación ante la facturación electrónica. Las dos no se combinan, y sin elegir
+    una no se genera ningún reporte.</li>
+  <li>En <b>Servicio habilitado (REPS)</b> elija el servicio con el que el consultorio está habilitado (por ejemplo, <b>334 · ODONTOLOGIA
+  GENERAL</b>). Los demás campos traen el valor que sirve a casi todos los consultorios (consulta externa, en el consultorio, demanda
+  espontánea, particular, sin cobros adicionales); cada uno explica debajo para qué es.</li>
+  <li>Pulse <b class="btn">Guardar</b>.</li>
+</ol>
+<p>El <b>NIT</b> y el <b>código de habilitación</b> del consultorio no se escriben aquí: se registran una sola vez en
+<b>Administración · RDA</b>, y el RIPS los toma de allí. Si falta algo del consultorio, la pantalla lo enumera con el sitio donde se
+corrige.</p>
+<figure>
+  <img src="capturas/76-rips-configuracion.png" alt="Configuración del RIPS: Generar el RIPS en Sí, la modalidad sin factura electrónica elegida y los demás campos con su explicación">
+  <figcaption>Administración → <b>RIPS</b>, la configuración. Encenderlo cambia también la firma de la atención (ver
+  <a href="#rips-firma">abajo</a>).</figcaption>
+</figure>
+
+<h3 id="rips-preparar">Preparar el reporte de un periodo</h3>
+<p>Arriba del bloque hay un <b>recordatorio</b>: dice si el mes anterior ya tiene reporte. El plazo que menciona (los cinco primeros días
+del mes) es <b>solo un recordatorio</b>: Biodont no lo controla, no bloquea nada al pasarse y no garantiza que el consultorio cumpla.</p>
+<ol class="pasos">
+  <li>Elija el periodo en <b>Desde</b> y <b>Hasta</b> (de un día a un mes), o pulse <b class="btn">Mes anterior</b>.</li>
+  <li>Pulse <b class="btn">Preparar</b>. Preparar <b>no guarda nada</b>: muestra qué iría en el reporte y qué falta.</li>
+</ol>
+<p>La preparación se lee en cuatro partes:</p>
+<ul>
+  <li><b>Lo que va en el reporte</b>: las consultas de las atenciones firmadas o cerradas del periodo y los procedimientos registrados en
+  sus evoluciones, agrupados por paciente, cada uno con su valor y de dónde sale.</li>
+  <li><b>Falta información</b>: lo que el Ministerio exige y no está registrado (por ejemplo, el sexo o el tipo de documento en la ficha
+  de un paciente). Cada faltante dice <b>dónde se corrige</b>. Mientras falte algo, el reporte no se genera: <b>nada se rellena por
+  defecto</b>.</li>
+  <li><b>Queda fuera del reporte</b>: lo que no se reporta, <b>cada uno con su motivo</b> (una atención sin firmar, una atención firmada sin
+  diagnóstico principal, una evolución sin procedimiento…). Lo anterior que no cumple no se reescribe: queda fuera.</li>
+  <li><b>Avisos</b>: datos que Biodont informa por su cuenta porque no los registra (por ejemplo, el país de origen se toma de la
+  nacionalidad). No impiden generar.</li>
+</ul>
+<figure>
+  <img src="capturas/77-rips-preparar.png" alt="Preparación de un periodo con un faltante en la ficha de un paciente, siete servicios sin valor y la tabla de lo que va en el reporte">
+  <figcaption>Un periodo preparado: arriba, lo que falta y dónde se corrige; abajo, cada servicio con su valor o con el motivo por el
+  que no hay valor sugerido.</figcaption>
+</figure>
+<figure>
+  <img src="capturas/78-rips-fuera-y-avisos.png" alt="Lista de lo que queda fuera del reporte con su motivo, los avisos y el botón Generar el reporte desactivado">
+  <figcaption>Lo que queda fuera, con su motivo, y los avisos. Mientras falte algo, <b>Generar el reporte</b> no se activa y la
+  pantalla dice por qué.</figcaption>
+</figure>
+
+<h3 id="rips-valor">El valor de cada servicio</h3>
+<p>Biodont <b>sugiere</b> el valor solo cuando sale de lo pagado sin ninguna duda (por ejemplo, la consulta de una cita pagada del todo).
+En cualquier otro caso el servicio queda <b>Por asignar</b>, con el motivo («La cita tiene saldo pendiente…», «La evolución no está
+ligada a un tratamiento»…), porque Biodont no reparte ni supone pagos.</p>
+<ol class="pasos">
+  <li>En la fila del servicio pulse <b class="btn">Asignar valor</b> (o <b class="btn">Cambiar valor</b>, si ya tenía uno).</li>
+  <li>Escriba el <b>Valor en pesos</b>: lo que pagó el paciente por ese servicio, en pesos enteros, sin puntos.</li>
+  <li>Escriba el <b>Motivo</b>. Queda guardado con su nombre y la fecha.</li>
+  <li>Pulse <b class="btn">Guardar valor</b>.</li>
+</ol>
+<p>Un valor de <b>0</b> no entra por descuido: al escribirlo aparece la casilla <b>Confirmo que el valor de este servicio es 0.</b>, y sin
+marcarla no se guarda.</p>
+<figure>
+  <img src="capturas/79-rips-asignar-valor.png" alt="Ventana Asignar valor con el motivo por el que no hay valor sugerido, el valor 0, la casilla de confirmación y el motivo">
+  <figcaption>La ventana del valor. Arriba dice por qué no hay valor sugerido; con 0 pide confirmarlo.</figcaption>
+</figure>
+
+<h3 id="rips-generar">Generar el reporte</h3>
+<p>Cuando no queda nada por asignar ni ningún faltante, pulse <b class="btn">Generar el reporte</b>. El reporte queda guardado con su
+<b>huella</b> y el <b>sello</b> de la instalación, que permiten comprobar después que el archivo no cambió. Un reporte generado <b>no se
+edita</b>: si hay que corregirlo, se reemplaza (ver abajo). Una misma atención no puede estar en dos reportes vigentes.</p>
+
+<h3 id="rips-estados">Los reportes y sus estados</h3>
+<p>En <b>Reportes generados</b> está la lista, con el estado de cada uno. Cada estado dice qué afirma y quién lo afirma:</p>
+<table>
+  <thead><tr><th>Estado</th><th>Qué quiere decir</th><th>Quién lo da</th></tr></thead>
+  <tbody>
+    <tr><td><b>Listo localmente</b></td><td>El archivo cumple las reglas que Biodont comprueba sin el Ministerio. Todavía no se ha enviado.</td><td>Biodont</td></tr>
+    <tr><td><b>Transmitido</b></td><td>Alguien registró que lo envió al Ministerio o lo cargó en su aplicación. Falta anotar lo que respondió.</td><td>El consultorio, al registrarlo</td></tr>
+    <tr><td><b>Validado con CUV</b></td><td>Registrado como validado por el Ministerio: alguien escribió en Biodont el CUV que devolvió. Biodont no habla con el Ministerio.</td><td>El consultorio, al registrar lo que respondió el Ministerio</td></tr>
+    <tr><td><b>Rechazado</b></td><td>El Ministerio lo rechazó, con los motivos que devolvió. Se corrige generando un reemplazo.</td><td>El Ministerio</td></tr>
+    <tr><td><b>Reemplazado</b></td><td>Otro reporte del mismo periodo lo corrigió. Se conserva como constancia y ya no cuenta.</td><td>Biodont</td></tr>
+  </tbody>
+</table>
+<p>Hay un sexto paso que <b>no</b> está en Biodont: que el pagador (por ejemplo, una EPS) reciba el reporte con la factura. Lo da el
+pagador, y esta pantalla no lo registra.</p>
+<figure>
+  <img src="capturas/80-rips-reportes.png" alt="Lista de reportes generados con la explicación de cada estado y cinco reportes: transmitido, rechazado, validado con CUV, reemplazado y listo localmente">
+  <figcaption>La lista de reportes, con lo que significa cada estado encima.</figcaption>
+</figure>
+
+<h3 id="rips-ministerio">Del archivo al Ministerio, y de vuelta</h3>
+<ol class="pasos">
+  <li>En la fila del reporte pulse <b class="btn">Ver</b> y luego <b class="btn">Descargar el archivo JSON</b>.</li>
+  <li>Cargue ese archivo en la aplicación de validación del Ministerio de Salud, con el usuario del consultorio. Esa parte se hace fuera de
+  Biodont.</li>
+  <li>De vuelta en el reporte, pulse <b class="btn">Registrar transmisión</b>. La pantalla pregunta si ya lo envió: la transmisión se
+  registra <b>una sola vez</b>. Confirme con <b class="btn">Sí, registrar la transmisión</b>.</li>
+  <li>Cuando el Ministerio responda, pulse <b class="btn">Registrar el resultado</b>, elija <b>Validado, con CUV</b> o <b>Rechazado, con
+  motivos</b>, escriba el <b>CUV</b> si fue validado, pegue en <b>Respuesta del Ministerio</b> el contenido del archivo .txt o lo que
+  devolvió su aplicación (se guarda tal cual) y pulse <b class="btn">Registrar</b>.</li>
+</ol>
+<p>El detalle de cada reporte muestra el periodo, los servicios, cuándo se generó, se transmitió y se registró el resultado, el CUV, la
+<b>huella del archivo</b> y si el archivo guardado sigue <b>íntegro</b>. Si dijera «Alterado», no lo envíe y avise al proveedor. Si una
+atención del reporte se corrigió después con una adenda, el detalle lo avisa para que revise si hay que reemplazarlo.</p>
+<figure>
+  <img src="capturas/81-rips-detalle.png" alt="Detalle de un reporte validado con su CUV, la huella del archivo, la integridad y el botón para descargar el archivo">
+  <figcaption>Un reporte validado: el CUV que devolvió el Ministerio, la huella y la integridad. Un reporte validado ya no ofrece
+  <b>Reemplazar</b>.</figcaption>
+</figure>
+
+<h3 id="rips-reemplazar">Corregir un reporte: reemplazarlo</h3>
+<p>Un reporte que todavía no está validado (listo, transmitido o rechazado) se corrige reemplazándolo: corrija primero lo que haga falta
+(la ficha, la atención, un valor), abra el reporte, pulse <b class="btn">Reemplazar</b>, escriba el <b>Motivo del reemplazo</b> y pulse
+<b class="btn">Generar el reemplazo</b>. Se genera un reporte nuevo del mismo periodo con los datos de ahora; el anterior queda como
+«Reemplazado», se conserva y ya no cuenta. Los valores asignados a mano se mantienen.</p>
+<div class="caja aviso">
+  <span class="et">Un reporte validado no se reemplaza</span>
+  <p>Un RIPS que ya tiene CUV se corrige ante el Ministerio con una <b>nota de ajuste</b>, no con otro reporte. Las notas de ajuste
+  <b>todavía no están en Biodont</b>.</p>
+</div>
 
 <hr>
 
@@ -2425,27 +2602,40 @@ sistema: el de una atención y el del dinero.</p>
 <h3 id="v-inicio">Inicio</h3>
 <p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span></p>
 <figure>
-  <img src="capturas/02-escritorio.png" alt="Pantalla de inicio con indicadores y agenda">
-  <figcaption>Lo primero que se ve al entrar (aquí, con perfil de Recepción).</figcaption>
+  <img src="capturas/02-escritorio.png" alt="Inicio de Recepción: saludo, cifras del día, tabla de citas de hoy, controles por agendar y caja y cartera">
+  <figcaption>El Inicio de Recepción: las cifras del día arriba y la tabla de citas de hoy.</figcaption>
 </figure>
-<p>Lo que muestra depende del rol: cada uno ve su jornada.</p>
+<p>Arriba, el saludo con el resumen del día («Tienes 3 citas hoy. La siguiente es a las 15:00.»). Debajo, una fila de
+<b>cifras del día</b> que se pueden pulsar para ir a su lista. Lo demás depende del rol: cada uno ve su jornada, y lo que su
+rol no recibe no aparece (no se muestra como cero).</p>
 <table>
   <thead><tr><th>Bloque</th><th>Qué muestra</th><th>Quién lo ve</th></tr></thead>
   <tbody>
-    <tr><td><b>Agenda</b></td><td>Las citas de hoy y de mañana, con su estado. El odontólogo puede
-    filtrar <b>Solo mis citas</b>.</td><td>Todos</td></tr>
-    <tr><td><b>Pendientes de firma</b></td><td>Documentos enviados al paciente que todavía no ha
-    firmado, y si el enlace venció.</td><td>Odontólogo</td></tr>
-    <tr><td><b>Atenciones sin cerrar</b></td><td>Sus atenciones abiertas, con <b>Continuar</b>.</td><td>Odontólogo</td></tr>
-    <tr><td><b>Caja y cartera</b> (en Administración, <b>Desempeño</b>)</td><td>Ingresos de hoy
-    (y de ayer), cartera abierta y vencida, recibos en mora; Administración ve además los
-    tratamientos activos.</td><td>Recepción, Administración</td></tr>
+    <tr><td><b>Cifras del día</b></td><td>Odontólogo: sus citas de hoy (y cuántas por confirmar), atenciones sin cerrar,
+    consentimientos pendientes y citas de mañana. Recepción y Administración: citas de hoy, por confirmar, cobrado hoy (y ayer)
+    y cartera vencida (Administración, también los tratamientos activos). Auxiliar: citas de hoy y de mañana del consultorio. Las citas canceladas no se cuentan.</td><td>Todos</td></tr>
+    <tr><td><b>Siguiente paciente</b></td><td>La próxima cita de hoy: hora y cuánto falta, paciente, motivo y sus
+    <b>alergias</b>, con <b class="btn">Abrir atención</b>, <b class="btn">Odontograma</b> y <b class="btn">Ficha</b>. Si ya
+    no quedan citas, lo dice; el saludo de arriba avisa además de las anteriores que siguen sin atender.</td><td>Odontólogo</td></tr>
+    <tr><td><b>Agenda de hoy</b></td><td>Odontólogo y Auxiliar: una línea de tiempo con la hora actual marcada y los
+    <b>huecos libres</b> de 30 minutos o más («Libre 11:35 – 15:00 · Agendar aquí»); el odontólogo puede filtrar
+    <b>Solo mis citas</b>. Recepción y Administración: una tabla con hora, paciente, profesional y estado.</td><td>Todos</td></tr>
+    <tr><td><b>Lo que espera tu firma</b></td><td>Los documentos enviados al paciente que todavía no ha firmado (y si el
+    enlace venció) y sus atenciones sin cerrar, con la acción de cada una: <b>Abrir</b>, <b>Firmar</b>, <b>Cerrar</b> o
+    <b>Continuar</b>.</td><td>Odontólogo</td></tr>
+    <tr><td><b>Caja y cartera</b></td><td>Cartera abierta y vencida, recibos en mora y saldo a favor.</td><td>Recepción, Administración</td></tr>
     <tr><td><b>Controles por agendar</b></td><td>Los próximos controles que fijó el odontólogo y
     todavía no tienen cita ni recordatorio. Desde aquí se <b class="btn">Agendar</b> la cita, se
     envía el recordatorio y se marca como enviado. Muestra el nombre y el teléfono, <b>nunca</b>
     el contenido clínico.</td><td>Auxiliar, Recepción, Administración</td></tr>
+    <tr><td><b>Accesos rápidos</b> y <b>Mañana</b></td><td>Atajos a las pantallas que el rol puede abrir, y las citas de
+    mañana (Recepción y Administración ven la lista; el odontólogo, cuántas y a qué hora es la primera).</td><td>Todos</td></tr>
   </tbody>
 </table>
+<figure>
+  <img src="capturas/82-inicio-odontologa.png" alt="Inicio de una odontóloga: siguiente paciente con su alergia, agenda en línea de tiempo con huecos libres y lo que espera su firma">
+  <figcaption>El Inicio de la odontóloga: el siguiente paciente con su alergia y la agenda de hoy con los huecos libres.</figcaption>
+</figure>
 
 <h3 id="v-pacientes">Pacientes</h3>
 <p class="quien">Entran: <span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span> <span class="rol r-rec">Recepción</span> <span class="rol r-adm">Administración</span></p>
@@ -2588,6 +2778,7 @@ incidentes) no deja asiento aquí.</p>
     <tr><td><b>Documentos legales</b></td><td>El nombre del consultorio, el texto de cada documento que firma el paciente o publica el consultorio, su <b>aprobación jurídica</b> y el encabezado de los documentos.</td></tr>
     <tr><td><b>Cierre del consultorio</b></td><td>Si el consultorio cierra: los avisos publicados, el plazo para que cada paciente reclame su historia y el cierre definitivo, que deja el sistema en solo lectura. Ver <a href="#cierre">Si el consultorio cierra</a>.</td></tr>
     <tr><td><b>RDA</b></td><td>Activar o no la generación del Resumen Digital de Atención, los datos del prestador y, con ella activa, la lista de atenciones firmadas para descargar su RDA.</td></tr>
+    <tr><td><b>RIPS</b></td><td>Encender el reporte de servicios al Ministerio, elegir la modalidad, preparar y generar el reporte de cada periodo y anotar lo que respondió el Ministerio. Ver <a href="#rips">El RIPS</a>.</td></tr>
   </tbody>
 </table>
 <h4>El historial de precios</h4>
@@ -2857,6 +3048,7 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
     <tr><td>Tarifario</td><td>Solo leer</td><td>Solo leer</td><td>Solo leer</td><td><b>Crear, poner precios y ver su historial</b></td></tr>
     <tr><td>Usuarios, respaldo, textos</td><td>No</td><td>No</td><td>No</td><td>Sí</td></tr>
     <tr><td>RDA: activarlo y descargarlo</td><td>No</td><td>No</td><td>No</td><td>Sí</td></tr>
+    <tr><td>RIPS: configurarlo, generar el reporte y registrar el resultado</td><td>No</td><td>No</td><td>No</td><td>Sí</td></tr>
     <tr><td>Alertas clínicas del paciente</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
     <tr><td>Documentos que firma el paciente</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
     <tr><td>· Emitir la autorización de datos</td><td>Sí</td><td>Sí</td><td>Sí</td><td>No</td></tr>
@@ -2955,6 +3147,17 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
   </tbody>
 </table>
 
+<h3>Reporte del RIPS</h3>
+<table>
+  <tbody>
+    <tr><td><b>Listo localmente</b></td><td>Generado y comprobado por Biodont; todavía no se ha enviado. No es un RIPS aprobado.</td></tr>
+    <tr><td><b>Transmitido</b></td><td>Registrado como enviado o cargado en la aplicación del Ministerio; falta anotar la respuesta.</td></tr>
+    <tr><td><b>Validado con CUV</b></td><td>Registrado como validado por el Ministerio, con el CUV que alguien anotó. Se corrige solo con nota de ajuste, que todavía no está en Biodont.</td></tr>
+    <tr><td><b>Rechazado</b></td><td>El Ministerio lo rechazó; se corrige con un reemplazo.</td></tr>
+    <tr><td><b>Reemplazado</b></td><td>Otro reporte del mismo periodo lo corrigió. Se conserva y ya no cuenta.</td></tr>
+  </tbody>
+</table>
+
 <h2 id="ref-problemas">Si algo no funciona</h2>
 
 <div class="tabla-scroll">
@@ -3039,6 +3242,11 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
       <td>Complételos en <b>Datos para el RDA</b>, bajo el diagnóstico.</td>
     </tr>
     <tr>
+      <td>No me deja firmar: «el RIPS está encendido en este consultorio»</td>
+      <td>El consultorio genera el RIPS y la atención no tiene un diagnóstico principal con su código CIE-10 del catálogo, o repite un diagnóstico relacionado.</td>
+      <td>Corríjalo en <b>Diagnóstico</b> y vuelva a firmar. El PIN no se gastó.</td>
+    </tr>
+    <tr>
       <td>No aparece el botón de WhatsApp</td>
       <td>El paciente no tiene autorización de datos vigente, o no autorizó el contacto administrativo.</td>
       <td>Recuérdele por llamada o en persona, y recoja la autorización. Vea <a href="#agendar">Recordar por WhatsApp</a>.</td>
@@ -3061,6 +3269,7 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
     <tr><td><b>Borrado lógico</b></td><td>Anular dejando constancia, en vez de borrar. Lo clínico nunca se borra de verdad.</td></tr>
     <tr><td><b>CIE-10</b></td><td>Código internacional de diagnósticos.</td></tr>
     <tr><td><b>CIE-11</b></td><td>La versión nueva de la clasificación de enfermedades de la OMS. Se muestra junto al CIE-10 cuando hay un código verificado.</td></tr>
+    <tr><td><b>CUV</b></td><td>Código único de validación: el que devuelve el Ministerio cuando aprueba un RIPS. Se anota en Biodont al registrar el resultado.</td></tr>
     <tr><td><b>CUPS</b></td><td>Catálogo oficial colombiano de procedimientos en salud. Es la base del tarifario.</td></tr>
     <tr><td><b>Cotización</b></td><td>Precio por escrito para quien todavía no es paciente. No crea historia clínica.</td></tr>
     <tr><td><b>Etnia y discapacidad</b></td><td>Datos sensibles de la ficha. Voluntarios; «Prefiere no responder» es una respuesta aparte.</td></tr>
@@ -3073,6 +3282,7 @@ abre en su celular o en la tablet que se le pasa, lee el documento y firma con e
     <tr><td><b>PRA</b></td><td>Valoración del riesgo periodontal de Lang y Tonetti (2003), para pacientes en terapia de soporte.</td></tr>
     <tr><td><b>Presupuesto</b></td><td>Lo propuesto a un paciente registrado, con precio por procedimiento.</td></tr>
     <tr><td><b>RDA</b></td><td>Resumen Digital de Atención (Res. 1888/2025): el documento de cada atención firmada según la guía del Ministerio. Biodont lo genera, no lo envía; generarlo no demuestra cumplimiento (eso lo dice el asesor).</td></tr>
+    <tr><td><b>RIPS</b></td><td>Registro Individual de Prestación de Servicios de Salud: el reporte de las consultas y procedimientos del consultorio que pide el Ministerio de Salud. Biodont lo prepara, lo comprueba y genera el archivo; no lo envía. Ver <a href="#rips">El RIPS</a>.</td></tr>
     <tr><td><b>Responsable clínico</b></td><td>Odontólogo designado que responde por la historia clínica y consulta el registro de accesos.</td></tr>
     <tr><td><b>Retención</b></td><td>Los 15 años que hay que conservar la historia desde la última atención.</td></tr>
   </tbody>
