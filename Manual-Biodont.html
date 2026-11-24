@@ -174,8 +174,8 @@ table.constancia td{height:42px}
 
 <h1>Manual de Biodont</h1>
 <p class="sub">Sistema de gestión para consultorio odontológico · Versión 1.0</p>
-<p class="sub" id="build-manual">Describe Biodont con el servidor <code>638f10a</code> y las pantallas <code>8c1311b</code> (versión de la pantalla <code>main-CBP3PXPW</code>) · revisado el 2026-11-20.</p>
-<!-- Detalle técnico: servidor (backend) 638f10a, pantallas (front odontograma) 8c1311b, bundle main-CBP3PXPW; validado el 2026-11-20. Si la versión de su pantalla es otra, este manual puede no coincidir. -->
+<p class="sub" id="build-manual">Describe Biodont con el servidor <code>0a2cce7</code> y las pantallas <code>8b5c2a6</code> (versión de la pantalla <code>main-6RF6ECQT</code>) · revisado el 2026-11-24.</p>
+<!-- Detalle técnico: servidor (backend) 0a2cce7, pantallas (front odontograma) 8b5c2a6, bundle main-6RF6ECQT (master con la tanda «pedidos del consultorio» P1–P7 y Q1–Q8 y la medicación actual con radios, desplegado el 2026-11-24); validado el 2026-11-24. Si la versión de su pantalla es otra, este manual puede no coincidir. -->
 
 <div class="caja nota">
   <span class="et">Cómo está organizado</span>
@@ -637,10 +637,80 @@ crea una nueva en cada visita: lo que se registra por visita es la <a href="#ate
 </ol>
 
 <figure>
-  <img src="capturas/06-historia-clinica.png" alt="Historia clínica con sus pestañas y la franja de alergias">
-  <figcaption>La historia clínica, con sus pestañas y, arriba, la franja de alergias del
-  paciente.</figcaption>
+  <img src="capturas/06-historia-clinica.png" alt="Historia clínica en la pestaña Antecedentes, con la franja de condiciones arriba y las filas con Sí, No y Desconoce">
+  <figcaption>La historia clínica, con sus pestañas y, arriba, la franja de condiciones del
+  paciente (aquí, riesgo hemorrágico y un dispositivo implantado). Abajo, la pestaña Antecedentes.</figcaption>
 </figure>
+
+<h3>Datos personales</h3>
+<p>En la pestaña <b>Datos personales</b> están los datos administrativos de la historia. Lo que se escribe aquí es:</p>
+<ul>
+  <li><b>Número de historia clínica</b> y, junto a él, <b>Número de hoja (opcional)</b>: el número de la hoja o tarjeta de papel que el paciente
+  tiene en el archivo del consultorio. Es <b>uno por paciente</b> (no uno por atención), puede llevar ceros a la izquierda («0345») y no se exige que sea
+  distinto del de otro paciente. El <b>Resumen</b> del paciente lo muestra junto al número de historia («Historia HC-… · Hoja N»).</li>
+  <li><b>Municipio / Departamento</b> (antes «Lugar de residencia»; el dato es el mismo), <b>Ocupación</b>, <b>Estado civil</b> y <b>Sexo</b>.</li>
+  <li>El acompañante, en este orden: <b>Nombre del acompañante</b>, <b>Documento del acompañante</b>, <b>Parentesco</b> y <b>Teléfono del acompañante</b>.
+  El acompañante <b>solo acompaña</b>: no es el representante legal del paciente ni autoriza nada.</li>
+</ul>
+<p>Estos datos se ven pero <b>no se editan aquí</b>, porque se corrigen en la ficha del paciente: <b>Tipo de documento</b>, <b>Documento de identidad</b>,
+<b>Teléfono</b>, <b>Correo electrónico</b>, nombres y apellidos, fecha de nacimiento, EPS y dirección. Si la ficha no tiene el dato, el campo dice
+«Sin registrar en la ficha».</p>
+<figure>
+  <img src="capturas/83-datos-personales.png" alt="Pestaña Datos personales con el número de hoja, los datos de la ficha en solo lectura y los del acompañante">
+  <figcaption>Datos personales de una paciente de ejemplo: el número de hoja junto al de historia, los datos de la ficha en solo lectura (más oscuros) y,
+  abajo, «Municipio / Departamento» y el acompañante con su documento.</figcaption>
+</figure>
+
+<h3 id="antecedentes-plantilla">Antecedentes: la plantilla del consultorio</h3>
+<p>La pestaña <b>Antecedentes</b> sigue la plantilla del consultorio, en siete bloques: <b>1. Antecedentes sistémicos</b>, <b>2. Antecedentes quirúrgicos y
+hospitalarios</b>, <b>3. Medicación actual</b>, <b>4. Alergias</b> (se llenan como se explica en <a href="#alergias">Registrar una alergia</a>),
+<b>5. Antecedentes hematológicos</b>, <b>6. Gineco-obstétricos</b> y <b>7. Hábitos generales</b>. Cada bloque tiene su cuadro de <b>Observaciones</b>.</p>
+<ul>
+  <li><b>Cada pregunta se responde con Sí, No o Desconoce</b>, en una misma línea. Una pregunta sin responder queda <b>sin diligenciar</b> (no es un «No»).
+  «Desconoce» significa que se preguntó y el paciente no sabe.</li>
+  <li><b>Quitar respuesta</b> aparece junto a las preguntas que ya tienen respuesta y la devuelve a «Sin diligenciar». Si esa respuesta <b>ya estaba guardada</b>,
+  la barra de guardado nombra la pregunta y pide el <b>motivo</b>, como se explica arriba en «Devolver una respuesta a «Sin diligenciar» pide el motivo».</li>
+  <li><b>«Especifique», «¿Cuál?» y los demás textos de apoyo solo se habilitan con la respuesta que los pide</b> (casi siempre «Sí»; en tabaco y alcohol, también
+  «Exconsumidor»). Si cambia la respuesta a otra, <b>el texto se vacía</b> a la vista: no queda escrito en silencio. Por ejemplo, con «¿Tiene dispositivos
+  médicos implantados?» en «Sí» se habilita «¿Cuál?» (Ej. Marcapasos); si pasa a «No», «¿Cuál?» se borra.</li>
+  <li><b>1. Sistémicos</b>: la pregunta general «¿Presenta o ha sido diagnosticado con enfermedad sistémica?» y una fila por cada grupo (hipertensión, diabetes, cardíacas,
+  respiratorias, renales, hepáticas, endocrinas, neurológicas / convulsiones / síncope, autoinmunes / inmunológicas, infecciosas relevantes, oncológicos, óseas y
+  transmisión sexual), más «Otra enfermedad» (Sí o No, con «Especifique»).</li>
+  <li><b>2. Quirúrgicos y hospitalarios</b>: hospitalizaciones previas (con «motivo y fecha aproximada»), cirugías previas (con «cirugía y fecha aproximada»),
+  complicaciones quirúrgicas y dispositivos médicos implantados.</li>
+  <li><b>3. Medicación actual</b>: «¿Actualmente toma medicamentos?» con una lista desplegable (Sin diligenciar, Sí, No); solo con «Sí» aparece la tabla de
+  medicamento, dosis y frecuencia. <b>Esta lista es lo que el paciente refiere tomar</b>; las fórmulas que el consultorio emite se registran aparte (ver
+  <a href="#formulas-ordenes">Fórmulas, órdenes de estudio y remisiones</a>).</li>
+  <li><b>5. Hematológicos</b>: ¿sangra con facilidad?, trastorno de coagulación diagnosticado, anemia, hemofilia, trombocitopenia / otro trastorno (con «Especifique») y
+  anticoagulantes / antiagregantes.</li>
+  <li><b>6. Gineco-obstétricos</b>: empieza con <b>¿Aplica este apartado?</b> (<b>Aplica</b> o <b>No aplica</b>). Con «No aplica» se ocultan las demás preguntas y la
+  pantalla dice «No aplica: las demás preguntas del apartado no se guardan.». Si ya tenían respuestas guardadas, pasar a «No aplica» las deja sin diligenciar y
+  <b>pide el motivo</b>, igual que «Quitar respuesta». El <b>embarazo</b> admite «Desconoce / posible»; el trimestre solo se pregunta con embarazo en «Sí».</li>
+  <li><b>7. Hábitos</b>: tabaco y alcohol con Sí, No o <b>Exconsumidor</b> (con tipo de tabaco —cigarrillo, tabaco, vapeador u otro—, cantidad o frecuencia), y sustancias
+  psicoactivas (sustancia, frecuencia y último consumo).</li>
+</ul>
+<figure>
+  <img src="capturas/84-antecedentes-quirurgicos.png" alt="Bloque 2 de antecedentes: hospitalizaciones con su motivo, cirugías con el texto deshabilitado y un marcapasos como dispositivo implantado">
+  <figcaption>Bloque 2: con «Hospitalizaciones previas» en «Sí» el texto de motivo y fecha está habilitado; con «Cirugías previas» en «No» está
+  deshabilitado. «Quitar respuesta» aparece solo donde hay respuesta.</figcaption>
+</figure>
+<figure>
+  <img src="capturas/85-antecedentes-gineco.png" alt="Bloque 6 de antecedentes: ¿Aplica este apartado?, embarazo, lactancia y embarazo de alto riesgo">
+  <figcaption>Bloque 6, con «¿Aplica este apartado?» sin responder y las demás preguntas a la vista.</figcaption>
+</figure>
+<div class="caja nota">
+  <span class="et">Lo guardado antes de esta plantilla se sigue leyendo</span>
+  <p>Los antecedentes sistémicos antes eran casillas. En una historia vieja, una casilla <b>marcada</b> se lee como <b>«Sí»</b>; una casilla <b>sin marcar</b> se lee
+  como <b>«Sin diligenciar»</b>, nunca como «No», porque nadie respondió «No». Lo que el paciente refirió con texto libre sigue en las observaciones. Al guardar de
+  nuevo, queda en el formato nuevo y la versión anterior se conserva.</p>
+</div>
+<div class="caja aviso">
+  <span class="et">Alertas nuevas en la franja de condiciones</span>
+  <p>Además de las que ya había, la franja de arriba de las pantallas del paciente avisa de: <b>riesgo hemorrágico</b> cuando hay «Sí» en sangra con facilidad,
+  trastorno de coagulación, hemofilia, trombocitopenia o anticoagulantes / antiagregantes; <b>dispositivo implantado</b>, con su nombre («Dispositivo implantado:
+  Marcapasos»); y <b>embarazo</b> también con «Desconoce / posible» (dice «posible embarazo (no lo sabe)»), embarazo de alto riesgo y lactancia. Con el bloque
+  gineco-obstétrico en «No aplica» no salta nada de él. «Desconoce» en una enfermedad <b>no</b> la afirma: no genera alerta.</p>
+</div>
 
 <div class="caja aviso">
   <span class="et">Cada botón guarda lo suyo</span>
@@ -787,6 +857,13 @@ remisiones</b>, <b>Archivos</b> y <b>Constancias y correcciones</b>.</p>
   diagnóstico, la fórmula, pedir un estudio, el cobro cuando ya eligió el cargo…): si hay algo escrito y pulsa <b class="btn">Cancelar</b>, la ✕ o Escape, el sistema <b>no cierra
   sin más</b>: pregunta «Hay datos escritos. ¿Descartarlos y cerrar?» y ofrece <b class="btn">Seguir escribiendo</b> o <b class="btn">Descartar</b>. Con la ventana
   vacía, cierra directamente.</li>
+  <li><b>El campo Diagnóstico busca en la CIE-10 oficial.</b> Escriba parte del nombre o el código (por ejemplo «caries» o «K02.1»): el sistema
+  ofrece coincidencias de la CIE-10 en español del Ministerio de Salud (SISPRO). Elíjala con el ratón o con las flechas y <b class="btn">Enter</b>: se llenan el
+  texto y el código, y la ventana muestra <b>«Código elegido: … · Quitar»</b>. Los nombres oficiales vienen <b>sin tildes</b> («Maloclusion de tipo no
+  especificado»); se pueden corregir a mano, y corregir tildes no genera ningún aviso. Si, en cambio, cambia el texto por <b>otro diagnóstico</b>, la ventana avisa
+  que el código elegido <b>no corresponde</b> y le pide revisar que sea el diagnóstico; no lo cambia por usted: <b>Quitar</b> o corregir el código es decisión suya.
+  También puede escribir el diagnóstico a mano, sin elegir ninguna coincidencia. Mientras el catálogo se descarga, el campo dice <b>«Cargando el catálogo…»</b>; si no se pudo cargar, dice
+  <b>«No se pudo cargar el catálogo: escribe el diagnóstico a mano.»</b> y el diagnóstico se registra igual, sin código. Si quita el código elegido con <b>Quitar</b>, el cursor vuelve al campo del diagnóstico.</li>
   <li>Debajo, <b>Sugeridos por el odontograma</b> propone diagnósticos con su código CIE-10 —y,
   cuando lo hay, el CIE-11— a partir de lo marcado. Solo se guarda lo que usted <b class="btn">Confirmar</b>: el sistema
   sugiere, el diagnóstico lo hace el profesional.</li>
@@ -798,7 +875,27 @@ remisiones</b>, <b>Archivos</b> y <b>Constancias y correcciones</b>.</p>
   solo lectura: se editan en la historia clínica.</li>
   <li>En <b>Próximo control</b> elija un atajo (1 semana, 15 días, 1 mes, 6 meses) o una fecha, y
   el motivo. Recepción lo verá en su Inicio para agendarlo.</li>
+  <li>Al final de la pestaña <b>Consulta</b> está <b>Medicación</b>, con <b>Sí</b> / <b>No</b> y <b class="btn">+ Agregar medicamento</b>. Cada medicamento se
+  receta como una <b>fórmula médica</b>, con su revisión de alergias, y queda <b>ligada a esta atención</b>: <b class="btn">+ Agregar medicamento</b> (o
+  elegir <b>Sí</b>) abre la fórmula en la historia clínica y, al emitirla, usted <b>vuelve solo a la atención</b>. La lista muestra cada medicamento con la fecha de su
+  fórmula. <b>«Sí» no se guarda aparte</b>: significa que hay fórmulas vigentes ligadas a esta atención; mientras las haya, «No» está deshabilitado y, para quitar
+  una, se anula desde <b>Fórmulas médicas</b>. Se puede agregar medicación en una atención ya firmada: la fórmula es su propio documento. Como las fórmulas son
+  solo del odontólogo, a quien no puede verlas la sección le dice «No tienes permiso para ver la medicación.»</li>
 </ol>
+
+<figure class="estrecha">
+  <img src="capturas/86-medicacion-atencion.png" alt="Sección Medicación de la atención con Sí marcado, un medicamento y la nota de que Sí significa que hay fórmulas ligadas">
+  <figcaption>Medicación de la atención, con una fórmula ya emitida: «Sí» está marcado porque hay una fórmula ligada.</figcaption>
+</figure>
+
+<figure>
+  <img src="capturas/87-diagnostico-buscador-cie10.png" alt="Ventana Nuevo diagnóstico con el buscador de la CIE-10 mostrando una coincidencia con su código">
+  <figcaption>Al escribir «maloclus» el buscador ofrece la coincidencia oficial, con su código (K07.4).</figcaption>
+</figure>
+<figure>
+  <img src="capturas/88-diagnostico-codigo-aviso.png" alt="Ventana Nuevo diagnóstico con el código K07.4 elegido y el aviso de que no corresponde al texto escrito">
+  <figcaption>Con el código elegido, y el texto cambiado a otro diagnóstico: la ventana avisa que el código no corresponde.</figcaption>
+</figure>
 
 <figure>
   <img src="capturas/22-atencion-borrador.png" alt="Atención sin firmar con sus pasos y sus pestañas">
@@ -878,7 +975,17 @@ consulta.</p>
   <li>Elija la <b>pieza</b> (o marque <b>No aplica</b>), el tratamiento en curso si lo hay, y
   escriba <b>lo que se hizo</b> y lo que queda <b>por hacer en la próxima sesión</b>.</li>
   <li>El auxiliar además indica la <b>actuación autorizada</b> que ejecutó.</li>
+  <li><b>Procedimiento (opcional)</b>: cuando <b>no hay un tratamiento en curso</b> (el campo «Tratamiento en curso» dice «Sin tratamiento») y quien registra no es el
+  auxiliar, aparece un buscador del <b>tarifario</b>: escriba el nombre o el código («exodoncia», «230101») y elija. La evolución queda con ese procedimiento y su
+  código. Dice <b>«No genera ningún cobro: los cobros salen del presupuesto.»</b>: es solo el registro de lo que se hizo. Los procedimientos propios del consultorio
+  (los que no son del catálogo oficial) salen como <b>«propio · no va al RIPS»</b>, ya al elegirlos en el buscador y después en la lista de la evolución. Si el buscador no carga, la evolución se puede
+  registrar igual, sin procedimiento.</li>
 </ol>
+
+<figure>
+  <img src="capturas/89-evolucion-procedimiento.png" alt="Ventana Registrar evolución con el buscador de procedimientos mostrando coincidencias de exodoncia con su código">
+  <figcaption>Registrar evolución sin tratamiento en curso: el buscador de «Procedimiento (opcional)» y, debajo, el aviso de que no genera ningún cobro.</figcaption>
+</figure>
 
 <figure>
   <img src="capturas/26-evolucion.png" alt="Pestaña Evolución con una sesión registrada">
@@ -888,7 +995,7 @@ consulta.</p>
 
 <h3>Corregir un diagnóstico</h3>
 <p>Si escribió mal un diagnóstico, pulse <b class="btn">Corregir</b> junto a él y arregle el
-texto, el código o el tipo. <b>No use «Quitar» para volver a añadirlo</b>: al corregir se
+texto, el código o el tipo; la ventana usa el <b>mismo buscador de la CIE-10</b> que «Nuevo diagnóstico» y ya trae elegido el código que el diagnóstico tenía. <b>No use «Quitar» para volver a añadirlo</b>: al corregir se
 conserva quién lo registró y cuándo, y al borrar y recrear esos dos datos cambian — en un
 documento que se conserva quince años, eso no es lo mismo.</p>
 
@@ -955,7 +1062,7 @@ alteró.</p>
   <tbody>
     <tr><td><b class="btn">Cerrar atención</b></td><td>Da la visita por terminada. Es el último paso del ciclo.</td></tr>
     <tr><td><b class="btn">Agregar corrección</b></td><td>Añade una <b>adenda</b>, en la pestaña <b>Constancias y correcciones</b>. Lo firmado no se toca: la corrección se suma después, fechada y firmada, como manda la norma para un documento clínico.</td></tr>
-    <tr><td><b class="btn">Imprimir (PDF)</b></td><td>Descarga el impreso de la atención con todo lo registrado, sus firmas y su huella. Solo lo obtiene quien puede ver todo su contenido: a un rol que no ve alguna parte (el auxiliar sin actuaciones habilitadas, por ejemplo) el botón aparece desactivado y, al pasar el cursor, dice por qué. Si hay cambios sin guardar, guarde antes: el impreso es lo guardado.</td></tr>
+    <tr><td><b class="btn">Imprimir (PDF)</b></td><td>Descarga el impreso de la atención con todo lo registrado, sus firmas y su huella. Solo lo obtiene quien puede ver todo su contenido: a un rol que no ve alguna parte (el auxiliar sin actuaciones habilitadas, por ejemplo) el botón aparece desactivado y, al pasar el cursor, dice por qué. Si hay cambios sin guardar, guarde antes: el impreso es lo guardado. Trae, junto al número de hoja, los datos del <b>acompañante</b> que tengan valor (el PDF de evoluciones también), y una línea <b>«Medicación: Sí — fórmula del …»</b> por cada fórmula vigente ligada (o «No»), sin dosis; a quien no puede ver la medicación no se le imprime esa línea.</td></tr>
     <tr><td><b class="btn">Comprobar integridad</b></td><td>Verifica que el contenido firmado no ha sido alterado. Si algo cambió por fuera del sistema, lo dice.</td></tr>
     <tr><td><b class="btn">Anular</b></td><td>Deja la atención sin efecto <b>dejando constancia</b> de quién la anuló y por qué. No la borra. <b>Tampoco anula sus evoluciones</b>: antes de confirmar, la ventana dice cuántas siguen vigentes y en cuántos tratamientos, y al terminar lo repite.</td></tr>
   </tbody>
@@ -982,7 +1089,7 @@ responsable clínico (el odontólogo que Administración marcó como tal), aunqu
 constancia de quién y por qué.</p>
 
 <h3>La fórmula médica</h3>
-<p>Vive en la <b>historia clínica</b> del paciente, no en la atención.</p>
+<p>Vive en la <b>historia clínica</b> del paciente. También se puede emitir <b>desde una atención</b> (sección «Medicación», ver <a href="#atender">Atender y firmar la atención</a>): esa fórmula queda ligada a la atención y, en la lista, dice <b>«De la atención N»</b> con un enlace que lleva a ella. Las que se emiten desde Fórmulas médicas no dicen nada, como siempre.</p>
 <ol class="pasos">
   <li>Abra el paciente → <b class="btn">Historia clínica</b> → pestaña <b class="btn">Fórmulas médicas</b>.</li>
   <li>Pulse <b class="btn">+ Nueva fórmula</b>. Arriba de la ventana el sistema recuerda las <b>alergias</b>
@@ -1036,7 +1143,7 @@ constancia de quién y por qué.</p>
 caracteres: la fórmula anulada se queda en la lista, marcada, con su motivo.</p>
 <figure>
   <img src="capturas/45-formula-lista.png" alt="Lista de fórmulas médicas con una fórmula vigente">
-  <figcaption>La fórmula vigente, con su diagnóstico y sus medicamentos.</figcaption>
+  <figcaption>La fórmula vigente, con su diagnóstico y sus medicamentos; esta salió de una atención y lo dice («De la atención 1»).</figcaption>
 </figure>
 
 <h3>Órdenes de estudio y remisiones</h3>
@@ -2837,8 +2944,8 @@ odontogramas.</p>
   historia clínica: una alergia registrada con su agente dice lo mismo en todas ellas, sin
   copias que puedan discrepar.</p>
   <p>Además, todas las pantallas del paciente (Atención, Historia clínica, Odontograma, Periodontograma, Tratamientos, Presupuesto,
-  Documentos y Archivos) llevan arriba la <b>franja de condiciones</b>: cada alergia con su agente, el riesgo hemorrágico, el embarazo o la
-  lactancia, y si las alergias están sin diligenciar o el paciente no sabe. Si la consulta falla, la franja dice que falló, no «sin alertas».
+  Documentos y Archivos) llevan arriba la <b>franja de condiciones</b>: cada alergia con su agente, el riesgo hemorrágico, el dispositivo implantado, el embarazo o la
+  lactancia, y si las alergias están sin diligenciar o el paciente no sabe. Si la consulta falla, la franja dice que falló, no «sin alertas». En el celular (pantalla estrecha), lo que no es clínico —hoy, «Sin antecedentes registrados»— llega plegado tras el botón <b class="btn">Ver 1 aviso</b> (o «Ver N avisos»); <b class="btn">Ocultar avisos</b> lo vuelve a plegar. El botón solo aparece si, además de lo plegable, queda algo más a la vista; si no, la franja se muestra tal cual. Las alertas de alergia y de riesgo se ven siempre.
   A Recepción y a Administración no se les muestra: no reciben los antecedentes.</p>
 </div>
 
