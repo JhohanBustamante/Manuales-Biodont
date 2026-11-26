@@ -934,7 +934,10 @@ los marca solo el odontólogo.</p>
 <h3>Control de placa (O'Leary)</h3>
 <p class="quien"><span class="rol r-odo">Odontólogo</span> <span class="rol r-aux">Auxiliar</span></p>
 <ol class="pasos">
-  <li>En <b>Control de placa</b>, pulse <b class="btn">+ Registrar</b> y elija la dentición.</li>
+  <li>En <b>Control de placa</b>, pulse <b class="btn">+ Registrar</b> y elija la dentición. Los dientes que en el odontograma vigente
+  no tienen corona que examinar (ausentes, remanentes, incluidos, sin erupcionar…) ya vienen marcados <b>ausentes</b>, y la pantalla dice
+  cuáles: corríjalo si hace falta. En dentición <b>mixta</b>, cada posición trae la pieza que dibuja el odontograma (la que tiene datos, o la
+  temporal si no hay).</li>
   <li>Pulse cada superficie con placa. Un segundo toque la marca <b>no examinable</b>, y un
   tercero la deja sin placa. Un diente que no está se marca <b>ausente</b> pulsando su número, y no
   cuenta.</li>
@@ -1062,7 +1065,7 @@ alteró.</p>
   <tbody>
     <tr><td><b class="btn">Cerrar atención</b></td><td>Da la visita por terminada. Es el último paso del ciclo.</td></tr>
     <tr><td><b class="btn">Agregar corrección</b></td><td>Añade una <b>adenda</b>, en la pestaña <b>Constancias y correcciones</b>. Lo firmado no se toca: la corrección se suma después, fechada y firmada, como manda la norma para un documento clínico.</td></tr>
-    <tr><td><b class="btn">Imprimir (PDF)</b></td><td>Descarga el impreso de la atención con todo lo registrado, sus firmas y su huella. Solo lo obtiene quien puede ver todo su contenido: a un rol que no ve alguna parte (el auxiliar sin actuaciones habilitadas, por ejemplo) el botón aparece desactivado y, al pasar el cursor, dice por qué. Si hay cambios sin guardar, guarde antes: el impreso es lo guardado. Trae, junto al número de hoja, los datos del <b>acompañante</b> que tengan valor (el PDF de evoluciones también), y una línea <b>«Medicación: Sí — fórmula del …»</b> por cada fórmula vigente ligada (o «No»), sin dosis; a quien no puede ver la medicación no se le imprime esa línea.</td></tr>
+    <tr><td><b class="btn">Imprimir (PDF)</b></td><td>Descarga el impreso de la atención con todo lo registrado, sus firmas y su huella. Solo lo obtiene quien puede ver todo su contenido: a un rol que no ve alguna parte (el auxiliar sin actuaciones habilitadas, por ejemplo) el botón aparece desactivado y, al pasar el cursor, dice por qué. Si hay cambios sin guardar, guarde antes: el impreso es lo guardado. Trae, junto al número de hoja, los datos del <b>acompañante</b> que tengan valor (el PDF de evoluciones también), y una línea <b>«Medicación: Sí — fórmula del …»</b> por cada fórmula vigente ligada (o «No»), sin dosis; a quien no puede ver la medicación no se le imprime esa línea. En una atención <b>firmada</b>, el impreso aclara que el acompañante y la medicación son los <b>vigentes a la fecha de impresión</b> (con el día), que pueden ser distintos de los del día de la firma.</td></tr>
     <tr><td><b class="btn">Comprobar integridad</b></td><td>Verifica que el contenido firmado no ha sido alterado. Si algo cambió por fuera del sistema, lo dice.</td></tr>
     <tr><td><b class="btn">Anular</b></td><td>Deja la atención sin efecto <b>dejando constancia</b> de quién la anuló y por qué. No la borra. <b>Tampoco anula sus evoluciones</b>: antes de confirmar, la ventana dice cuántas siguen vigentes y en cuántos tratamientos, y al terminar lo repite.</td></tr>
   </tbody>
@@ -1199,16 +1202,18 @@ caracteres: la fórmula anulada se queda en la lista, marcada, con su motivo.</p
 sus rehabilitaciones. Ningún hallazgo es solo un color: cada marca lleva su significado escrito.</p>
 
 <figure>
-  <img src="capturas/08-odontograma.png" alt="Odontograma con el diente 16 elegido, su cruz de caras y el registro por cara con ICDAS">
-  <figcaption>Diagnóstico. A la derecha, el diente elegido con su cruz de caras, las dos formas
-  de registrar (<b>Caras (ICDAS)</b> y <b>Diente completo</b>) y su historial.</figcaption>
+  <img src="capturas/08-odontograma.png" alt="Odontograma con cada diente dibujado con su corona y su raíz y, debajo, el círculo de sus caras; el diente 16 elegido y, a la derecha, su dibujo grande con el círculo de caras">
+  <figcaption>Diagnóstico. Cada diente se dibuja con su corona y su raíz, y debajo el <b>círculo de sus caras</b>. A la derecha, el diente
+  elegido en grande, las dos formas de registrar (<b>Caras (ICDAS)</b> y <b>Diente completo</b>) y su historial.</figcaption>
 </figure>
 
 <ol class="pasos">
   <li>Abra el paciente y entre a <b class="btn">Odontograma</b>.</li>
   <li>Elija la <b>dentición</b> arriba a la derecha (permanente, temporal o mixta) antes de
   empezar a marcar.</li>
-  <li>Haga clic en un <b>diente</b>. A la derecha aparece con su cruz de caras (V, M, O, D, P).</li>
+  <li>Haga clic en un <b>diente</b>. A la derecha aparece en grande, con su raíz y el círculo de sus caras: la oclusal o incisal
+  (O) en el centro, la vestibular (V) arriba, la palatina o lingual (P) abajo, y la mesial (M) y la distal (D) a los lados. Con
+  <b>‹</b> y <b>›</b>, arriba del dibujo, se pasa al diente anterior o al siguiente.</li>
   <li>En <b class="btn">Caras (ICDAS)</b>, haga clic en una cara y registre <b>qué hay en ella</b>
   (primer dígito: sin restauración, sellante, restauración…), su <b>caries</b> (segundo dígito),
   la <b>raíz expuesta</b> y otros hallazgos (fractura, atrición, erosión…). Si la cara no se pudo
@@ -1220,6 +1225,25 @@ sus rehabilitaciones. Ningún hallazgo es solo un color: cada marca lleva su sig
   rehabilitaciones (corona, prótesis…).</li>
   <li>Lo marcado se guarda solo a los pocos segundos y aparece abajo, en <b>Registro</b>.</li>
 </ol>
+
+<div class="caja nota" id="odontograma-pantallas">
+  <span class="et">En pantalla ancha, en pantalla estrecha y con el teclado</span>
+  <ul>
+    <li><b>Pantalla ancha</b> (un computador): el detalle del diente queda <b>fijo</b> a la derecha mientras se recorre la cuadrícula, y
+    tiene su propio desplazamiento.</li>
+    <li><b>Pantalla estrecha</b> (una tableta en vertical, un celular): el detalle va debajo de la cuadrícula. Con <b>‹</b> y <b>›</b> se
+    cambia de diente sin volver arriba, y <b class="btn">Subir a la cuadrícula</b> lleva de vuelta a ella.</li>
+    <li><b>Celular</b>: arriba de la cuadrícula hay tres botones, <b>Las dos</b>, <b>Superior</b> e <b>Inferior</b>. Con una sola arcada,
+    sus dientes caben en dos líneas sin desplazar de lado; con las dos, la cuadrícula se desliza de lado («Desliza para ver toda la arcada»).</li>
+    <li><b>Teclado</b>: la cuadrícula es una sola parada de <b>Tab</b>. Las <b>flechas</b> se mueven entre dientes (arriba y abajo cambian de
+    arcada), <b>Inicio</b> y <b>Fin</b> van al primero y al último de la fila, y <b>Enter</b> elige el diente. Desde el detalle, <b>Escape</b>
+    devuelve el foco al diente. Cada diente se anuncia con su número y lo principal que tiene registrado.</li>
+  </ul>
+</div>
+<figure class="estrecha">
+  <img src="capturas/93-odontograma-celular-arcada.png" alt="Cuadrícula del odontograma en un celular con el botón Superior elegido: los dieciséis dientes de la arcada superior en dos líneas">
+  <figcaption>En un celular, con <b>Superior</b> elegido: una sola arcada, en dos líneas.</figcaption>
+</figure>
 
 <p>Un diente que ya tiene caras registradas <b>no se puede pasar a ausente</b>: el odontograma no lo hace, no pide un motivo y no
 borra nada, sino que avisa «El diente N tiene caras registradas: anúlalas antes de registrarlo …». Primero se anulan las caras
@@ -1252,8 +1276,9 @@ borra nada, sino que avisa «El diente N tiene caras registradas: anúlalas ante
     <li><b>Profundidad de la caries</b> (caries en dentina, ICDAS 4 a 6): profunda o extremadamente profunda. No decide sola: se lee con el
     diagnóstico pulpar.</li>
     <li><b>Madurez del ápice</b> (en <b>Diente completo</b>, solo en dientes permanentes presentes): abierto o cerrado, con la <b>fecha de la
-    radiografía</b> en que se vio y, si está subida, la radiografía. Nunca se deduce de la edad. Quitarla pide motivo, y un diente con el ápice
-    registrado no se puede pasar a ausente sin quitarla antes.</li>
+    radiografía</b> en que se vio y, si está subida, la radiografía. Nunca se deduce de la edad. Al elegir la radiografía, su fecha se pone sola
+    en el campo; si después se escribe otra, la pantalla avisa «La fecha (…) no es la de la radiografía citada (…). Se registra igual; revísala si
+    fue un error.», y no lo impide. Quitarla pide motivo, y un diente con el ápice registrado no se puede pasar a ausente sin quitarla antes.</li>
   </ul>
   <p>La <b>endodoncia</b> y la <b>pulpotomía</b> se nombran ahora según la dentición, y la <b>pulpectomía</b> dice lo que es. Por ejemplo, la endodoncia
   de un temporal se lee «Pulpectomía del diente temporal: conductos con obturación reabsorbible…», y la pulpectomía, en cualquier diente, «Extirpación
@@ -1267,6 +1292,9 @@ borra nada, sino que avisa «El diente N tiene caras registradas: anúlalas ante
 
 <div class="caja nota" id="leer-el-dibujo">
   <span class="et">Cómo leer el dibujo del diente</span>
+  <p>Cada diente se dibuja en dos partes: arriba (o abajo, en la arcada inferior) el <b>diente con su corona y su raíz</b>, con tantas
+  raíces como suele tener ese diente, y junto a él el <b>círculo de sus caras</b>, donde se pintan los hallazgos de cada cara. El dibujo es
+  el mismo en la pantalla y en el PDF.</p>
   <p>Debajo de la rejilla, la <b>leyenda</b> nombra cada marca con su color, el patrón dicho con palabras, dónde va
   y cómo se ve, así que se entiende también impresa en gris. Hay tres clases de marca, además de la cruz del diente ausente:</p>
   <ul>
@@ -1287,9 +1315,9 @@ borra nada, sino que avisa «El diente N tiene caras registradas: anúlalas ante
 </div>
 
 <figure>
-  <img src="capturas/53-leyenda.png" alt="Rejilla del odontograma con caries, restauración, sellante, una corona en el 46 y una endodoncia en el 37, y la leyenda debajo">
-  <figcaption>La corona del 46 rellena la silueta y raya en vertical sus caras; la endodoncia del 37 se dibuja en la raíz.
-  La leyenda dice, para cada marca, dónde va, cómo se ve y su patrón.</figcaption>
+  <img src="capturas/53-leyenda.png" alt="Rejilla del odontograma con agenesia en el 18, sellante en el 17, caries y cara sana en el 16, una corona temporal en el 26, un implante en el 46 y una endodoncia en el 36, y la leyenda debajo">
+  <figcaption>La corona del 26 rellena la silueta y raya sus caras, con el contorno rojo discontinuo por ser temporal; la endodoncia
+  del 36 se dibuja en la raíz; el 18 y el 46 llevan la cruz de ausente. La leyenda dice, para cada marca, dónde va, cómo se ve y su patrón.</figcaption>
 </figure>
 
 <div class="caja aviso">
@@ -1297,6 +1325,9 @@ borra nada, sino que avisa «El diente N tiene caras registradas: anúlalas ante
   <p>Cuando se quita un hallazgo sin poner otro en su lugar, el sistema pide el <b>motivo de la
   anulación</b> (mínimo 5 caracteres). No se borra: queda en el <b>Historial</b> del diente,
   con quién lo anuló y por qué.</p>
+  <p><b>Lo que usted acaba de registrar se corrige sin motivo</b>: durante los <b>30 minutos</b> siguientes, quien lo registró puede quitarlo
+  o cambiarlo sin escribir el motivo, siempre que la versión siga abierta. El Historial lo sigue mostrando como anulado, con el motivo
+  «Corregido en la misma sesión». Pasado ese tiempo, o si lo registró otra persona, vuelve a pedirse el motivo.</p>
 </div>
 
 <h3>El plan de tratamiento</h3>
@@ -1309,10 +1340,24 @@ estado. Para poner el CUPS no hace falta saberse el código: al entrar en el cam
 hacer no se confundan.</p>
 
 <figure>
-  <img src="capturas/30-odontograma-plan.png" alt="Pestaña Plan de tratamiento con un procedimiento en la lista y el diente 18 elegido">
-  <figcaption>El plan: el diente elegido con los procedimientos que se le pueden añadir y, abajo,
-  la lista del plan con su estado. Las caras atenuadas son el diagnóstico, de referencia.</figcaption>
+  <img src="capturas/30-odontograma-plan.png" alt="Pestaña Plan de tratamiento con tres avisos del plan arriba, el diente 16 elegido y, a la derecha, la franja Diagnóstico de este diente con la caries de la cara oclusal">
+  <figcaption>El plan: arriba, los avisos del plan; a la derecha, el diente elegido con la franja <b>Diagnóstico de este diente</b> y los
+  procedimientos que se le pueden añadir. Las caras atenuadas de la cuadrícula son el diagnóstico, de referencia.</figcaption>
 </figure>
+
+<div class="caja nota" id="plan-diagnostico">
+  <span class="et">El plan muestra lo diagnosticado</span>
+  <p>Para planificar sin cambiar de pestaña, el plan trae el diagnóstico vigente de cada diente:</p>
+  <ul>
+    <li>Al elegir un diente, la franja <b>Diagnóstico de este diente</b> dice lo registrado (por ejemplo «Mesial: sana · Oclusal: caries
+    ICDAS 5») o «sin hallazgos registrados».</li>
+    <li>Si lo registrado limita lo que tiene sentido hacer, lo dice antes de añadir nada. Por ejemplo, en un diente con agenesia: «El
+    diagnóstico registra el 18 como «agenesia (no se formó)»: solo tiene sentido reponerlo (implante, puente, prótesis).»</li>
+    <li>La lista del plan tiene la columna <b>Diagnóstico</b>, con lo registrado en el diente o en la cara de cada línea.</li>
+    <li>Los avisos del plan llegan también a <a href="#llevar-del-plan">Llevar desde el plan</a>, en la línea a la que se refieren, y el
+    PDF del plan imprime el diagnóstico de cada línea con el rótulo «Dx vigente al imprimir».</li>
+  </ul>
+</div>
 
 <ol class="pasos">
   <li>En <b>Plan de tratamiento</b>, elija un diente y añada el procedimiento (por cara, en
@@ -1477,10 +1522,21 @@ cirugía, el de la exodoncia. Una línea ya realizada muestra estos datos como t
 </div>
 
 <div class="caja aviso">
-  <span class="et">Un procedimiento sobre un diente ausente avisa, pero no se impide</span>
-  <p>Si se planifica un procedimiento de caras o de raíz en un diente que el diagnóstico vigente da por <b>ausente</b>, el plan lo guarda y
-  muestra arriba el aviso <i>«Un procedimiento del plan va sobre un diente que el diagnóstico da por ausente.»</i> Revise si el diente está
-  bien marcado o si el procedimiento es otro. Los de reposición (implante, póntico, prótesis) no avisan: van justo donde falta un diente.</p>
+  <span class="et">Los avisos del plan: avisan, pero no impiden</span>
+  <p>El plan se guarda siempre. Cuando algo planificado no casa con el diagnóstico vigente o con el propio plan, arriba aparece el bloque
+  <i>«N avisos del plan: revisa lo planificado contra el diagnóstico vigente y contra el propio plan. No bloquea.»</i>, con una línea por
+  aviso. Avisa, entre otros casos, de:</p>
+  <ul>
+    <li>un procedimiento de caras o de raíz en un diente que el diagnóstico da por <b>ausente</b> (los de reposición —implante, póntico,
+    prótesis— no avisan: van justo donde falta un diente);</li>
+    <li>un tratamiento de la corona o de la pulpa en un diente que el diagnóstico registra como <b>remanente radicular</b> o
+    <b>incluido</b>, o en un temporal con la <b>extracción indicada</b>;</li>
+    <li>un <b>implante</b> sobre un diente presente o sobre otro implante;</li>
+    <li>una <b>endodoncia</b> en un diente que ya la tiene (si es un retratamiento, dígalo en la observación);</li>
+    <li>un <b>sellante</b> sobre una cara con caries cavitada, ya sellada o no examinable;</li>
+    <li>un código CUPS que no corresponde al procedimiento.</li>
+  </ul>
+  <p>Revise si el diagnóstico está bien registrado o si el procedimiento es otro.</p>
 </div>
 
 <div class="caja nota">
@@ -1493,16 +1549,27 @@ cirugía, el de la exodoncia. Una línea ya realizada muestra estos datos como t
   este consultorio, según el plan»; en el registro del diagnóstico el hallazgo se lee «…de incrustación metálica». La <b>remoción de retenedor</b> y la
   <b>aparatología fija</b> no pasan al diagnóstico: son actos, no hallazgos del diente.</p>
   <figure class="estrecha">
-    <img src="capturas/59-incrustacion-al-diagnostico.png" alt="Panel del molar 26 con la cara oclusal marcada como restauración y el historial que dice que se registró la incrustación metálica">
+    <img src="capturas/59-incrustacion-al-diagnostico.png" alt="Panel del molar 26 con la cara oclusal del círculo marcada como restauración y el historial que dice que se registró la incrustación metálica y se anuló la caries">
     <figcaption>La incrustación del 26 ya en el diagnóstico: la cara oclusal se pinta como restauración (rayas diagonales /).</figcaption>
   </figure>
 </div>
 
 <h3>Índices, corona y radiografías</h3>
 <ul>
-  <li><b>Índices de caries de esta versión</b>: el COP-D y el C(ICDAS)OP, con sus componentes (en
-  dientes temporales, la «e» es la extracción indicada). Las caries sin clasificar su severidad no entran, y el bloque lo
-  avisa.</li>
+  <li><b>Índices de caries de esta versión</b>: el COP-D y el C(ICDAS)OP (y el ceo-d en temporales), con sus componentes y sobre
+  cuántos dientes se calcularon. Las caries sin clasificar su severidad no entran, y el bloque lo avisa. Cómo cuenta cada caso:
+    <ul>
+      <li>La <b>caries de raíz con cavidad</b> cuenta como cariado (C); la lesión inicial de raíz, no.</li>
+      <li>La <b>extracción indicada</b> se registra también en dientes permanentes y cuenta como cariado (C); en temporales es la «e».
+      Se dibuja con la misma aspa discontinua.</li>
+      <li>Un temporal <b>ausente por caries</b> cuenta como «e».</li>
+      <li>La corona temporal y la corona defectuosa cuentan como obturadas (O), y un diente con tratamiento pulpar sin restauración
+      registrada, como sano. El bloque lo dice debajo de la tabla cuando el paciente tiene alguno.</li>
+      <li>En dentición <b>mixta</b>, los índices se calculan sobre las 28 posiciones de la cuadrícula mixta, más cualquier diente
+      registrado fuera de ella.</li>
+    </ul>
+  Cada índice dice con qué <b>regla</b> se calculó («· regla v2», vigente desde el 25/11/2026). Los índices no se guardan: se
+  calculan al mirar, así que una versión impresa antes de esa fecha pudo dar otras cifras, y el bloque y el PDF lo avisan.</li>
   <li>Al registrar una <b>corona</b>, indique su <b>motivo</b>: por caries cuenta como obturado en el
   COP-D; por otra razón no entra.</li>
   <li><b>Hallazgos radiográficos</b>: elija la radiografía y escriba lo que se ve. La radiografía
@@ -1511,8 +1578,9 @@ cirugía, el de la exodoncia. Una línea ya realizada muestra estos datos como t
   registra en cada atención.</li>
 </ul>
 <figure>
-  <img src="capturas/40-odontograma-indices.png" alt="Índices de caries y serie del control de placa en el odontograma">
-  <figcaption>Los índices se calculan sobre lo guardado de la versión que se ve.</figcaption>
+  <img src="capturas/40-odontograma-indices.png" alt="Bloque Índices de caries de esta versión: COP-D y C(ICDAS)OP con sus componentes, el total, sobre cuántos dientes y la regla v2, y las notas debajo">
+  <figcaption>Los índices se calculan sobre lo guardado de la versión que se ve, y dicen su regla. Debajo, lo que el cálculo
+  cuenta de una forma que conviene saber (aquí, una corona temporal y una endodoncia sin restauración).</figcaption>
 </figure>
 
 <div class="caja nota">
@@ -1526,7 +1594,9 @@ cirugía, el de la exodoncia. Una línea ya realizada muestra estos datos como t
   <p>Los cambios se guardan solos sobre la versión vigente. Cuando se cierra una atención, esa versión queda congelada:
   el siguiente cambio que se marque crea una <b>versión nueva</b> y la anterior se conserva intacta. Las versiones anteriores se
   abren en solo lectura desde <b>Ver otra
-  versión</b> (si hay muchas, <b class="btn">Ver versiones anteriores</b> trae las más viejas), y cada una se puede <b>descargar en PDF</b>. Hay además un <b>resumen para el
+  versión</b> (si hay muchas, <b class="btn">Ver versiones anteriores</b> trae las más viejas), y cada una se puede <b>descargar en PDF</b>. El PDF no se
+  guarda: se arma al descargarlo, así que una versión antigua se imprime con el dibujo y la regla de los índices de hoy (lo registrado no
+  cambia). Hay además un <b>resumen para el
   paciente</b>, con los hallazgos en lenguaje sencillo, que se puede imprimir.</p>
   <p>Un odontograma registrado con el formato anterior se muestra en el formato clínico, con lo
   que el formato viejo no guardaba marcado como «no consta». Si no se pudo pasar sin perder
@@ -1807,7 +1877,9 @@ cuántos siguen sin firma del paciente.</p>
 <p>Lo que ya está en el <a href="#odontograma">plan de tratamiento</a> no hay que volver a escribirlo: se lleva al presupuesto.</p>
 <ol class="pasos">
   <li>En <b class="btn">Presupuesto</b>, pulse <b class="btn">Llevar desde el plan</b>. Se abre una lista con los procedimientos del plan que
-  siguen <b>planificados</b> o <b>en curso</b>, cada uno con su CUPS (o «Sin CUPS») y su precio del tarifario.</li>
+  siguen <b>planificados</b> o <b>en curso</b>, cada uno con su CUPS (o «Sin CUPS») y su precio del tarifario. Si el plan tiene un
+  <a href="#plan-diagnostico">aviso</a> sobre esa línea (por ejemplo, un sellante sobre una cara con caries cavitada), el aviso sale debajo de ella:
+  revíselo antes de llevarla.</li>
   <li>Marque los que pasan al presupuesto. Uno que ya está en otro presupuesto lo dice («Ya está en …»): marcarlo otra vez lo lleva
   <b>repetido a propósito</b>.</li>
   <li>En <b>Dónde</b> elija <b>Un presupuesto nuevo</b> o ampliar uno que todavía se pueda cambiar (sin líneas decididas, sin firma pendiente y
@@ -2945,9 +3017,27 @@ odontogramas.</p>
   copias que puedan discrepar.</p>
   <p>Además, todas las pantallas del paciente (Atención, Historia clínica, Odontograma, Periodontograma, Tratamientos, Presupuesto,
   Documentos y Archivos) llevan arriba la <b>franja de condiciones</b>: cada alergia con su agente, el riesgo hemorrágico, el dispositivo implantado, el embarazo o la
-  lactancia, y si las alergias están sin diligenciar o el paciente no sabe. Si la consulta falla, la franja dice que falló, no «sin alertas». En el celular (pantalla estrecha), lo que no es clínico —hoy, «Sin antecedentes registrados»— llega plegado tras el botón <b class="btn">Ver 1 aviso</b> (o «Ver N avisos»); <b class="btn">Ocultar avisos</b> lo vuelve a plegar. El botón solo aparece si, además de lo plegable, queda algo más a la vista; si no, la franja se muestra tal cual. Las alertas de alergia y de riesgo se ven siempre.
+  lactancia, y si las alergias están sin diligenciar o el paciente no sabe. Si la consulta falla, la franja dice que falló, no «sin alertas». En el celular (pantalla estrecha) la franja se ve completa, sin pliegues, y el aviso de texto libre lleva el botón corto <b class="btn">Marcar revisada</b>.
   A Recepción y a Administración no se les muestra: no reciben los antecedentes.</p>
 </div>
+<p>En el celular, la franja se ve así: la alerta en rojo («alergias en la anamnesis antigua sin registrar») y los avisos en ámbar; solo el aviso de alergias escritas como texto lleva el botón <b class="btn">Marcar revisada</b>:</p>
+
+<figure class="celular">
+  <img src="capturas/90-franja-celular-alertas.png" alt="La franja de condiciones en un celular, con una alerta en rojo de alergias de la anamnesis antigua sin registrar y dos avisos en ámbar, uno con el botón Marcar revisada">
+  <figcaption>La franja con alertas, en un celular.</figcaption>
+</figure>
+
+<p>Cuando no hay antecedentes registrados, la franja lo dice con «Sin antecedentes registrados» y el enlace <b class="btn">Ver antecedentes</b>:</p>
+
+<figure class="celular">
+  <img src="capturas/91-franja-celular-sin-antecedentes.png" alt="La franja de condiciones en un celular con el único aviso «Sin antecedentes registrados» y el enlace Ver antecedentes">
+  <figcaption>La franja sin antecedentes registrados, en un celular.</figcaption>
+</figure>
+
+<figure class="celular">
+  <img src="capturas/92-odontograma-celular-franja.png" alt="El odontograma en un celular, con la franja de condiciones arriba y las arcadas superior e inferior">
+  <figcaption>La franja arriba del odontograma, en un celular.</figcaption>
+</figure>
 
 <div class="caja aviso">
   <span class="et">Administración no recibe los antecedentes, y la pantalla lo dice</span>
