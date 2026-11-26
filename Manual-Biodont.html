@@ -1211,8 +1211,9 @@ sus rehabilitaciones. Ningún hallazgo es solo un color: cada marca lleva su sig
   <li>Abra el paciente y entre a <b class="btn">Odontograma</b>.</li>
   <li>Elija la <b>dentición</b> arriba a la derecha (permanente, temporal o mixta) antes de
   empezar a marcar.</li>
-  <li>Haga clic en un <b>diente</b>. A la derecha aparece en grande, con su raíz y el círculo de sus caras: la oclusal o incisal
-  (O) en el centro, la vestibular (V) arriba, la palatina o lingual (P) abajo, y la mesial (M) y la distal (D) a los lados. Con
+  <li>Haga clic en un <b>diente</b>. A la derecha aparece en grande, con su raíz y el círculo de sus caras: la oclusal (O) en el centro
+  —en incisivos y caninos se rotula <b>I</b>, incisal—, la vestibular (V) arriba, la palatina (P) abajo —en la arcada inferior se rotula
+  <b>L</b>, lingual—, y la mesial (M) y la distal (D) a los lados. Con
   <b>‹</b> y <b>›</b>, arriba del dibujo, se pasa al diente anterior o al siguiente.</li>
   <li>En <b class="btn">Caras (ICDAS)</b>, haga clic en una cara y registre <b>qué hay en ella</b>
   (primer dígito: sin restauración, sellante, restauración…), su <b>caries</b> (segundo dígito),
@@ -1220,7 +1221,9 @@ sus rehabilitaciones. Ningún hallazgo es solo un color: cada marca lleva su sig
   examinar, márquela como <b>no examinable</b>. Para una restauración que abarca varias caras,
   marque <b>Una sola restauración en varias caras</b>.</li>
   <li>En <b class="btn">Diente completo</b> registre la <b>presencia</b> (presente, o ausente
-  <i>con su causa</i>: por caries, agenesia, no erupcionado…), el <b>número de raíces</b>, el <b>diagnóstico pulpar</b> —uno
+  <i>con su causa</i>: por caries, agenesia, no erupcionado…), la casilla <b>Extracción indicada</b> (debajo de la presencia: se marca
+  aparte, así que un diente puede ser, por ejemplo, temporal persistente, remanente o incluido <i>y</i> tener la extracción indicada;
+  en un diente ausente no se ofrece), el <b>número de raíces</b>, el <b>diagnóstico pulpar</b> —uno
   solo vigente por diente—, el <b>periápice</b>, el tratamiento pulpar que ya tiene y las
   rehabilitaciones (corona, prótesis…).</li>
   <li>Lo marcado se guarda solo a los pocos segundos y aparece abajo, en <b>Registro</b>.</li>
@@ -1251,7 +1254,7 @@ borra nada, sino que avisa «El diente N tiene caras registradas: anúlalas ante
 
 <div class="caja nota">
   <span class="et">El número de raíces decide el código del plan</span>
-  <p>En <b>Diente completo</b>, <b>Número de raíces</b> (una a cuatro, o «Sin registrar») sirve para elegir el CUPS de la
+  <p>En <b>Diente completo</b>, <b>Número de raíces</b> (de una a cinco, o «Sin registrar») sirve para elegir el CUPS de la
   <b>endodoncia</b> y de la <b>exodoncia</b> de ese diente en el plan: con las raíces registradas, el código de la endodoncia
   sale «sugerido» en vez de «por confirmar»; el de la exodoncia, cuando además se elige si es simple o quirúrgica (ver
   <a href="#plan-candidatos">los candidatos CUPS</a>). Regístrelo cuando lo vea en la
@@ -1262,8 +1265,8 @@ borra nada, sino que avisa «El diente N tiene caras registradas: anúlalas ante
 </div>
 
 <figure class="estrecha">
-  <img src="capturas/52-numero-raices.png" alt="Panel Diente completo del molar 36 con el campo Número de raíces en «Dos raíces»">
-  <figcaption>El número de raíces, en <b>Diente completo</b>, debajo de la presencia.</figcaption>
+  <img src="capturas/52-numero-raices.png" alt="Panel Diente completo del molar 27: la presencia, la casilla Extracción indicada y el campo Número de raíces en «Cinco raíces»">
+  <figcaption>En <b>Diente completo</b>: la presencia, la casilla <b>Extracción indicada</b> y el número de raíces (hasta cinco).</figcaption>
 </figure>
 
 <div class="caja nota" id="actividad-apice">
@@ -1292,32 +1295,45 @@ borra nada, sino que avisa «El diente N tiene caras registradas: anúlalas ante
 
 <div class="caja nota" id="leer-el-dibujo">
   <span class="et">Cómo leer el dibujo del diente</span>
-  <p>Cada diente se dibuja en dos partes: arriba (o abajo, en la arcada inferior) el <b>diente con su corona y su raíz</b>, con tantas
-  raíces como suele tener ese diente, y junto a él el <b>círculo de sus caras</b>, donde se pintan los hallazgos de cada cara. El dibujo es
-  el mismo en la pantalla y en el PDF.</p>
-  <p>Debajo de la rejilla, la <b>leyenda</b> nombra cada marca con su color, el patrón dicho con palabras, dónde va
-  y cómo se ve, así que se entiende también impresa en gris. Hay tres clases de marca, además de la cruz del diente ausente:</p>
+  <p>Cada diente se dibuja en dos partes: arriba (o abajo, en la arcada inferior) el <b>diente con su corona y su raíz</b>, y junto a él
+  el <b>círculo de sus caras</b>, donde se pintan los hallazgos de cada cara. Cada pieza tiene su forma: los incisivos inferiores son más
+  estrechos que los superiores y los dientes temporales tienen la corona más baja y las raíces cortas. Se dibujan las raíces que se
+  registraron en <b>Número de raíces</b> (hasta cinco) o, si no se registraron, las habituales de la pieza (tres en los molares superiores,
+  dos en los inferiores y en el 14 y el 24, una en los demás). El dibujo es el mismo en la pantalla y en el PDF, y es solo presentación: no
+  cambia lo registrado. Está pendiente de la validación clínica del consultorio.</p>
+  <p><b>Cada estado del diente tiene su forma</b>, no solo su color:</p>
   <ul>
-    <li><b>Relleno de la cara</b>: el estado de cada cara. Caries y restauración con caries, relleno macizo; sellante,
-    rayas cruzadas; restauración, rayas diagonales /; restauración perdida, fracturada o temporal, y fractura, desgaste o
-    fisura, rayas diagonales \; sana (ICDAS 00), puntos; no examinable (ICDAS 96), rayas horizontales. La <b>corona</b> pinta
-    todas las caras que cubre con <b>rayas verticales</b>, igual que en el PDF.</li>
-    <li><b>Silueta del diente rellena</b>: la corona, el implante y las piezas de una prótesis rellenan la silueta entera del
-    diente, cada una con su color. Por eso la corona sale dos veces en la leyenda: una por sus caras (rayas verticales) y
-    otra por la silueta. Si la rehabilitación es defectuosa o temporal, el contorno del diente se dibuja en rojo y
-    discontinuo.</li>
-    <li><b>Dibujo en la raíz</b>: el tratamiento pulpar se dibuja dentro del diente, y la forma dice cuál es. La
-    <b>endodoncia</b> es la cámara y el conducto completo con trazo continuo; la <b>pulpectomía</b>, la cámara y el conducto
-    completo con trazo discontinuo; la <b>pulpotomía</b>, solo la cámara.</li>
+    <li><b>Ausente</b>: el diente en gris claro con un aspa encima (fina, si lo reemplaza un implante o un mantenedor). <b>Agenesia</b>
+    (no se formó): un círculo vacío donde iría la corona, sin diente dibujado.</li>
+    <li><b>Incluido, impactado, no erupcionado o retenido</b>: el diente punteado y sin relleno (el sistema no dibuja su posición).
+    <b>Semi-impactado</b>: el cuello del diente punteado y grueso. <b>Temporal persistente</b>: la corona con un contorno doble.</li>
+    <li><b>Remanente radicular</b>: solo la raíz, en tono de aviso, con el cuello discontinuo.</li>
+    <li><b>Extracción indicada</b>: un aspa roja discontinua sobre el diente.</li>
+    <li><b>Corona</b>: rellena solo la corona (temporal, con guiones; defectuosa, con anillos y el contorno rojo discontinuo). <b>Implante</b>:
+    un tornillo en lugar de la raíz. <b>Puente</b>: una barra a la altura de las coronas que une sus dientes; el póntico no tiene raíz.
+    <b>Prótesis parcial o total</b>: una base bajo las coronas; los dientes repuestos no tienen raíz. <b>Mantenedor de espacio</b>: un ansa
+    sobre el hueco.</li>
+    <li><b>Tratamiento pulpar</b>, en la raíz: la <b>endodoncia</b> contornea la raíz con trazo continuo; la <b>pulpectomía</b>, con trazo
+    discontinuo; la <b>pulpotomía</b> es solo la cámara.</li>
   </ul>
-  <p>Un diente ausente lleva una cruz encima. La leyenda de diente completo solo muestra las marcas que tiene el paciente:
-  explica lo que se ve, no el catálogo entero.</p>
+  <p><b>Las caras</b> llevan el relleno de su estado y un <b>borde de su mismo tono</b>: caries extensa o sin clasificar (segundo dígito ICDAS 5
+  o 6) y restauración con caries, relleno macizo; <b>caries moderada</b> (3 o 4), rayas del color de la caries sobre la cara blanca; <b>caries
+  inicial</b> (1 o 2), la cara blanca con un borde grueso y discontinuo; sellante, rayas cruzadas; restauración, rayas diagonales /;
+  restauración perdida, fracturada o temporal, y fractura, desgaste o fisura, rayas diagonales \; sana (código 00), puntos; no examinable
+  (código 96), rayas horizontales. La <b>corona</b> pinta todas las caras que cubre con rayas verticales (guiones si es temporal, anillos si
+  es defectuosa), igual que en el PDF. En la tabla y al pasar por una cara, el código ICDAS dice qué es cada dígito: el primero, la
+  restauración; el segundo, la caries.</p>
+  <p>Debajo de la rejilla, la <b>leyenda</b> nombra cada marca con su color, el patrón dicho con palabras, dónde va y cómo se ve, así que se
+  entiende también impresa en gris. Solo muestra las marcas que tiene el paciente: explica lo que se ve, no el catálogo entero. Con el
+  tema de <b>contraste alto</b> los colores de las caras son más intensos y los bordes, oscuros.</p>
 </div>
 
 <figure>
-  <img src="capturas/53-leyenda.png" alt="Rejilla del odontograma con agenesia en el 18, sellante en el 17, caries y cara sana en el 16, una corona temporal en el 26, un implante en el 46 y una endodoncia en el 36, y la leyenda debajo">
-  <figcaption>La corona del 26 rellena la silueta y raya sus caras, con el contorno rojo discontinuo por ser temporal; la endodoncia
-  del 36 se dibuja en la raíz; el 18 y el 46 llevan la cruz de ausente. La leyenda dice, para cada marca, dónde va, cómo se ve y su patrón.</figcaption>
+  <img src="capturas/53-leyenda.png" alt="Rejilla del odontograma con un incluido punteado en el 18, un remanente con extracción indicada en el 17, agenesia en el 12, un puente del 24 al 26, una endodoncia de cinco raíces en el 27, un implante en el 36, una prótesis parcial en el 34 y el 35, y la leyenda debajo">
+  <figcaption>Una forma por estado: el 18 incluido, punteado; el 17 remanente con la extracción indicada; el 12, agenesia; la corona
+  defectuosa del 16; el puente del 24 al 26 con su barra y el póntico sin raíz; la endodoncia del 27 (cinco raíces) contorneando la
+  raíz; el implante del 36; la prótesis del 34 y el 35 con su base; y en el 14 los tres niveles de la caries. La leyenda dice, para cada
+  marca, dónde va, cómo se ve y su patrón.</figcaption>
 </figure>
 
 <div class="caja aviso">
@@ -1340,9 +1356,10 @@ estado. Para poner el CUPS no hace falta saberse el código: al entrar en el cam
 hacer no se confundan.</p>
 
 <figure>
-  <img src="capturas/30-odontograma-plan.png" alt="Pestaña Plan de tratamiento con tres avisos del plan arriba, el diente 16 elegido y, a la derecha, la franja Diagnóstico de este diente con la caries de la cara oclusal">
+  <img src="capturas/30-odontograma-plan.png" alt="Pestaña Plan de tratamiento con tres avisos del plan arriba, el diente 16 elegido y, a la derecha, el círculo de sus caras y la franja Diagnóstico de este diente: corona defectuosa">
   <figcaption>El plan: arriba, los avisos del plan; a la derecha, el diente elegido con la franja <b>Diagnóstico de este diente</b> y los
-  procedimientos que se le pueden añadir. Las caras atenuadas de la cuadrícula son el diagnóstico, de referencia.</figcaption>
+  procedimientos que se le pueden añadir; las caras se eligen en el <b>mismo círculo</b> que en el diagnóstico. Las caras atenuadas de la
+  cuadrícula son el diagnóstico, de referencia.</figcaption>
 </figure>
 
 <div class="caja nota" id="plan-diagnostico">
@@ -1560,8 +1577,9 @@ cirugía, el de la exodoncia. Una línea ya realizada muestra estos datos como t
   cuántos dientes se calcularon. Las caries sin clasificar su severidad no entran, y el bloque lo avisa. Cómo cuenta cada caso:
     <ul>
       <li>La <b>caries de raíz con cavidad</b> cuenta como cariado (C); la lesión inicial de raíz, no.</li>
-      <li>La <b>extracción indicada</b> se registra también en dientes permanentes y cuenta como cariado (C); en temporales es la «e».
-      Se dibuja con la misma aspa discontinua.</li>
+      <li>La <b>extracción indicada</b> (la casilla del diente) se registra también en dientes permanentes y cuenta como cariado (C); en
+      temporales es la «e». Se dibuja con un aspa discontinua. Si el diente además consta incluido, impactado, no erupcionado o retenido,
+      queda fuera del índice, como cualquier diente que no erupcionó; un temporal remanente con la extracción indicada cuenta «e».</li>
       <li>Un temporal <b>ausente por caries</b> cuenta como «e».</li>
       <li>La corona temporal y la corona defectuosa cuentan como obturadas (O), y un diente con tratamiento pulpar sin restauración
       registrada, como sano. El bloque lo dice debajo de la tabla cuando el paciente tiene alguno.</li>
